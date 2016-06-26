@@ -29,4 +29,15 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("Missing command line arguments"));
   }
 
+  @Test
+  public void testCorrectCommandLineArguments() {
+    String owner = "owner";
+    String description = "description";
+    String begin_time = "00/00/0000 00:00";
+    String end_time = "11/11/1111 11:11";
+    MainMethodResult result = invokeMain("owner", "description", "beginTime", "endTime");
+    assertThat(result.getExitCode(), equalTo(0));
+  }
+
+  // test each failling cases
 }
