@@ -27,7 +27,39 @@ public class Project1 {
   }
 
   private static void printReadMe() {
-    System.out.println("README");
+    System.out.println(
+            "********************************************************\n" +
+            "CS410/510J Advanced Java Programming\n" +
+            "Project 1: Designing an Appointment Book Application\n" +
+            "Student: Jong Seong Lee\n" +
+            "********************************************************\n" +
+            "Usage: java -jar target/apptbook-1.0-SNAPSHOT.jar [options] <args>\n" +
+            "\targs are (in this order):\n" +
+            "\t\towner\t\t\t\tThe person whose owns the appt book\n" +
+            "\t\tdescription\t\t\t\tA description of the appointment\n" +
+            "\t\tbeginTime\t\t\t\tWhen the appt begins (24-hour time)\n" +
+            "\t\tendTime\t\t\t\tWhen the appt ends (24-hour time)\n" +
+            "\toptions are (options may appear in any order):\n" +
+            "\t\t-print\t\t\t\tPrints a description of the new appointment\n" +
+            "\t\t-README\t\t\t\tPrints a README for this project and exits\n" +
+            "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n\n" +
+            "1. Appointment\n" +
+            "A simple class that describes a appointment by description, begin time and end time." +
+            "This class can be initialized with those arguments," +
+            "but also it is possible to ignore them to use default data." +
+            "There are not much interesting methods implemented other than get methods.\n" +
+            "\n" +
+            "2. AppointmentBook\n" +
+            "Another simple class that describes the owner of appointments and contains a list of appointments." +
+            "This class can be initialized with a name of owner or use a default name." +
+            "This class will use Appointment class to store a list of appointments.\n" +
+            "\n" +
+            "3. Project1\n" +
+            "The class that contains main method to utilize both Appointment and AppointmentBook classes." +
+            "It will parse the command line arguments and create an Appointment" +
+            "and an AppointmentBook instances to add the new appointment to the appointment book." +
+            "When print option is specified, it will print the description of a new appointment." +
+            "When readme option is specified, it will print this readme document.");
   }
 
   public static void main(String[] args) {
