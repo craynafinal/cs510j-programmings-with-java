@@ -27,7 +27,7 @@ public class Project1IT extends InvokeMainTestCase {
   public void initialization() {
     owner = "owner";
     description = "description";
-    begin_time = "00/00/0000 00:00";
+    begin_time = "01/01/0001 01:0";
     end_time = "11/11/1111 11:11";
     print = "-print";
     read_me = "-README";
@@ -113,6 +113,54 @@ public class Project1IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain(owner, description, date, end_time, print);
     assertThat(result.getExitCode(), is(equalTo(null)));
     assertThat(result.getOut(), containsString(date));
+  }
+
+  @Test
+  public void shouldNotAllowHourOver23() {
+    String date = "01/11/1111 24:00";
+    MainMethodResult result = invokeMain(owner, description, date, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
+  }
+
+  @Test
+  public void shouldNotAllowMinuteOver59() {
+    String date = "01/11/1111 01:60";
+    MainMethodResult result = invokeMain(owner, description, date, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
+  }
+
+  @Test
+  public void shouldNotAllowMonthOver12() {
+    String date = "13/11/1111 01:01";
+    MainMethodResult result = invokeMain(owner, description, date, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
+  }
+
+  @Test
+  public void shouldNotAllowDayOver31() {
+    String date = "01/32/1111 01:01";
+    MainMethodResult result = invokeMain(owner, description, date, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
+  }
+
+  @Test
+  public void shouldNotAllowMonth0() {
+    String date = "0/11/1111 01:01";
+    MainMethodResult result = invokeMain(owner, description, date, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
+  }
+
+  @Test
+  public void shouldNotAllowDay0() {
+    String date = "01/0/1111 01:01";
+    MainMethodResult result = invokeMain(owner, description, date, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
   }
 
   @Test
