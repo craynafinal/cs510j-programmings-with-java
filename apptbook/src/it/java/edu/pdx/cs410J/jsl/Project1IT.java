@@ -51,6 +51,7 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("Missing command line arguments"));
   }
 
+  @Test
   public void testTooManyCommandLineArguments() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, owner);
     assertThat(result.getExitCode(), equalTo(1));
@@ -58,9 +59,17 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   @Test
-  public void shouldFailWithIncorrectDateFormat() {
+  public void shouldFailWithIncorrectBeginDate() {
     String date = "wrong format";
     MainMethodResult result = invokeMain(owner, description, date, end_time);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString(date));
+  }
+
+  @Test
+  public void shouldFailWithIncorrectEndDate() {
+    String date = "wrong format";
+    MainMethodResult result = invokeMain(owner, description, begin_time, date);
     assertThat(result.getExitCode(), is(equalTo(1)));
     assertThat(result.getErr(), containsString(date));
   }
@@ -70,7 +79,7 @@ public class Project1IT extends InvokeMainTestCase {
     String date = "11/11/11 14:00";
     MainMethodResult result = invokeMain(owner, description, date, end_time);
     assertThat(result.getExitCode(), is(equalTo(1)));
-    assertThat(result.getOut(), containsString(date));
+    assertThat(result.getErr(), containsString(date));
   }
 
   @Test
@@ -128,5 +137,19 @@ public class Project1IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time);
     assertThat(result.getExitCode(), is(equalTo(null)));
     assertThat(result.getOut(), is(equalTo("")));
+  }
+
+  @Test
+  public void printReadMeWhenReadMeOptionSpecified() {
+    MainMethodResult result = invokeMain(read_me);
+    assertThat(result.getExitCode(), is(equalTo(null)));
+    assertThat(result.getOut(), containsString("README"));
+  }
+
+  @Test
+  public void printReadMeShoudWorkEvenWithOtherArguments() {
+    MainMethodResult result = invokeMain(read_me, owner, description, begin_time, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(null)));
+    assertThat(result.getOut(), containsString("README"));
   }
 }

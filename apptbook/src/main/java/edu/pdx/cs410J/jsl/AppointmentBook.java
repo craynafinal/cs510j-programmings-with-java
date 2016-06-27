@@ -4,11 +4,12 @@ import edu.pdx.cs410J.AbstractAppointmentBook;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
     private String owner_name;
-    private Collection appointments;
+    private List<Appointment> appointments;
 
     public AppointmentBook() {
         this("default name");
@@ -23,7 +24,7 @@ public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
     public String getOwnerName() { return owner_name; }
 
     @Override
-    public Collection getAppointments() {
+    public List<Appointment> getAppointments() {
         return appointments;
     }
 
