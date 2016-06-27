@@ -5,9 +5,9 @@ import edu.pdx.cs410J.AbstractAppointment;
 import java.util.List;
 
 public class Appointment extends AbstractAppointment {
-  private String description;
-  private String begin_time;
-  private String end_time;
+  private String description = null;
+  private String begin_time = null;
+  private String end_time = null;
 
   public Appointment() {
     this("description", "00/00/0000 00:00", "00/00/0000 00:00");

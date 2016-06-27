@@ -3,13 +3,12 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
 public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
-    private String owner_name;
-    private List<Appointment> appointments;
+    private String owner_name = null;
+    private List<Appointment> appointments = null;
 
     public AppointmentBook() {
         this("default name");
