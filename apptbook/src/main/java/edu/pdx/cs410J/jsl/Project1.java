@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The main class for the CS410J appointment book Project.
  * This class will receive command line arguments to create each instance of
- * the Appointment and the AppointmentBook classes, and it is going to add
+ * the {@link Appointment} and the {@link AppointmentBook} classes, and it is going to add
  * an appointment to an appointment book. To do this, it will parse the
  * command line arguments and will interpret argument data and options.
  *
@@ -69,7 +69,7 @@ public class Project1 {
 
   /**
    * The main method will parse the command line arguments and will
-   * create each instance of the Appointment and the AppointmentBook classes
+   * create each instance of the {@link Appointment} and the {@link AppointmentBook} classes
    * to add an appointment to an appointment book.
    *
    * Arguments for an appointment and an appointment book must be provided in order.

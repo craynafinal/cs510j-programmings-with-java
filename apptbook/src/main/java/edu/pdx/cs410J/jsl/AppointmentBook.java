@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * This AppointmentBook class describes who owns a list of appointments
- * and his / her list of appointments. For appointments it uses the Appointment class
+ * and his / her list of appointments. For appointments it uses the {@link Appointment} class
  * to represent appointments owned by an instance of appointmentBook.
  *
  * @author Jong Seong Lee
@@ -51,7 +51,7 @@ public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
 
     /**
      * Adds a given appointment to a list of appointments
-     * @param appointment   an instance of the Appointment class
+     * @param appointment   an instance of the {@link Appointment} class
      */
     @Override
     public void addAppointment(Appointment appointment) {

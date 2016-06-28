@@ -4,7 +4,7 @@ import edu.pdx.cs410J.AbstractAppointment;
 import java.util.List;
 
 /**
- * Appointment is the class extended from the AbstractAppointment class
+ * Appointment is the class extended from the {@link AbstractAppointment} class
  * that describes an appointment with description, begin time and end time.
  *
  * @author    Jong Seong Lee

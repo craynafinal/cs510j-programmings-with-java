@@ -42,7 +42,7 @@ public class AppointmentTest {
   }
 
   /**
-   * It will check if toString method of the Appointment class works correctly.
+   * It will check if toString method of the {@link Appointment} class works correctly.
    */
   @Test
   public void toStringShouldContainCorrectDescriptionAndTimes() {
