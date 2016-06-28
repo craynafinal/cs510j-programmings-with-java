@@ -5,9 +5,7 @@ import java.util.List;
 
 /**
  * Appointment is the class extended from the AbstractAppointment class
- * that describes an appoinment with description, begin time and end time.
- * This class can be initialized with those arguments,
- * but also it is possible to ignore them to use default data.
+ * that describes an appointment with description, begin time and end time.
  *
  * @author    Jong Seong Lee
  * @version   %I%, %G%
