@@ -10,6 +10,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class AppointmentTest {
 
+  /**
+   * It will check if a description of an appointment is assigned correctly.
+   */
   @Test
   public void getDescriptionNeedsToBeImplemented() {
     String description = "test description";
@@ -18,6 +21,9 @@ public class AppointmentTest {
     assertThat(appointment.getDescription(), is(equalTo(description)));
   }
 
+  /**
+   * It will check if a begin time of an appointment is assigned correctly.
+   */
   @Test
   public void getBeginTimeStringNeedsToBeImplemented() {
     String begin_time = "11/11/1111 11:11";
@@ -25,6 +31,9 @@ public class AppointmentTest {
     assertThat(appointment.getBeginTimeString(), is(equalTo(begin_time)));
   }
 
+  /**
+   * It will check if an end time of an appointment is assigned correctly.
+   */
   @Test
   public void getEndTimeStringNeedsToBeImplemented() {
     String end_time = "11/11/1111 11:11";
@@ -32,6 +41,9 @@ public class AppointmentTest {
     assertThat(appointment.getEndTimeString(), is(equalTo(end_time)));
   }
 
+  /**
+   * It will check if toString method of the Appointment class works correctly.
+   */
   @Test
   public void toStringShouldContainCorrectDescriptionAndTimes() {
     String description = "test description";
@@ -42,6 +54,9 @@ public class AppointmentTest {
     assertThat(appointment.toString(), is(equalTo(description + " from " + begin_time + " until " + end_time)));
   }
 
+  /**
+   * getBeginTime method is okay to return null for the project 1
+   */
   @Test
   public void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
     Appointment appointment = new Appointment();

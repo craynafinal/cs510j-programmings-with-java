@@ -8,8 +8,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * The AppointmentBookTest class is built to test the AppointmentBook class.
- * Simply it tests get methods of the AppointmentBook class.
+ * Unit tests for the {@link AppointmentBook} class.
  */
 public class AppointmentBookTest {
     /**
