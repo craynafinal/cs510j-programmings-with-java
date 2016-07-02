@@ -55,16 +55,34 @@ public class Project1 {
    * The printReadMe will read the readme.txt document and print its content to standard output.
    */
   private static void printReadMe() {
-    String line = null;
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Project1.class.getClassLoader().getResourceAsStream("readme.txt")));
-
-    try {
-      while ((line = bufferedReader.readLine()) != null) {
-        System.out.println(line);
-      }
-    } catch (IOException e) {
-      programFail("Readme I/O error found");
-    }
+    System.out.println(
+            "********************************************************\n" +
+            "CS410/510J Advanced Java Programming\n" +
+            "Project 1: Designing an Appointment Book Application\n" +
+            "Student: Jong Seong Lee\n" +
+            "********************************************************\n" +
+            "\n" +
+            "Usage: java -jar target/apptbook-1.0-SNAPSHOT.jar [options] <args>\n" +
+            "  args are (in this order):\n" +
+            "    owner                    The person whose owns the appt book\n" +
+            "    description              A description of the appointment\n" +
+            "    beginTime                When the appt begins (24-hour time)\n" +
+            "    endTime                  When the appt ends (24-hour time)\n" +
+            "  options are (options may appear in any order):\n" +
+            "    -print                   Prints a description of the new appointment\n" +
+            "    -README                  Prints a README for this project and exits\n" +
+            "  Date and time should be in the format: mm/dd/yyyy hh:mm\n" +
+            "\n" +
+            "This program will create an appointment book that belongs to an owner;" +
+            "the owner’s name is given in the command line argument. " +
+            "Then it is going to create an appointment to be added in the appointment book that is created. " +
+            "For this, it will take three command line arguments: " +
+            "description, beginTime, and endTime to describe an appointment.\n" +
+            "\n" +
+            "There are two options available. To print an information regarding an appointment created, " +
+            "type -print, then the program will provide an appointment’s description, beginTime, " +
+            "and endTime on the terminal screen. If -README is provided, nothing will happen " +
+            "but printing this information including program usage and description on the terminal screen.");
   }
 
   /**
