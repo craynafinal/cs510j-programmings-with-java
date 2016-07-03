@@ -261,4 +261,14 @@ public class Project1IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), is(equalTo(null)));
     assertThat(result.getOut(), containsString("README"));
   }
+
+  /**
+   * It will check if the program fails with a wrong option given.
+   */
+  @Test
+  public void wrongOptionShouldFail() {
+    MainMethodResult result = invokeMain(owner, description, begin_time, end_time, "-test");
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString("-test"));
+  }
 }

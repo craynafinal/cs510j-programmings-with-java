@@ -4,7 +4,7 @@ import edu.pdx.cs410J.AbstractAppointment;
 import java.util.List;
 
 /**
- * Appointment is the class extended from the {@link AbstractAppointment} class
+ * The <code>Appointment</code> is the class extended from the {@link AbstractAppointment} class
  * that describes an appointment with description, begin time and end time.
  *
  * @author    Jong Seong Lee
@@ -17,30 +17,28 @@ public class Appointment extends AbstractAppointment {
   private String end_time = null;
 
   /**
-   * This constructor creates an instance of the Appointment class.
-   * There is no parameter and it uses default values to initialize.
+   * This constructor takes no parameter and it uses default values to initialize.
    */
   public Appointment() {
     this("description", "01/01/2000 00:00", "01/01/2000 00:00");
   }
 
   /**
-   * This constructor creates an instance of the Appointment class.
-   * A list of arguments is taken as a parameter, and the list should have
-   * description, begin time, and end time in order as string data type.
-   * @param arguments   a list of strings that contains description, begin time and end time in order
+   * This constructor takes a list of arguments as a parameter, and the list should have
+   * description, begin time, and end time in order as <code>String</code> data type.
+   *
+   * @param arguments   a List collection that contains description, begin time and end time in order
      */
   public Appointment(List<String> arguments) {
     this(arguments.get(0), arguments.get(1), arguments.get(2));
   }
 
   /**
-   * This constructor creates an instance of the Appointment class.
-   * It will take strings of description, begin time and end time in order.
+   * This constructor takes description, begin time and end time in order.
    *
-   * @param desc    a description of an appointment
-   * @param begin   a begin time of an appointment
-   * @param end     an end time of an appointment
+   * @param desc    a description of an appointment in string format
+   * @param begin   a begin time of an appointment in string format
+   * @param end     an end time of an appointment in string format
      */
   public Appointment(String desc, String begin, String end) {
     description = desc;

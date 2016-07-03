@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This AppointmentBook class describes who owns a list of appointments
+ * This <code>AppointmentBook</code> class describes who owns a list of appointments
  * and his / her list of appointments. For appointments it uses the {@link Appointment} class
  * to represent appointments owned by an instance of appointmentBook.
  *
@@ -18,15 +18,15 @@ public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
     private List<Appointment> appointments = null;
 
     /**
-     * This constructor initialize an instance with a default name
+     * Initializes an instance with a default name of owner
      */
     public AppointmentBook() {
         this("default name");
     }
 
     /**
-     * This constructor initialize an instance with a given name
-     * @param owner     a name of an owner of appointments in string format
+     * Initialize an instance with a given name of owner
+     * @param owner     a name of an owner of an appointment book in string format
      */
     public AppointmentBook(String owner) {
         owner_name = owner;
@@ -34,15 +34,15 @@ public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
     }
 
     /**
-     * Returns a name of an owner of an instance
+     * Returns a name of an owner
      * @return  a name of an owner in string format
      */
     @Override
     public String getOwnerName() { return owner_name; }
 
     /**
-     * Returns a list of an appointments
-     * @return  a list of a appointments
+     * Returns a list of appointments
+     * @return  a <code>List</code> collection of appointments
      */
     @Override
     public List<Appointment> getAppointments() {

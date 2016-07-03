@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.jsl;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +20,8 @@ public class Project1 {
   private static final String[] allowed_options = { "-print", "-README" };
 
   /**
-   * The programFail method will print a message regarding an error
-   * and will terminate the program execution with the exit code 1.
+   * This method will print a given error message
+   * and will terminate the program execution with the exit code of 1.
    *
    * @param message a message of an error in string format
      */
@@ -32,27 +31,27 @@ public class Project1 {
   }
 
   /**
-   * The isOption method will check if a given command line option is recognizable.
+   * This method will check if a given command line argument is a recognizable option.
    *
-   * @param option  a command line option in string format
-   * @return        it will return true if a command line option is recognized, otherwise false
+   * @param option  a command line argument in string format
+   * @return        true if a command line option is recognized, otherwise false
      */
   private static boolean isOption(String option) {
     return Arrays.asList(allowed_options).contains(option);
   }
 
   /**
-   * The isDateFormatCorrect method will use regex to check if a given date is in date format.
+   * This method will use regex to check if a given date is in date format.
    *
    * @param date  a date in string format
-   * @return      it will return true if a date is in date format, otherwise false
+   * @return      true if a date is in date format, otherwise false
      */
   private static boolean isDateFormatCorrect(String date) {
     return date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4} ([01]?[0-9]|2[0-3]):[0-5]?[0-9]");
   }
 
   /**
-   * The printReadMe will read the readme.txt document and print its content to standard output.
+   * This method will print the readme information to standard output.
    */
   private static void printReadMe() {
     System.out.println(
@@ -86,12 +85,12 @@ public class Project1 {
   }
 
   /**
-   * The main method will parse the command line arguments and will
+   * This main method will parse the command line arguments and will
    * create each instance of the {@link Appointment} and the {@link AppointmentBook} classes
    * to add an appointment to an appointment book.
    *
    * Arguments for an appointment and an appointment book must be provided in order.
-   * They are a name of owner, a description, a begin time, and an end time.
+   * They are a name of owner and a description, a begin time, and an end time of an appointment.
    * The first two can be any string, but the last two has to be in date format.
    *
    * When -print option is given, it will print information regarding
