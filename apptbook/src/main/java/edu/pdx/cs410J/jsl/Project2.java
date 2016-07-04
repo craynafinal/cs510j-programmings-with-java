@@ -15,7 +15,7 @@ import java.util.List;
  * @version   %I%, %G%
  * @since     1.0
  */
-public class Project1 {
+public class Project2 {
   private static final int MAX_ARGUMENTS = 4;
   private static final String[] allowed_options = { "-print", "-README" };
 

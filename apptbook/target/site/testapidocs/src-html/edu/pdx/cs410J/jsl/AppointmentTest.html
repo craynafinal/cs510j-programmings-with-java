@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package edu.pdx.cs410J.jsl;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import org.junit.Test;<a name="line.3"></a>
+<span class="sourceLineNo">004</span><a name="line.4"></a>
+<span class="sourceLineNo">005</span>import static org.hamcrest.CoreMatchers.*;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import static org.hamcrest.MatcherAssert.assertThat;<a name="line.6"></a>
+<span class="sourceLineNo">007</span><a name="line.7"></a>
+<span class="sourceLineNo">008</span>/**<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Unit tests for the {@link Appointment} class.<a name="line.9"></a>
+<span class="sourceLineNo">010</span> */<a name="line.10"></a>
+<span class="sourceLineNo">011</span>public class AppointmentTest {<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>  /**<a name="line.13"></a>
+<span class="sourceLineNo">014</span>   * It will check if a description of an appointment is assigned correctly.<a name="line.14"></a>
+<span class="sourceLineNo">015</span>   */<a name="line.15"></a>
+<span class="sourceLineNo">016</span>  @Test<a name="line.16"></a>
+<span class="sourceLineNo">017</span>  public void getDescriptionNeedsToBeImplemented() {<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    String description = "test description";<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>    Appointment appointment = new Appointment(description, "", "");<a name="line.20"></a>
+<span class="sourceLineNo">021</span>    assertThat(appointment.getDescription(), is(equalTo(description)));<a name="line.21"></a>
+<span class="sourceLineNo">022</span>  }<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>  /**<a name="line.24"></a>
+<span class="sourceLineNo">025</span>   * It will check if a begin time of an appointment is assigned correctly.<a name="line.25"></a>
+<span class="sourceLineNo">026</span>   */<a name="line.26"></a>
+<span class="sourceLineNo">027</span>  @Test<a name="line.27"></a>
+<span class="sourceLineNo">028</span>  public void getBeginTimeStringNeedsToBeImplemented() {<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    String begin_time = "11/11/1111 11:11";<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    Appointment appointment = new Appointment("", begin_time, "");<a name="line.30"></a>
+<span class="sourceLineNo">031</span>    assertThat(appointment.getBeginTimeString(), is(equalTo(begin_time)));<a name="line.31"></a>
+<span class="sourceLineNo">032</span>  }<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>  /**<a name="line.34"></a>
+<span class="sourceLineNo">035</span>   * It will check if an end time of an appointment is assigned correctly.<a name="line.35"></a>
+<span class="sourceLineNo">036</span>   */<a name="line.36"></a>
+<span class="sourceLineNo">037</span>  @Test<a name="line.37"></a>
+<span class="sourceLineNo">038</span>  public void getEndTimeStringNeedsToBeImplemented() {<a name="line.38"></a>
+<span class="sourceLineNo">039</span>    String end_time = "11/11/1111 11:11";<a name="line.39"></a>
+<span class="sourceLineNo">040</span>    Appointment appointment = new Appointment("", "", end_time);<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    assertThat(appointment.getEndTimeString(), is(equalTo(end_time)));<a name="line.41"></a>
+<span class="sourceLineNo">042</span>  }<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>  /**<a name="line.44"></a>
+<span class="sourceLineNo">045</span>   * It will check if toString method of the {@link Appointment} class works correctly.<a name="line.45"></a>
+<span class="sourceLineNo">046</span>   */<a name="line.46"></a>
+<span class="sourceLineNo">047</span>  @Test<a name="line.47"></a>
+<span class="sourceLineNo">048</span>  public void toStringShouldContainCorrectDescriptionAndTimes() {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    String description = "test description";<a name="line.49"></a>
+<span class="sourceLineNo">050</span>    String begin_time = "11/11/1111 11:11";<a name="line.50"></a>
+<span class="sourceLineNo">051</span>    String end_time = "22/22/2222 22:22";<a name="line.51"></a>
+<span class="sourceLineNo">052</span><a name="line.52"></a>
+<span class="sourceLineNo">053</span>    Appointment appointment = new Appointment(description, begin_time, end_time);<a name="line.53"></a>
+<span class="sourceLineNo">054</span>    assertThat(appointment.toString(), is(equalTo(description + " from " + begin_time + " until " + end_time)));<a name="line.54"></a>
+<span class="sourceLineNo">055</span>  }<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span>  /**<a name="line.57"></a>
+<span class="sourceLineNo">058</span>   * getBeginTime method is okay to return null for the project 1<a name="line.58"></a>
+<span class="sourceLineNo">059</span>   */<a name="line.59"></a>
+<span class="sourceLineNo">060</span>  @Test<a name="line.60"></a>
+<span class="sourceLineNo">061</span>  public void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {<a name="line.61"></a>
+<span class="sourceLineNo">062</span>    Appointment appointment = new Appointment();<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    assertThat(appointment.getBeginTime(), is(nullValue()));<a name="line.63"></a>
+<span class="sourceLineNo">064</span>  }<a name="line.64"></a>
+<span class="sourceLineNo">065</span><a name="line.65"></a>
+<span class="sourceLineNo">066</span>}<a name="line.66"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

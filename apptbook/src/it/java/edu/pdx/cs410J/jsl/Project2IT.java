@@ -2,7 +2,6 @@ package edu.pdx.cs410J.jsl;
 
 import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -11,9 +10,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Integration tests for the {@link Project1} main class.
+ * Integration tests for the {@link Project2} main class.
  */
-public class Project1IT extends InvokeMainTestCase {
+public class Project2IT extends InvokeMainTestCase {
   String owner;
   String description;
   String begin_time;
@@ -36,10 +35,10 @@ public class Project1IT extends InvokeMainTestCase {
   }
 
   /**
-   * Invokes the main method of {@link Project1} with the given arguments.
+   * Invokes the main method of {@link Project2} with the given arguments.
    */
   private MainMethodResult invokeMain(String... args) {
-    return invokeMain( Project1.class, args );
+    return invokeMain( Project2.class, args );
   }
 
   /**
