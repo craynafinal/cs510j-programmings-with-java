@@ -3,7 +3,6 @@ package edu.pdx.cs410J.jsl;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
@@ -30,7 +29,7 @@ public class TextDumperTest {
 
     @Test
     public void shouldSetFileNameCorrectly() {
-        assertThat(textDumper.getFileName(), is(equalTo("file.txt")));
+        assertThat(textDumper.getFileName(), is(equalTo(filename)));
     }
 
     @Test
@@ -42,33 +41,23 @@ public class TextDumperTest {
         }
 
         String expectedContent =
-                "<appointmentbook>\n" +
-                "  <owner>\n" +
+                "appointmentbook\n" +
+                "  owner\n" +
                 "    owner name\n" +
-                "  </owner>\n" +
-                "  <appointment>\n" +
-                "    <description>\n" +
-                "      desc1\n" +
-                "    </description>\n" +
-                "    <begintime>\n" +
-                "      begintime1\n" +
-                "    </begintime>\n" +
-                "    <endtime>\n" +
-                "      endtime1\n" +
-                "    </endtime>\n" +
-                "  </appointment>\n" +
-                "  <appointment>\n" +
-                "    <description>\n" +
-                "      desc2\n" +
-                "    </description>\n" +
-                "    <begintime>\n" +
-                "      begintime2\n" +
-                "    </begintime>\n" +
-                "    <endtime>\n" +
-                "      endtime2\n" +
-                "    </endtime>\n" +
-                "  </appointment>\n" +
-                "</appointmentbook>\n";
+                "appointment\n" +
+                "  description\n" +
+                "    desc1\n" +
+                "  begintime\n" +
+                "    begintime1\n" +
+                "  endtime\n" +
+                "    endtime1\n" +
+                "appointment\n" +
+                "  description\n" +
+                "    desc2\n" +
+                "  begintime\n" +
+                "    begintime2\n" +
+                "  endtime\n" +
+                "    endtime2\n";
 
         byte[] encoded = null;
         String fileContent = null;
