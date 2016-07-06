@@ -3,11 +3,9 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.ParserException;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -15,13 +13,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 public class TextParserTest {
-    static final String filename = "file.txt";
+    static final String filename = "/home/crayna/Downloads/test111.txt";
     static final String owner = "owner";
     TextParser textParser = null;
+    TextDumper textDumper = null;
+
+    AppointmentBook ab = null;
 
     @Before
     public void appointmentSetup() {
         textParser = new TextParser(filename, owner);
+        textDumper = new TextDumper(filename);
+
+        ab = new AppointmentBook("owner");
+        ab.addAppointment(new Appointment("desc1", "time1", "time1"));
+        ab.addAppointment(new Appointment("desc2", "time2", "time2"));
     }
 
     @Test
@@ -30,97 +36,210 @@ public class TextParserTest {
     }
 
     @Test
-    public void test3() {
-        AppointmentBook ab = new AppointmentBook("owner");
-        ab.addAppointment(new Appointment("desc1", "time1", "time1"));
-        ab.addAppointment(new Appointment("desc2", "time2", "time2"));
-
-        TextDumper textDumper = new TextDumper("/home/crayna/Downloads/test111.txt");
+    public void shouldParseCorrectFileWithoutError() {
         try {
             textDumper.dump(ab);
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
         }
 
-        AppointmentBook ab2 = null;
+        AppointmentBook appointmentBook = null;
 
-        textParser = new TextParser("/home/crayna/Downloads/test111.txt", owner);
         try {
-            // a way to make it not to cast?
-            ab2 = (AppointmentBook)textParser.parse();
-        } catch (Exception e) {
-
+            appointmentBook = getParsedString();
+        } catch (ParserException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            deleteFile();
         }
-        System.out.println(ab2.getAppointments());
+
+        assertThat(appointmentBook.getOwnerName(), is(equalTo(ab.getOwnerName())));
+
+        for (int i = 0; i < ab.getAppointments().size(); i++) {
+            assertThat(appointmentBook.getAppointments().get(i).getBeginTimeString(),
+                    is(equalTo(ab.getAppointments().get(i).getBeginTimeString())));
+            assertThat(appointmentBook.getAppointments().get(i).getEndTimeString(),
+                    is(equalTo(ab.getAppointments().get(i).getEndTimeString())));
+            assertThat(appointmentBook.getAppointments().get(i).getDescription(),
+                    is(equalTo(ab.getAppointments().get(i).getDescription())));
+        }
     }
 
     @Test
-    public void test() {
-        textParser = new TextParser("/home/crayna/Downloads/test.txt", owner);
-        /*
-        try {
-            textParser.parse();
-        } catch (ParserException e) {
-            fail("parse fail");
-        }*/
+    public void shouldHandleNewLineCharacters() {
+        ab.addAppointment(new Appointment("desc\n", "begintime1\r", "begintime2\n"));
 
-        //System.out.println(textParser.testFunction().length);
         try {
-            textParser.parse();
-        } catch (Exception e) {
-
+            textDumper.dump(ab);
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
         }
 
-/*
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+        } catch (ParserException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            deleteFile();
+        }
+
+        assertThat(appointmentBook.getOwnerName(), is(equalTo(ab.getOwnerName())));
+
+        for (int i = 0; i < ab.getAppointments().size(); i++) {
+            assertThat(appointmentBook.getAppointments().get(i).getBeginTimeString(),
+                    is(equalTo(ab.getAppointments().get(i).getBeginTimeString())));
+            assertThat(appointmentBook.getAppointments().get(i).getEndTimeString(),
+                    is(equalTo(ab.getAppointments().get(i).getEndTimeString())));
+            assertThat(appointmentBook.getAppointments().get(i).getDescription(),
+                    is(equalTo(ab.getAppointments().get(i).getDescription())));
+        }
+    }
+
+    @Test
+    public void shouldFailToParseFileStartingWithoutAppointmentBook() {
+        String content = "some random string";
+        customWritingToFile(content);
+
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            fail("Parser Exception is expected");
+        } catch (ParserException e) {
+            assertThat(e.getMessage(), containsString("appointmentbook"));
+        } finally {
+            deleteFile();
+        }
+    }
+
+    @Test
+    public void shouldFailToParseFileWithoutAppointmentInformation() {
+        String content = "appointmentbook\n" +
+                "owner\n" +
+                owner + "\n" +
+                "appointment";
+        customWritingToFile(content);
+
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            fail("Parser Exception is expected");
+        } catch (ParserException e) {
+            assertThat(e.getMessage(), containsString("Not enough"));
+        } finally {
+            deleteFile();
+        }
+    }
+
+    @Test
+    public void shouldFailToParseFileWithMissingAppointmentInformation() {
+        String content = "appointmentbook\n" +
+                "owner\n" +
+                owner + "\n" +
+                "appointment\n" +
+                "description\n" +
+                "desc";
+        customWritingToFile(content);
+
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            fail("Parser Exception is expected");
+        } catch (ParserException e) {
+            assertThat(e.getMessage(), containsString("Not enough"));
+        } finally {
+            deleteFile();
+        }
+    }
+
+    @Test
+    public void shouldFailToParseFileWithoutOwnerInformation() {
+        String content = "appointmentbook\n" +
+                "something";
+        customWritingToFile(content);
+
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            fail("Parser Exception is expected");
+        } catch (ParserException e) {
+            assertThat(e.getMessage(), containsString("something"));
+        } finally {
+            deleteFile();
+        }
+    }
+
+    @Test
+    public void shouldReturnEmptyAppointmentBookWithNoFileProvided() {
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            assertThat(appointmentBook.getOwnerName(), is(equalTo(owner)));
+            assertThat(appointmentBook.getAppointments().size(), is(equalTo(0)));
+        } catch (ParserException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldParseFileWithoutAppointments() {
+        String content = "appointmentbook\n" +
+                "owner\n" +
+                owner;
+        customWritingToFile(content);
+
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            assertThat(appointmentBook.getOwnerName(), is(equalTo(owner)));
+            assertThat(appointmentBook.getAppointments().size(), is(equalTo(0)));
+        } catch (ParserException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            deleteFile();
+        }
+    }
+
+    private AppointmentBook getParsedString() throws ParserException {
+        return (AppointmentBook)textParser.parse();
+    }
+
+    private void customWritingToFile(String content) {
         File file = new File(filename);
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        FileWriter fw = null;
         try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
+            fw = new FileWriter(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
 
-            Document document = builder.parse(file);
+        PrintWriter pw = new PrintWriter(fw);
 
-            document.getDocumentElement().normalize();
+        pw.println(content);
 
-            System.out.println(document.getDocumentElement().getNodeName()); // should be appointmentbook
-
-            //document.getElementsByTagName()
-
-        } catch (Exception e) {
-
-        }*/
+        pw.close();
     }
 
-    @Test
-    public void test2() {
-        AppointmentBook ab = new AppointmentBook("owner");
-        ab.addAppointment(new Appointment("desc", "time1", "time2"));
-
+    private void deleteFile() {
         try {
-            FileOutputStream fileout = new FileOutputStream("/home/crayna/Downloads/temp.txt");
-            ObjectOutputStream objout = new ObjectOutputStream(fileout);
-            objout.writeObject(ab);
-            objout.close();
-            fileout.close();
-        } catch (IOException e) {
-
+            Files.delete(Paths.get(filename));
+        } catch (IOException x) {
+            fail("IO Exception triggered while deleting file");
         }
-
-        AppointmentBook ab2 = null;
-
-        try {
-            FileInputStream filein = new FileInputStream("/home/crayna/Downloads/temp.txt");
-            ObjectInputStream in = new ObjectInputStream(filein);
-            ab2 = (AppointmentBook) in.readObject();
-            in.close();
-            filein.close();
-        } catch (IOException e) {
-
-        } catch (ClassNotFoundException e) {
-
-        }
-
-        System.out.println(ab2.getOwnerName());
-        System.out.println(ab2.getAppointments().get(0).getDescription());
     }
 }

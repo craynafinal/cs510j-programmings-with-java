@@ -125,25 +125,30 @@ public class TextParser implements AppointmentBookParser {
                         token = getNextToken(br);
                         line++;
                         System.out.println(token);
+                        System.out.println("111");
 
-                        // check description, begin time, end time
-                        if (token.equals("description")) {
-                            token = getNextToken(br);
-                            line++;
+                        try {
+                            // check description, begin time, end time
+                            if (token.equals("description")) {
+                                token = getNextToken(br);
+                                line++;
 
-                            appointment_data.add(AppointmentField.DESCRIPTION.getValue(), token);
-                        } else if (token.equals("begintime")) {
-                            token = getNextToken(br);
-                            line++;
+                                appointment_data.add(AppointmentField.DESCRIPTION.getValue(), token);
+                            } else if (token.equals("begintime")) {
+                                token = getNextToken(br);
+                                line++;
 
-                            appointment_data.add(AppointmentField.BEGIN_TIME.getValue(), token);
-                        } else if (token.equals("endtime")) {
-                            token = getNextToken(br);
-                            line++;
+                                appointment_data.add(AppointmentField.BEGIN_TIME.getValue(), token);
+                            } else if (token.equals("endtime")) {
+                                token = getNextToken(br);
+                                line++;
 
-                            appointment_data.add(AppointmentField.END_TIME.getValue(), token);
-                        } else {
-                            throw new ParserException("Unrecognized token: " + token + lineNumber(line));
+                                appointment_data.add(AppointmentField.END_TIME.getValue(), token);
+                            } else {
+                                throw new ParserException("Unrecognized token: " + token + lineNumber(line));
+                            }
+                        } catch (NullPointerException e) {
+                            throw new ParserException("Not enough information for an appointment" + lineNumber(line));
                         }
                     }
 
@@ -151,9 +156,9 @@ public class TextParser implements AppointmentBookParser {
                     // because each data has been inserted with a specific index
                     if (appointment_data.size() == AppointmentField.maxSize()) {
                         appointmentBook.addAppointment(new Appointment(
-                                appointment_data.get(AppointmentField.DESCRIPTION.getValue()),
-                                appointment_data.get(AppointmentField.BEGIN_TIME.getValue()),
-                                appointment_data.get(AppointmentField.END_TIME.getValue())));
+                                replaceNewLineCharacters(appointment_data.get(AppointmentField.DESCRIPTION.getValue())),
+                                replaceNewLineCharacters(appointment_data.get(AppointmentField.BEGIN_TIME.getValue())),
+                                replaceNewLineCharacters(appointment_data.get(AppointmentField.END_TIME.getValue()))));
                     }
 
                     System.out.println(appointmentBook.getAppointments().size());
@@ -173,6 +178,10 @@ public class TextParser implements AppointmentBookParser {
         }
 
         return appointmentBook;
+    }
+
+    private String replaceNewLineCharacters(String string) {
+        return string.replace("\\n", "\n").replace("\\r", "\r");
     }
 
     public String[] testFunction() {

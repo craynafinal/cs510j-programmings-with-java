@@ -38,17 +38,21 @@ public class TextDumper implements AppointmentBookDumper {
 
         pw.println("appointmentbook");
         pw.println("  owner");
-        pw.println("    " + ownerName);
+        pw.println("    " + replaceNewLineCharacters(ownerName));
 
         for (Appointment app: listOfAppointments) {
             pw.println("appointment");
             pw.println("  description");
-            pw.println("    " + app.getDescription());
+            pw.println("    " + replaceNewLineCharacters(app.getDescription()));
             pw.println("  begintime");
-            pw.println("    " + app.getBeginTimeString());
+            pw.println("    " + replaceNewLineCharacters(app.getBeginTimeString()));
             pw.println("  endtime");
-            pw.println("    " + app.getEndTimeString());
+            pw.println("    " + replaceNewLineCharacters(app.getEndTimeString()));
         }
         pw.close();
+    }
+
+    private String replaceNewLineCharacters(String string) {
+        return string.replace("\n", "\\n").replace("\r", "\\r");
     }
 }
