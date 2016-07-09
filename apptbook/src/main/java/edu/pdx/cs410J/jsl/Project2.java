@@ -5,6 +5,7 @@ import edu.pdx.cs410J.ParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,29 +21,7 @@ import java.util.List;
  */
 public class Project2 {
   private static final int MAX_ARGUMENTS = 4;
-  private static final String[] ALLOWED_OPTIONS = { "-textFile", "-print", "-README" };
-
-  /**
-   * This enum is designed to access the ALLOWED_OPTIONS array
-   * in a more formatted way.
-   */
-  enum OptionIndex {
-    TEXTFILE(0), PRINT(1), README(2);
-
-    int index;
-    OptionIndex (int index) {
-      this.index = index;
-    }
-
-    /**
-     * Returns a specific index of an enum value.
-     * This should increase readability
-     * @return
-       */
-    public int getIndex() {
-      return index;
-    }
-  }
+  private static HashMap<String, String> allowed_options = new HashMap<>();
 
   /**
    * This method will print a given error message
@@ -57,7 +36,7 @@ public class Project2 {
 
 
   private static boolean isOptionTextFile(String option) {
-    return option.equals(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()]);
+    return option.equals(allowed_options.get("TextFile"));
   }
 
   /**
@@ -67,7 +46,7 @@ public class Project2 {
    * @return        true if a command line option is recognized, otherwise false
      */
   private static boolean isOption(String option) {
-    return Arrays.asList(ALLOWED_OPTIONS).contains(option);
+    return allowed_options.containsValue(option);
   }
 
   /**
@@ -157,6 +136,8 @@ public class Project2 {
     TextParser textParser = null;
     TextDumper textDumper = null;
 
+    initOptions();
+
     for (int i = 0; i < args.length; i++) {
       switch (args[i].charAt(0)) {
         case '-':
@@ -175,7 +156,7 @@ public class Project2 {
       }
     }
 
-    if (options.contains(ALLOWED_OPTIONS[OptionIndex.README.getIndex()])) {
+    if (options.contains(allowed_options.get("ReadMe"))) {
       printReadMe();
     } else {
       // number of arguments check
@@ -193,7 +174,7 @@ public class Project2 {
       }
 
       // create an appointment
-      if (options.contains(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()])) {
+      if (options.contains(allowed_options.get("TextFile"))) {
         textParser = new TextParser(filename, arguments.get(0));
         try {
           appointment_book = (AppointmentBook) textParser.parse();
@@ -210,7 +191,7 @@ public class Project2 {
       appointment_book.addAppointment(appointment);
 
       // save back to file
-      if (options.contains(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()])) {
+      if (options.contains(allowed_options.get("TextFile"))) {
         textDumper = new TextDumper(filename);
         try {
           textDumper.dump(appointment_book);
@@ -220,12 +201,18 @@ public class Project2 {
       }
 
       // print it out if option is on
-      if (options.contains(ALLOWED_OPTIONS[OptionIndex.PRINT.getIndex()])) {
+      if (options.contains(allowed_options.get("Print"))) {
         for (Appointment app: appointment_book.getAppointments()) {
           System.out.println(app);
         }
       }
     }
+  }
+
+  private static void initOptions() {
+    allowed_options.put("TextFile", "-textFile");
+    allowed_options.put("Print", "-print");
+    allowed_options.put("ReadMe", "-README");
   }
 
 }
