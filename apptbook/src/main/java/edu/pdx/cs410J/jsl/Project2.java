@@ -1,5 +1,8 @@
 package edu.pdx.cs410J.jsl;
 
+import edu.pdx.cs410J.ParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +20,19 @@ import java.util.List;
  */
 public class Project2 {
   private static final int MAX_ARGUMENTS = 4;
-  private static final String[] allowed_options = { "-print", "-README" };
+  private static final String[] ALLOWED_OPTIONS = { "-textFile", "-print", "-README" };
+
+  enum OptionIndex {
+    TEXTFILE(0), PRINT(1), README(2);
+
+    int index;
+    OptionIndex (int index) {
+      this.index = index;
+    }
+    public int getIndex() {
+      return index;
+    }
+  }
 
   /**
    * This method will print a given error message
@@ -30,6 +45,11 @@ public class Project2 {
     System.exit(1);
   }
 
+
+  private static boolean isOptionTextFile(String option) {
+    return option.equals(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()]);
+  }
+
   /**
    * This method will check if a given command line argument is a recognizable option.
    *
@@ -37,7 +57,7 @@ public class Project2 {
    * @return        true if a command line option is recognized, otherwise false
      */
   private static boolean isOption(String option) {
-    return Arrays.asList(allowed_options).contains(option);
+    return Arrays.asList(ALLOWED_OPTIONS).contains(option);
   }
 
   /**
@@ -123,10 +143,17 @@ public class Project2 {
     Appointment appointment = null;
     AppointmentBook appointment_book = null;
 
+    String filename = null;
+    TextParser textParser = null;
+    TextDumper textDumper = null;
+
     for (int i = 0; i < args.length; i++) {
       switch (args[i].charAt(0)) {
         case '-':
-          if (isOption(args[i])) {
+          if (isOptionTextFile(args[i])) {
+            options.add(args[i++]);
+            filename = args[i];
+          } else if (isOption(args[i])) {
             options.add(args[i]);
           } else {
             programFail("Option " + args[i] + " is not recognized");
@@ -138,7 +165,7 @@ public class Project2 {
       }
     }
 
-    if (options.contains(allowed_options[1])) {
+    if (options.contains(ALLOWED_OPTIONS[OptionIndex.README.getIndex()])) {
       printReadMe();
     } else {
       // number of arguments check
@@ -155,11 +182,34 @@ public class Project2 {
         }
       }
 
-      appointment_book = new AppointmentBook(arguments.get(0));
+      // create an appointment
+      if (options.contains(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()])) {
+        textParser = new TextParser(filename);
+        try {
+          appointment_book = (AppointmentBook) textParser.parse();
+        } catch (ParserException e) {
+          programFail("Failed to read the file given");
+        }
+      } else {
+        appointment_book = new AppointmentBook(arguments.get(0));
+      }
+
+      // add a new appointment
       appointment = new Appointment(arguments.subList(1, arguments.size()));
       appointment_book.addAppointment(appointment);
 
-      if (options.contains(allowed_options[0])) {
+      // save back to file
+      if (options.contains(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()])) {
+        textDumper = new TextDumper(filename);
+        try {
+          textDumper.dump(appointment_book);
+        } catch (IOException e) {
+          programFail("Failed to save to the file");
+        }
+      }
+
+      // print it out if option is on
+      if (options.contains(ALLOWED_OPTIONS[OptionIndex.PRINT.getIndex()])) {
         System.out.println(appointment);
       }
     }
