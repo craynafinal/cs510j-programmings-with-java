@@ -22,6 +22,10 @@ public class Project2 {
   private static final int MAX_ARGUMENTS = 4;
   private static final String[] ALLOWED_OPTIONS = { "-textFile", "-print", "-README" };
 
+  /**
+   * This enum is designed to access the ALLOWED_OPTIONS array
+   * in a more formatted way.
+   */
   enum OptionIndex {
     TEXTFILE(0), PRINT(1), README(2);
 
@@ -29,6 +33,12 @@ public class Project2 {
     OptionIndex (int index) {
       this.index = index;
     }
+
+    /**
+     * Returns a specific index of an enum value.
+     * This should increase readability
+     * @return
+       */
     public int getIndex() {
       return index;
     }
@@ -184,11 +194,12 @@ public class Project2 {
 
       // create an appointment
       if (options.contains(ALLOWED_OPTIONS[OptionIndex.TEXTFILE.getIndex()])) {
-        textParser = new TextParser(filename);
+        textParser = new TextParser(filename, arguments.get(0));
         try {
           appointment_book = (AppointmentBook) textParser.parse();
         } catch (ParserException e) {
-          programFail("Failed to read the file given");
+          System.out.println(e.getMessage());
+          programFail(e.getMessage());
         }
       } else {
         appointment_book = new AppointmentBook(arguments.get(0));
@@ -204,13 +215,15 @@ public class Project2 {
         try {
           textDumper.dump(appointment_book);
         } catch (IOException e) {
-          programFail("Failed to save to the file");
+          programFail(e.getMessage());
         }
       }
 
       // print it out if option is on
       if (options.contains(ALLOWED_OPTIONS[OptionIndex.PRINT.getIndex()])) {
-        System.out.println(appointment);
+        for (Appointment app: appointment_book.getAppointments()) {
+          System.out.println(app);
+        }
       }
     }
   }

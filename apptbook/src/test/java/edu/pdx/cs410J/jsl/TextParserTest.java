@@ -139,6 +139,25 @@ public class TextParserTest {
     }
 
     @Test
+    public void shouldFailToParseFileWithTwoDifferentOwnerName() {
+        String content = "--appointmentbook\n" +
+                "---owner\n" +
+                "special owner\n";
+        customWritingToFile(content);
+
+        AppointmentBook appointmentBook = null;
+
+        try {
+            appointmentBook = getParsedString();
+            fail("Parser Exception is expected");
+        } catch (ParserException e) {
+            assertThat(e.getMessage(), containsString("special owner"));
+        } finally {
+            deleteFile();
+        }
+    }
+
+    @Test
     public void shouldFailToParseFileWithMissingAppointmentInformation() {
         String content = "--appointmentbook\n" +
                 "---owner\n" +

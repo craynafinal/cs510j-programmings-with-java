@@ -85,7 +85,12 @@ public class TextParser implements AppointmentBookParser {
                 token = getNextToken(br);
                 line++;
 
-                appointmentBook = new AppointmentBook(token);
+                if (owner.equals(token)) {
+                    appointmentBook = new AppointmentBook(token);
+                } else {
+                    throw new ParserException("The name of the owner does not match: expected " + owner +
+                            " but got " + token + lineNumber(line));
+                }
             } else {
                 throw new ParserException("Does not contain information regarding appointmentbook: " +
                         "found \"" + token + "\"" + lineNumber(line));

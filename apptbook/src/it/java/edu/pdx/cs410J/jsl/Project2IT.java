@@ -4,10 +4,16 @@ import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Integration tests for the {@link Project2} main class.
@@ -19,8 +25,12 @@ public class Project2IT extends InvokeMainTestCase {
   String end_time;
   String print;
   String read_me;
+  String filename;
+  String text_file;
+  String empty_filename;
 
   Appointment appointment;
+  AppointmentBook appointment_book;
 
   @Before
   public void initialization() {
@@ -30,8 +40,12 @@ public class Project2IT extends InvokeMainTestCase {
     end_time = "11/11/1111 11:11";
     print = "-print";
     read_me = "-README";
+    filename = "/home/crayna/Downloads/test111.txt";
+    text_file = "-textFile";
+    empty_filename = "/home/crayna/Downloads/test222.txt";
 
     appointment = new Appointment(description, begin_time, end_time);
+    appointment_book = null;
   }
 
   /**
@@ -269,5 +283,48 @@ public class Project2IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, "-test");
     assertThat(result.getExitCode(), is(equalTo(1)));
     assertThat(result.getErr(), containsString("-test"));
+  }
+
+  // not working at this moment
+  @Test
+  public void wrongFileOptionShouldGenerateEmptyAppointmentBook() {
+    String special_description = "description111";
+
+    MainMethodResult result = invokeMain(owner, special_description, begin_time, end_time, print, text_file, empty_filename);
+    assertThat(result.getExitCode(), is(equalTo(null)));
+    assertThat(result.getOut(), containsString(special_description));
+    assertThat(Files.exists(Paths.get(empty_filename)), is(equalTo(true)));
+
+    try {
+      Files.delete(Paths.get(empty_filename));
+    } catch (IOException e) {
+      fail("Failed to delete the file:" + empty_filename);
+    }
+  }
+
+  @Test
+  public void shouldReadAndWriteToFileIfFileIsCorrect() {
+    TextDumper textDumper = new TextDumper(filename);
+
+    String special_description = "description111";
+    String special_begin_time = "begintime111";
+    String temp = null;
+
+    appointment_book = new AppointmentBook(owner);
+    appointment_book.addAppointment(new Appointment(description, special_begin_time, end_time));
+
+    try {
+      textDumper.dump(appointment_book);
+    } catch (IOException e) {
+      fail("IOException failed while writing to a file");
+    }
+
+    MainMethodResult result = invokeMain(owner, special_description, begin_time, end_time, print, text_file, filename);
+    assertThat(result.getExitCode(), is(equalTo(null)));
+    assertThat(Files.exists(Paths.get(filename)), is(equalTo(true)));
+
+    temp = result.getOut();
+    assertThat(temp, containsString(special_description));
+    assertThat(temp, containsString(special_begin_time));
   }
 }
