@@ -15,23 +15,6 @@ import java.util.List;
 
 public class TextParser implements AppointmentBookParser {
 
-    enum AppointmentField {
-        DESCRIPTION(0), BEGIN_TIME(1), END_TIME(2);
-
-        private final int value;
-        private AppointmentField(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        static public int maxSize() {
-            return values().length;
-        }
-    }
-
     private String filename = null;
     private String owner = "default owner";
 
@@ -91,14 +74,14 @@ public class TextParser implements AppointmentBookParser {
             line++;
 
             // checking appointment book data
-            if (!token.equals("appointmentbook")) {
+            if (!token.equals("--appointmentbook")) {
                 throw new ParserException("Does not start with a token \"appointmentbook\"" + lineNumber(line));
             }
 
             token = getNextToken(br);
             line++;
 
-            if (token.equals("owner")) {
+            if (token.equals("---owner")) {
                 token = getNextToken(br);
                 line++;
 
@@ -108,42 +91,36 @@ public class TextParser implements AppointmentBookParser {
                         "found \"" + token + "\"" + lineNumber(line));
             }
 
-            //System.out.println(appointmentBook.getOwnerName());
-
             token = getNextToken(br);
             line++;
-            System.out.println(token);
 
             // checking appointment data
             while (token != null && !token.isEmpty()) {
-                System.out.println("dd");
-                if (token.equals("appointment")) {
+                if (token.equals("--appointment")) {
 
                     appointment_data = new ArrayList<String>();
 
-                    for (int i = 0; i < AppointmentField.maxSize(); i++) {
+                    for (int i = 0; i < 3; i++) {
                         token = getNextToken(br);
                         line++;
-                        System.out.println(token);
-                        System.out.println("111");
 
                         try {
                             // check description, begin time, end time
-                            if (token.equals("description")) {
+                            if (token.equals("---description")) {
                                 token = getNextToken(br);
                                 line++;
 
-                                appointment_data.add(AppointmentField.DESCRIPTION.getValue(), token);
-                            } else if (token.equals("begintime")) {
+                                appointment_data.add(0, token);
+                            } else if (token.equals("---begintime")) {
                                 token = getNextToken(br);
                                 line++;
 
-                                appointment_data.add(AppointmentField.BEGIN_TIME.getValue(), token);
-                            } else if (token.equals("endtime")) {
+                                appointment_data.add(1, token);
+                            } else if (token.equals("---endtime")) {
                                 token = getNextToken(br);
                                 line++;
 
-                                appointment_data.add(AppointmentField.END_TIME.getValue(), token);
+                                appointment_data.add(2, token);
                             } else {
                                 throw new ParserException("Unrecognized token: " + token + lineNumber(line));
                             }
@@ -154,14 +131,12 @@ public class TextParser implements AppointmentBookParser {
 
                     // using arraylist size to confirm data
                     // because each data has been inserted with a specific index
-                    if (appointment_data.size() == AppointmentField.maxSize()) {
+                    if (appointment_data.size() == 3) {
                         appointmentBook.addAppointment(new Appointment(
-                                replaceNewLineCharacters(appointment_data.get(AppointmentField.DESCRIPTION.getValue())),
-                                replaceNewLineCharacters(appointment_data.get(AppointmentField.BEGIN_TIME.getValue())),
-                                replaceNewLineCharacters(appointment_data.get(AppointmentField.END_TIME.getValue()))));
+                                replaceNewLineCharacters(appointment_data.get(0)),
+                                replaceNewLineCharacters(appointment_data.get(1)),
+                                replaceNewLineCharacters(appointment_data.get(2))));
                     }
-
-                    System.out.println(appointmentBook.getAppointments().size());
 
                     token = getNextToken(br);
                     line++;
@@ -171,10 +146,13 @@ public class TextParser implements AppointmentBookParser {
             }
 
         } catch (IOException e) {
-
+            throw new ParserException("IO Exception thrown in the middle of parsing");
         } finally {
-            // not yet implemented
-            closeStream(br);
+            try {
+                closeStream(br);
+            } catch (IOException e) {
+                throw new ParserException("IO Exception thrown while closing file");
+            }
         }
 
         return appointmentBook;
@@ -184,42 +162,13 @@ public class TextParser implements AppointmentBookParser {
         return string.replace("\\n", "\n").replace("\\r", "\r");
     }
 
-    public String[] testFunction() {
-        File file = new File(filename);
-        byte[] encoded = null;
-        String fileContent = null;
-        String[] tokens = null;
-        String delims = "[ \n]+";
-
-        try {
-            encoded = Files.readAllBytes(Paths.get(filename));
-        } catch (IOException e) {
-            //return emptyAppointmentBook();
-        }
-
-        try {
-            fileContent = new String(encoded, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-
-        } catch (NullPointerException e) {
-            System.out.println("Nullpointer exception");
-            return null;
-        }
-
-        return fileContent.split("\n");
-    }
-
     private AppointmentBook emptyAppointmentBook() {
         return new AppointmentBook(owner);
     }
 
-    private void closeStream(BufferedReader br) {
+    private void closeStream(BufferedReader br) throws IOException {
         if (br != null) {
-            try {
-                br.close();
-            } catch (IOException e) {
-                //Logger.getAnonymousLogger().severe("Unable to close reader.");
-            }
+            br.close();
         }
     }
 

@@ -41,22 +41,22 @@ public class TextDumperTest {
         }
 
         String expectedContent =
-                "appointmentbook\n" +
-                "  owner\n" +
+                "--appointmentbook\n" +
+                "  ---owner\n" +
                 "    owner name\n" +
-                "appointment\n" +
-                "  description\n" +
+                "--appointment\n" +
+                "  ---description\n" +
                 "    desc1\n" +
-                "  begintime\n" +
+                "  ---begintime\n" +
                 "    begintime1\n" +
-                "  endtime\n" +
+                "  ---endtime\n" +
                 "    endtime1\n" +
-                "appointment\n" +
-                "  description\n" +
+                "--appointment\n" +
+                "  ---description\n" +
                 "    desc2\n" +
-                "  begintime\n" +
+                "  ---begintime\n" +
                 "    begintime2\n" +
-                "  endtime\n" +
+                "  ---endtime\n" +
                 "    endtime2\n";
 
         byte[] encoded = null;

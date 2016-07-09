@@ -120,10 +120,10 @@ public class TextParserTest {
 
     @Test
     public void shouldFailToParseFileWithoutAppointmentInformation() {
-        String content = "appointmentbook\n" +
-                "owner\n" +
+        String content = "--appointmentbook\n" +
+                "---owner\n" +
                 owner + "\n" +
-                "appointment";
+                "--appointment";
         customWritingToFile(content);
 
         AppointmentBook appointmentBook = null;
@@ -140,11 +140,11 @@ public class TextParserTest {
 
     @Test
     public void shouldFailToParseFileWithMissingAppointmentInformation() {
-        String content = "appointmentbook\n" +
-                "owner\n" +
+        String content = "--appointmentbook\n" +
+                "---owner\n" +
                 owner + "\n" +
-                "appointment\n" +
-                "description\n" +
+                "--appointment\n" +
+                "---description\n" +
                 "desc";
         customWritingToFile(content);
 
@@ -162,7 +162,7 @@ public class TextParserTest {
 
     @Test
     public void shouldFailToParseFileWithoutOwnerInformation() {
-        String content = "appointmentbook\n" +
+        String content = "--appointmentbook\n" +
                 "something";
         customWritingToFile(content);
 
@@ -194,8 +194,8 @@ public class TextParserTest {
 
     @Test
     public void shouldParseFileWithoutAppointments() {
-        String content = "appointmentbook\n" +
-                "owner\n" +
+        String content = "--appointmentbook\n" +
+                "---owner\n" +
                 owner;
         customWritingToFile(content);
 

@@ -36,17 +36,17 @@ public class TextDumper implements AppointmentBookDumper {
         String ownerName = appointmentBook.getOwnerName();
         List<Appointment> listOfAppointments = appointmentBook.getAppointments();
 
-        pw.println("appointmentbook");
-        pw.println("  owner");
+        pw.println("--appointmentbook");
+        pw.println("  ---owner");
         pw.println("    " + replaceNewLineCharacters(ownerName));
 
         for (Appointment app: listOfAppointments) {
-            pw.println("appointment");
-            pw.println("  description");
+            pw.println("--appointment");
+            pw.println("  ---description");
             pw.println("    " + replaceNewLineCharacters(app.getDescription()));
-            pw.println("  begintime");
+            pw.println("  ---begintime");
             pw.println("    " + replaceNewLineCharacters(app.getBeginTimeString()));
-            pw.println("  endtime");
+            pw.println("  ---endtime");
             pw.println("    " + replaceNewLineCharacters(app.getEndTimeString()));
         }
         pw.close();
