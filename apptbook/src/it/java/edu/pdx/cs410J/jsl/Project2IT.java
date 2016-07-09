@@ -285,7 +285,9 @@ public class Project2IT extends InvokeMainTestCase {
     assertThat(result.getErr(), containsString("-test"));
   }
 
-  // not working at this moment
+  /**
+   * It will check if the program generates an empty appointment book when it cannot find the given file.
+   */
   @Test
   public void wrongFileOptionShouldGenerateEmptyAppointmentBook() {
     String special_description = "description111";
@@ -302,6 +304,9 @@ public class Project2IT extends InvokeMainTestCase {
     }
   }
 
+  /**
+   * It will check if the program works as expected when a file is given.
+   */
   @Test
   public void shouldReadAndWriteToFileIfFileIsCorrect() {
     TextDumper textDumper = new TextDumper(filename);

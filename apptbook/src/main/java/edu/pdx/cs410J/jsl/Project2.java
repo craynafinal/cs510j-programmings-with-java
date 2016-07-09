@@ -4,7 +4,6 @@ import edu.pdx.cs410J.ParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +33,12 @@ public class Project2 {
     System.exit(1);
   }
 
-
+  /**
+   * This method will check if a given command line argument is a text file option.
+   *
+   * @param option  a command line argument in string format
+   * @return        true if a command line option is -textFile, otherwise false
+     */
   private static boolean isOptionTextFile(String option) {
     return option.equals(allowed_options.get("TextFile"));
   }
@@ -209,6 +213,10 @@ public class Project2 {
     }
   }
 
+  /**
+   * This method will initialize the hashmap contains recognizable options.
+   * It is implemented in a hashmap style so the options can be accessed via string indice.
+   */
   private static void initOptions() {
     allowed_options.put("TextFile", "-textFile");
     allowed_options.put("Print", "-print");

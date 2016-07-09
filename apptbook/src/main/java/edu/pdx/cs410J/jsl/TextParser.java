@@ -3,38 +3,73 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.AppointmentBookParser;
 import edu.pdx.cs410J.ParserException;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The <code>TextParser</code> class implements the <link>AppointmentBookParser</link>.
+ * The main purpose of this class is to read a file given and bring the information back to
+ * an instance of <link>AppointmentBook</link> with appointments.
+ *
+ * @author    Jong Seong Lee
+ * @version   %I%, %G%
+ * @since     1.0
+ */
 public class TextParser implements AppointmentBookParser {
 
     private String filename = null;
     private String owner = "default owner";
 
+    /**
+     * This constructor takes a file name as a parameter.
+     *
+     * @param filename a path to the file name to be read in string format
+     */
     public TextParser(String filename) {
         this.filename = filename;
     }
 
+    /**
+     * This constructor takes a file name and the name of the owner in string format.
+     * The name of the owner should match the one in the file to be read.
+     *
+     * @param filename a path to the file name to be read in string format
+     * @param owner    the name of the owner who owns the appointment book in the file to be read
+     */
     public TextParser(String filename, String owner) {
         this.filename = filename;
         this.owner = owner;
     }
 
+    /**
+     * Returns the name of file in string format.
+     *
+     * @return a name of file in string format
+     */
     public String getFileName() {
         return filename;
     }
 
+    /**
+     * Returns a string indicating the current line number.
+     * This method is used for the debugging purpose.
+     *
+     * @param line the current line number
+     * @return     a string contains the current line number to be used for debugging purpose
+     */
     private String lineNumber(int line) {
         return " - Line Number " + line;
     }
 
+    /**
+     * This method will return the next token read
+     * from the <link>BufferedReader</link> object that is passed in as a parameter.
+     *
+     * @param br            an instance of the <link>BufferedReader</link> class
+     * @return              a token in string format
+     * @throws IOException  an IO exception can be thrown if it fails to read from buffer
+     */
     private String getNextToken(BufferedReader br) throws IOException {
         String token = null;
 
@@ -48,6 +83,17 @@ public class TextParser implements AppointmentBookParser {
         return token;
     }
 
+    /**
+     * Overrides the <code>parse</code> method from the <link>AppointmentBookParser</link>.
+     * It will parse the file to be read and construct an instance of the <link>AppointmentBook</link>
+     * based on the file content. If file is not found, it will create an instance with
+     * no appointments added. However, if any other exception happens, it will throw a ParserException.
+     *
+     * @return                 an instance of the <link>AppointmentBook</link>
+     *                         that is constructed based on the file content
+     * @throws ParserException if there is any failure reading the file except the situation of file not found,
+     *                         it will throw an exception to describe parsing problem
+     */
     @Override
     public AbstractAppointmentBook parse() throws ParserException {
         AppointmentBook appointmentBook = null;
@@ -163,14 +209,29 @@ public class TextParser implements AppointmentBookParser {
         return appointmentBook;
     }
 
+    /**
+     * Any "\\n" or "\\r" characters in a string will be converted to new line characters.
+     *
+     * @param string a string that might contain "\\n" or "\\r"
+     * @return       a converted string
+     */
     private String replaceNewLineCharacters(String string) {
         return string.replace("\\n", "\n").replace("\\r", "\r");
     }
 
+    /**
+     * Returns an empty <link>AppointmentBook</link> class instance.
+     * @return an empty <link>AppointmentBook</link> class instance
+     */
     private AppointmentBook emptyAppointmentBook() {
         return new AppointmentBook(owner);
     }
 
+    /**
+     * Closes file stream of an instance of <link>BufferedReader</link> class.
+     * @param br           an instance of <link>BufferedReader</link> class
+     * @throws IOException if fails to close file stream, it will throw IO Exception
+     */
     private void closeStream(BufferedReader br) throws IOException {
         if (br != null) {
             br.close();

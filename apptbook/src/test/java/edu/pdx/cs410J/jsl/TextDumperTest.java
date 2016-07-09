@@ -18,6 +18,9 @@ public class TextDumperTest {
 
     static final String filename = "file.txt";
 
+    /**
+     * Setup member variables.
+     */
     @Before
     public void appointmentSetup() {
         appointmentBook = new AppointmentBook("owner name");
@@ -27,11 +30,17 @@ public class TextDumperTest {
         textDumper = new TextDumper(filename);
     }
 
+    /**
+     * Checks if file name assigned correctly.
+     */
     @Test
     public void shouldSetFileNameCorrectly() {
         assertThat(textDumper.getFileName(), is(equalTo(filename)));
     }
 
+    /**
+     * Checks if file gets written successfully.
+     */
     @Test
     public void shouldWriteToFileCorrectly() {
         try {
