@@ -61,13 +61,33 @@ public class Project2 {
   }
 
   /**
+   * This method will use regex to check if a given date time is in date time format.
+   *
+   * @param datetime  a date in string format
+   * @return          true if a date is in date format, otherwise false
+     */
+  private static boolean isDateTimeFormatCorrect(String datetime) {
+    return datetime.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4} ([01]?[0-9]|2[0-3]):[0-5]?[0-9]");
+  }
+
+  /**
    * This method will use regex to check if a given date is in date format.
    *
    * @param date  a date in string format
    * @return      true if a date is in date format, otherwise false
-     */
+   */
   private static boolean isDateFormatCorrect(String date) {
-    return date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4} ([01]?[0-9]|2[0-3]):[0-5]?[0-9]");
+    return date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4}");
+  }
+
+  /**
+   * This method will use regex to check if a given date is in time format.
+   *
+   * @param time  a date in string format
+   * @return      true if a date is in date format, otherwise false
+   */
+  private static boolean isTimeFormatCorrect(String time) {
+    return time.matches("([01]?[0-9]|2[0-3]):[0-5]?[0-9]");
   }
 
   /**
@@ -163,6 +183,8 @@ public class Project2 {
     TextParser textParser = null;
     TextDumper textDumper = null;
 
+    String date_time_temp = null;
+
     initOptions();
 
     for (int i = 0; i < args.length; i++) {
@@ -178,7 +200,14 @@ public class Project2 {
           }
           break;
         default:
-          arguments.add(args[i]);
+          if (isDateFormatCorrect(args[i]) &&
+                  i < args.length - 1 &&
+                  isTimeFormatCorrect(args[i + 1])) {
+              arguments.add(args[i] + " " + args[i + 1]);
+              i++;
+          } else {
+            arguments.add(args[i]);
+          }
           break;
       }
     }
@@ -195,7 +224,7 @@ public class Project2 {
 
       // date format check
       for (String date : arguments.subList(2, 4)) {
-        if (!isDateFormatCorrect(date)) {
+        if (!isDateTimeFormatCorrect(date)) {
           programFail("Argument " + date + " is not in date format");
         }
       }

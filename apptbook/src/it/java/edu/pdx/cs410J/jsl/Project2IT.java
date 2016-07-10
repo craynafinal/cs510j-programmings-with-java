@@ -305,6 +305,36 @@ public class Project2IT extends InvokeMainTestCase {
   }
 
   /**
+   * Testing multi word dates
+   */
+  @Test
+  public void twoDateStringShouldWork() {
+    String beginDate = "12/12/1999";
+    String beginTime = "00:00";
+
+    String endDate = "12/12/2000";
+    String endTime = "11:11";
+
+    MainMethodResult result = invokeMain(owner, description, beginDate, beginTime, endDate, endTime, print);
+    assertThat(result.getExitCode(), is(equalTo(null)));
+    assertThat(result.getOut(), containsString(beginDate + " " + beginTime));
+    assertThat(result.getOut(), containsString(endDate + " " + endTime));
+  }
+
+  /**
+   * Testing mutl word end date missing
+   */
+  @Test
+  public void twoDateStringMissingEndDate() {
+    String beginDate = "12/12/1999";
+    String beginTime = "00:00";
+
+    MainMethodResult result = invokeMain(owner, description, beginDate, beginTime, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString("Missing"));
+  }
+
+  /**
    * It will check if the program works as expected when a file is given.
    */
   @Test

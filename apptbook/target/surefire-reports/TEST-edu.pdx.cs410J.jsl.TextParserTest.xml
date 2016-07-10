@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.Project2IT" time="0.224" tests="24" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.TextParserTest" time="0.254" tests="10" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -59,28 +59,14 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="shouldWorkWith2DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.13"/>
-  <testcase name="shouldFailWith2DigitYearFormat" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.003"/>
-  <testcase name="printOptionCouldBeInTheMiddle" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="shouldWorkWith24HourFormat" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="shouldNotAllowDay0" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="shouldNotAllowDayOver31" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.004"/>
-  <testcase name="shouldNotAllowMonthOver12" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.002"/>
-  <testcase name="shouldFailWithIncorrectBeginDate" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="testNoCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project2IT" time="0"/>
-  <testcase name="printOptionCouldBeAtFront" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="shouldFailWithIncorrectEndDate" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.003"/>
-  <testcase name="printReadMeShouldWorkEvenWithOtherArguments" classname="edu.pdx.cs410J.jsl.Project2IT" time="0"/>
-  <testcase name="wrongOptionShouldFail" classname="edu.pdx.cs410J.jsl.Project2IT" time="0"/>
-  <testcase name="wrongFileOptionShouldGenerateEmptyAppointmentBook" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.027"/>
-  <testcase name="shouldReadAndWriteToFileIfFileIsCorrect" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.006"/>
-  <testcase name="shouldNotAllowMinuteOver59" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.004"/>
-  <testcase name="shouldWorkWith1DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.004"/>
-  <testcase name="printOptionShouldPrintAppointmentDescription" classname="edu.pdx.cs410J.jsl.Project2IT" time="0"/>
-  <testcase name="shouldNotAllowMonth0" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="printReadMeWhenReadMeOptionSpecified" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.002"/>
-  <testcase name="shouldWorkWith12HourFormat" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="appointmentDescriptionShouldNotPrintWithoutPrintOption" classname="edu.pdx.cs410J.jsl.Project2IT" time="0"/>
-  <testcase name="shouldNotAllowHourOver23" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.001"/>
-  <testcase name="testTooManyCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project2IT" time="0.003"/>
+  <testcase name="shouldFailToParseFileWithMissingAppointmentInformation" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.097"/>
+  <testcase name="shouldFailToParseFileWithoutOwnerInformation" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.004"/>
+  <testcase name="shouldParseFileWithoutAppointments" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.011"/>
+  <testcase name="shouldSetFileNameCorrectly" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.002"/>
+  <testcase name="shouldFailToParseFileWithoutAppointmentInformation" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.011"/>
+  <testcase name="shouldParseCorrectFileWithoutError" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.017"/>
+  <testcase name="shouldFailToParseFileStartingWithoutAppointmentBook" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.015"/>
+  <testcase name="shouldHandleNewLineCharacters" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.041"/>
+  <testcase name="shouldReturnEmptyAppointmentBookWithNoFileProvided" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.021"/>
+  <testcase name="shouldFailToParseFileWithTwoDifferentOwnerName" classname="edu.pdx.cs410J.jsl.TextParserTest" time="0.009"/>
 </testsuite>
