@@ -139,10 +139,10 @@ public class TextParserTest {
      */
     @Test
     public void shouldFailToParseFileWithoutAppointmentInformation() {
-        String content = "--appointmentbook\n" +
-                "---owner\n" +
+        String content = ParseToken.APPOINTMENTBOOK.getToken() + "\n" +
+                ParseToken.APPOINTMENTBOOK_OWNER.getToken() + "\n" +
                 owner + "\n" +
-                "--appointment";
+                ParseToken.APPOINTMENT.getToken() + "";
         customWritingToFile(content);
 
         AppointmentBook appointmentBook = null;
@@ -162,8 +162,8 @@ public class TextParserTest {
      */
     @Test
     public void shouldFailToParseFileWithTwoDifferentOwnerName() {
-        String content = "--appointmentbook\n" +
-                "---owner\n" +
+        String content = ParseToken.APPOINTMENTBOOK.getToken() + "\n" +
+                ParseToken.APPOINTMENTBOOK_OWNER.getToken() + "\n" +
                 "special owner\n";
         customWritingToFile(content);
 
@@ -184,11 +184,11 @@ public class TextParserTest {
      */
     @Test
     public void shouldFailToParseFileWithMissingAppointmentInformation() {
-        String content = "--appointmentbook\n" +
-                "---owner\n" +
+        String content = ParseToken.APPOINTMENTBOOK.getToken() + "\n" +
+                ParseToken.APPOINTMENTBOOK_OWNER.getToken() + "\n" +
                 owner + "\n" +
-                "--appointment\n" +
-                "---description\n" +
+                ParseToken.APPOINTMENT.getToken() + "\n" +
+                ParseToken.APPOINTMENT_DESCRIPTION.getToken() + "\n" +
                 "desc";
         customWritingToFile(content);
 
@@ -209,7 +209,7 @@ public class TextParserTest {
      */
     @Test
     public void shouldFailToParseFileWithoutOwnerInformation() {
-        String content = "--appointmentbook\n" +
+        String content = ParseToken.APPOINTMENTBOOK.getToken() + "\n" +
                 "something";
         customWritingToFile(content);
 
@@ -247,8 +247,8 @@ public class TextParserTest {
      */
     @Test
     public void shouldParseFileWithoutAppointments() {
-        String content = "--appointmentbook\n" +
-                "---owner\n" +
+        String content = ParseToken.APPOINTMENTBOOK.getToken() + "\n" +
+                ParseToken.APPOINTMENTBOOK_OWNER.getToken() + "\n" +
                 owner;
         customWritingToFile(content);
 

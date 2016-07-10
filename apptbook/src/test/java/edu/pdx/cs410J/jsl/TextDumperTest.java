@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,15 +18,22 @@ public class TextDumperTest {
     TextDumper textDumper = null;
 
     static final String filename = "file.txt";
+    static final String owner = "owner";
+    static final String desc1 = "desc1";
+    static final String desc2 = "desc2";
+    static final String begintime1 = "begintime1";
+    static final String begintime2 = "begintime2";
+    static final String endtime1 = "endtime1";
+    static final String endtime2 = "endtime2";
 
     /**
      * Setup member variables.
      */
     @Before
     public void appointmentSetup() {
-        appointmentBook = new AppointmentBook("owner name");
-        appointmentBook.addAppointment(new Appointment("desc1", "begintime1", "endtime1"));
-        appointmentBook.addAppointment(new Appointment("desc2", "begintime2", "endtime2"));
+        appointmentBook = new AppointmentBook(owner);
+        appointmentBook.addAppointment(new Appointment(desc1, begintime1, endtime1));
+        appointmentBook.addAppointment(new Appointment(desc2, begintime2, endtime2));
 
         textDumper = new TextDumper(filename);
     }
@@ -50,23 +58,23 @@ public class TextDumperTest {
         }
 
         String expectedContent =
-                "--appointmentbook\n" +
-                "  ---owner\n" +
-                "    owner name\n" +
-                "--appointment\n" +
-                "  ---description\n" +
-                "    desc1\n" +
-                "  ---begintime\n" +
-                "    begintime1\n" +
-                "  ---endtime\n" +
-                "    endtime1\n" +
-                "--appointment\n" +
-                "  ---description\n" +
-                "    desc2\n" +
-                "  ---begintime\n" +
-                "    begintime2\n" +
-                "  ---endtime\n" +
-                "    endtime2\n";
+                ParseToken.APPOINTMENTBOOK.getToken() + "\n" +
+                "  " + ParseToken.APPOINTMENTBOOK_OWNER.getToken() + "\n" +
+                "    " + owner + "\n" +
+                ParseToken.APPOINTMENT.getToken() + "\n" +
+                "  " + ParseToken.APPOINTMENT_DESCRIPTION.getToken() + "\n" +
+                "    " + desc1 + "\n" +
+                "  " + ParseToken.APPOINTMENT_BEGINTIME.getToken() + "\n" +
+                "    " + begintime1 + "\n" +
+                "  " + ParseToken.APPOINTMENT_ENDTIME.getToken() + "\n" +
+                "    " + endtime1 + "\n" +
+                ParseToken.APPOINTMENT.getToken() + "\n" +
+                "  " + ParseToken.APPOINTMENT_DESCRIPTION.getToken() + "\n" +
+                "    " + desc2 + "\n" +
+                "  " + ParseToken.APPOINTMENT_BEGINTIME.getToken() + "\n" +
+                "    " + begintime2 + "\n" +
+                "  " + ParseToken.APPOINTMENT_ENDTIME.getToken() + "\n" +
+                "    " + endtime2 + "\n";
 
         byte[] encoded = null;
         String fileContent = null;

@@ -120,14 +120,14 @@ public class TextParser implements AppointmentBookParser {
             line++;
 
             // checking appointment book data
-            if (!token.equals("--appointmentbook")) {
+            if (!token.equals(ParseToken.APPOINTMENTBOOK.getToken())) {
                 throw new ParserException("Does not start with a token \"appointmentbook\"" + lineNumber(line));
             }
 
             token = getNextToken(br);
             line++;
 
-            if (token.equals("---owner")) {
+            if (token.equals(ParseToken.APPOINTMENTBOOK_OWNER.getToken())) {
                 token = getNextToken(br);
                 line++;
 
@@ -147,7 +147,7 @@ public class TextParser implements AppointmentBookParser {
 
             // checking appointment data
             while (token != null && !token.isEmpty()) {
-                if (token.equals("--appointment")) {
+                if (token.equals(ParseToken.APPOINTMENT.getToken())) {
 
                     appointment_data = new ArrayList<String>();
 
@@ -157,17 +157,17 @@ public class TextParser implements AppointmentBookParser {
 
                         try {
                             // check description, begin time, end time
-                            if (token.equals("---description")) {
+                            if (token.equals(ParseToken.APPOINTMENT_DESCRIPTION.getToken())) {
                                 token = getNextToken(br);
                                 line++;
 
                                 appointment_data.add(0, token);
-                            } else if (token.equals("---begintime")) {
+                            } else if (token.equals(ParseToken.APPOINTMENT_BEGINTIME.getToken())) {
                                 token = getNextToken(br);
                                 line++;
 
                                 appointment_data.add(1, token);
-                            } else if (token.equals("---endtime")) {
+                            } else if (token.equals(ParseToken.APPOINTMENT_ENDTIME.getToken())) {
                                 token = getNextToken(br);
                                 line++;
 
