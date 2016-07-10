@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * The <code>TextDumper</code> is the class implements the {@link AppointmentBookDumper</code> class.
+ * The <code>TextDumper</code> is the class implements the {@link AppointmentBookDumper} class.
  * The main purpose of this class is to write a content of an instance of {@link AppointmentBook}
  * to a file that is given.
  *
