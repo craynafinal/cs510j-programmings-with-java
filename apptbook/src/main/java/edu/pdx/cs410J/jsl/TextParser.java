@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The <code>TextParser</code> class implements the <link>AppointmentBookParser</link>.
+ * The <code>TextParser</code> class implements the {@link AppointmentBookParser}.
  * The main purpose of this class is to read a file given and bring the information back to
- * an instance of <link>AppointmentBook</link> with appointments.
+ * an instance of {@link AppointmentBook} with appointments.
  *
  * @author    Jong Seong Lee
  * @version   %I%, %G%
@@ -64,9 +64,9 @@ public class TextParser implements AppointmentBookParser {
 
     /**
      * This method will return the next token read
-     * from the <link>BufferedReader</link> object that is passed in as a parameter.
+     * from the {@link BufferedReader} object that is passed in as a parameter.
      *
-     * @param br            an instance of the <link>BufferedReader</link> class
+     * @param br            an instance of the {@link BufferedReader} class
      * @return              a token in string format
      * @throws IOException  an IO exception can be thrown if it fails to read from buffer
      */
@@ -84,12 +84,12 @@ public class TextParser implements AppointmentBookParser {
     }
 
     /**
-     * Overrides the <code>parse</code> method from the <link>AppointmentBookParser</link>.
-     * It will parse the file to be read and construct an instance of the <link>AppointmentBook</link>
+     * Overrides the <code>parse</code> method from the {@link AppointmentBookParser}.
+     * It will parse the file to be read and construct an instance of the {@link AppointmentBook}
      * based on the file content. If file is not found, it will create an instance with
      * no appointments added. However, if any other exception happens, it will throw a ParserException.
      *
-     * @return                 an instance of the <link>AppointmentBook</link>
+     * @return                 an instance of the {@link AppointmentBook}
      *                         that is constructed based on the file content
      * @throws ParserException if there is any failure reading the file except the situation of file not found,
      *                         it will throw an exception to describe parsing problem
@@ -220,16 +220,16 @@ public class TextParser implements AppointmentBookParser {
     }
 
     /**
-     * Returns an empty <link>AppointmentBook</link> class instance.
-     * @return an empty <link>AppointmentBook</link> class instance
+     * Returns an empty {@link AppointmentBook} class instance.
+     * @return an empty {@link AppointmentBook} class instance
      */
     private AppointmentBook emptyAppointmentBook() {
         return new AppointmentBook(owner);
     }
 
     /**
-     * Closes file stream of an instance of <link>BufferedReader</link> class.
-     * @param br           an instance of <link>BufferedReader</link> class
+     * Closes file stream of an instance of {@link BufferedReader} class.
+     * @param br           an instance of {@link BufferedReader} class
      * @throws IOException if fails to close file stream, it will throw IO Exception
      */
     private void closeStream(BufferedReader br) throws IOException {

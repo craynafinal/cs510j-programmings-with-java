@@ -16,7 +16,7 @@ import java.util.List;
  *
  * - Regarding the Project2 update
  * This program has now a feature to read and write to a file. <code>Project2</code> will
- * utilize <link>TextDumper</link> and <link>TextParser</link> classes to read a file given
+ * utilize {@link TextDumper} and {@link TextParser} classes to read a file given
  * by a command line argument and will construct an appointment book along with a list of
  * appointments. Then, it is going to add a new appointment based on the command line argument,
  * and save back to the file to dump the appointment book including old and new information.

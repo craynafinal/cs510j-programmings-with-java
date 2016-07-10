@@ -1,7 +1,7 @@
 package edu.pdx.cs410J.jsl;
 
 /**
- * This enum is designed to be used in <link>TextDumper</link> and <link>TextParser</link> classes.
+ * This enum is designed to be used in {@link TextDumper} and {@link TextParser} classes.
  * Because hard coded tokens may cause confusion or mismatch, this <code>ParseToken</code> enum
  * will be shared among them and data used will be consistant.
  *
