@@ -3,6 +3,7 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.Before;
 import org.junit.Test;
+import sun.applet.Main;
 
 import java.io.IOException;
 import java.io.InvalidObjectException;
@@ -361,5 +362,65 @@ public class Project2IT extends InvokeMainTestCase {
     temp = result.getOut();
     assertThat(temp, containsString(special_description));
     assertThat(temp, containsString(special_begin_time));
+  }
+
+  /**
+   * It will check if the program fails with no filename given.
+   */
+  @Test
+  public void shouldFailWithoutFilename() {
+    MainMethodResult result = invokeMain(owner, description, begin_time, end_time, print, text_file);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString("Missing"));
+  }
+
+  /**
+   * It will check if the program fails when one of the arguments consumed as a text file path.
+   */
+  @Test
+  public void shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven() {
+    MainMethodResult result = invokeMain(owner, description, text_file, begin_time, end_time, print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString("Missing"));
+  }
+
+  /**
+   * It will check if the program fails when one of the arguments consumed as a text file path
+   * and using two word date format.
+   */
+  @Test
+  public void shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat() {
+    MainMethodResult result =
+            invokeMain(owner, description, text_file, "11/11/1999", "00:11", "11/22/1234", "11:23", print);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(), containsString("00:11"));
+  }
+
+  /**
+   * It should fail when the owner name in the file is different from the command line argument.
+   */
+  @Test
+  public void shouldFailWhenOwnerNamesAreDifferent() {
+    TextDumper textDumper = new TextDumper(filename);
+
+    String special_onwer = "different owner";
+    String temp = null;
+
+    appointment_book = new AppointmentBook(special_onwer);
+    appointment_book.addAppointment(new Appointment(description, begin_time, end_time));
+
+    try {
+      textDumper.dump(appointment_book);
+    } catch (IOException e) {
+      fail("IOException failed while writing to a file");
+    }
+
+    MainMethodResult result = invokeMain(owner, description, begin_time, end_time, print, text_file, filename);
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(Files.exists(Paths.get(filename)), is(equalTo(true)));
+
+    temp = result.getOut();
+    assertThat(temp, containsString(owner));
+    assertThat(temp, containsString(special_onwer));
   }
 }

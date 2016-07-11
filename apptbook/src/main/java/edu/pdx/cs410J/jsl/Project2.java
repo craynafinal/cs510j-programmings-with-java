@@ -191,8 +191,12 @@ public class Project2 {
       switch (args[i].charAt(0)) {
         case '-':
           if (isOptionTextFile(args[i])) {
-            options.add(args[i++]);
-            filename = args[i];
+            if (i < args.length - 1) {
+              options.add(args[i++]);
+              filename = args[i];
+            } else {
+              programFail("Missing a filename argument");
+            }
           } else if (isOption(args[i])) {
             options.add(args[i]);
           } else {
