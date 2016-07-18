@@ -1,7 +1,14 @@
 package edu.pdx.cs410J.jsl;
 
 import edu.pdx.cs410J.AbstractAppointment;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The <code>Appointment</code> is the class extended from the {@link AbstractAppointment} class
@@ -13,15 +20,12 @@ import java.util.List;
  */
 public class Appointment extends AbstractAppointment {
   private String description = null;
-  private String begin_time = null;
-  private String end_time = null;
+  private String begin_input = null;
+  private String end_input = null;
 
-  /**
-   * This constructor takes no parameter and it uses default values to initialize.
-   */
-  public Appointment() {
-    this("description", "01/01/2000 00:00", "01/01/2000 00:00");
-  }
+  private Date begin_date = null;
+  private Date end_date = null;
+  private DateFormat date_format = null;
 
   /**
    * This constructor takes a list of arguments as a parameter, and the list should have
@@ -29,7 +33,7 @@ public class Appointment extends AbstractAppointment {
    *
    * @param arguments   a List collection that contains description, begin time and end time in order
      */
-  public Appointment(List<String> arguments) {
+  public Appointment(List<String> arguments) throws ParseException {
     this(arguments.get(0), arguments.get(1), arguments.get(2));
   }
 
@@ -40,10 +44,16 @@ public class Appointment extends AbstractAppointment {
    * @param begin   a begin time of an appointment in string format
    * @param end     an end time of an appointment in string format
      */
-  public Appointment(String desc, String begin, String end) {
+  public Appointment(String desc, String begin, String end) throws ParseException {
     description = desc;
-    begin_time = begin;
-    end_time = end;
+
+    date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
+    begin_date = date_format.parse(begin);
+    end_date = date_format.parse(end);
+
+    // keep the initial date time inputs for dumping purpose
+    begin_input = begin;
+    end_input = end;
   }
 
   /**
@@ -53,7 +63,7 @@ public class Appointment extends AbstractAppointment {
      */
   @Override
   public String getBeginTimeString() {
-    return begin_time;
+    return begin_date.toString();
   }
 
   /**
@@ -63,7 +73,7 @@ public class Appointment extends AbstractAppointment {
      */
   @Override
   public String getEndTimeString() {
-    return end_time;
+    return end_date.toString();
   }
 
   /**
@@ -74,5 +84,44 @@ public class Appointment extends AbstractAppointment {
   @Override
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * Returns a begin time in date format.
+   *
+   * @return  a begin time in date format
+     */
+  @Override
+  public Date getBeginTime() { return begin_date; }
+
+  /**
+   * Returns an end time in date format.
+   *
+   * @return  an end time in date format
+     */
+  @Override
+  public Date getEndTime() { return end_date; }
+
+  /**
+   * Returns the initial begin time input.
+   *
+   * @return  a begin time in string format
+     */
+  public String getBeginTimeInput() { return begin_input; }
+
+  /**
+   * Returns the initial end time input.
+   *
+   * @return  an end time in string format
+   */
+  public String getEndTimeInput() { return end_input; }
+
+  /**
+   * Returns a duration of an appointment.
+   *
+   * @return  a duration in long format
+     */
+  public int getDurationInMinutes() {
+    return (int)TimeUnit.MILLISECONDS.toMinutes(end_date.getTime() - begin_date.getTime());
   }
 }

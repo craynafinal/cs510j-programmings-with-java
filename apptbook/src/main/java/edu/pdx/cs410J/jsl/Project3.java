@@ -3,6 +3,7 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.ParserException;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,8 @@ import java.util.List;
  * an appointment to an appointment book. To do this, it will parse the
  * command line arguments and will interpret argument data and options.
  *
- * - Regarding the Project2 update
- * This program has now a feature to read and write to a file. <code>Project2</code> will
+ * - Regarding the Project3 update
+ * This program has now a feature to read and write to a file. <code>Project3</code> will
  * utilize {@link TextDumper} and {@link TextParser} classes to read a file given
  * by a command line argument and will construct an appointment book along with a list of
  * appointments. Then, it is going to add a new appointment based on the command line argument,
@@ -25,7 +26,7 @@ import java.util.List;
  * @version   %I%, %G%
  * @since     1.0
  */
-public class Project2 {
+public class Project3 {
   private static final int MAX_ARGUMENTS = 4;
   private static HashMap<String, String> allowed_options = new HashMap<>();
 
@@ -67,7 +68,8 @@ public class Project2 {
    * @return          true if a date is in date format, otherwise false
      */
   private static boolean isDateTimeFormatCorrect(String datetime) {
-    return datetime.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4} ([01]?[0-9]|2[0-3]):[0-5]?[0-9]");
+    return datetime.matches
+            ("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4} ([01]?[0-9]|2[0-3]):[0-5]?[0-9] (am|AM|pm|PM)");
   }
 
   /**
@@ -91,6 +93,16 @@ public class Project2 {
   }
 
   /**
+   * This method will use regex to check if a given date is am, AM, pm, or PM.
+   *
+   * @param token a token in string format
+   * @return      true if it is either am, AM, pm, or PM, otherwise false
+     */
+  private static boolean isAMOrPM(String token) {
+    return token.matches("(am|AM|pm|PM)");
+  }
+
+  /**
    * This method will print the readme information to standard output.
    */
   private static void printReadMe() {
@@ -101,7 +113,7 @@ public class Project2 {
             "Student: Jong Seong Lee\n" +
             "********************************************************\n" +
             "\n" +
-            "Usage: java edu.pdx.cs410J.jsl.Project2 [options] <args>\n" +
+            "Usage: java edu.pdx.cs410J.jsl.Project3 [options] <args>\n" +
             "  args are (in this order):\n" +
             "    owner                    The person whose owns the appt book\n" +
             "    description              A description of the appointment\n" +
@@ -156,7 +168,7 @@ public class Project2 {
    *
    * Following is the usage description from the project instruction document:
    *
-   * Usage: java edu.pdx.cs410J.jsl.Project2 [options] <args>
+   * Usage: java edu.pdx.cs410J.jsl.Project3 [options] <args>
    *   args are (in this order):
    *   owner                    The person whose owns the appt book
    *   description              A description of the appointment
@@ -205,10 +217,11 @@ public class Project2 {
           break;
         default:
           if (isDateFormatCorrect(args[i]) &&
-                  i < args.length - 1 &&
-                  isTimeFormatCorrect(args[i + 1])) {
-              arguments.add(args[i] + " " + args[i + 1]);
-              i++;
+                  i < args.length - 2 &&
+                  isTimeFormatCorrect(args[i + 1]) &&
+                  isAMOrPM(args[i + 2])) {
+              arguments.add(args[i] + " " + args[i + 1] + " " + args[i + 2]);
+              i += 2;
           } else {
             arguments.add(args[i]);
           }
@@ -247,7 +260,12 @@ public class Project2 {
       }
 
       // add a new appointment
-      appointment = new Appointment(arguments.subList(1, arguments.size()));
+      // added try catch for ParseException because of Project 3
+      try {
+        appointment = new Appointment(arguments.subList(1, arguments.size()));
+      } catch (ParseException e) {
+        programFail(e.getMessage());
+      }
       appointment_book.addAppointment(appointment);
 
       // save back to file

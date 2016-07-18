@@ -81,9 +81,9 @@ public class TextDumper implements AppointmentBookDumper {
             pw.println("  " + ParseToken.APPOINTMENT_DESCRIPTION.getToken());
             pw.println("    " + replaceNewLineCharacters(app.getDescription()));
             pw.println("  " + ParseToken.APPOINTMENT_BEGINTIME.getToken());
-            pw.println("    " + replaceNewLineCharacters(app.getBeginTimeString()));
+            pw.println("    " + replaceNewLineCharacters(app.getBeginTimeInput()));
             pw.println("  " + ParseToken.APPOINTMENT_ENDTIME.getToken());
-            pw.println("    " + replaceNewLineCharacters(app.getEndTimeString()));
+            pw.println("    " + replaceNewLineCharacters(app.getEndTimeInput()));
         }
         pw.close();
     }

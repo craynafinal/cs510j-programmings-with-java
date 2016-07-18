@@ -4,18 +4,16 @@ import edu.pdx.cs410J.jsl.AppointmentBook;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
+import java.text.ParseException;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests for the {@link AppointmentBook} class.
  */
 public class AppointmentBookTest {
-    /**
-     * The constructor of the AppointmentBookTest class.
-     */
-    public AppointmentBookTest() {
-    }
 
     /**
      * It will check if a name of an owner assigned correctly.
@@ -41,8 +39,17 @@ public class AppointmentBookTest {
      */
     @Test
     public void getAppointmentShouldReturnAppointment() {
+        String description = "test description";
+        String begin_time = "11/11/1999 11:11 am";
+        String end_time = "11/11/1999 11:11 pm";
+
         AppointmentBook appointmentBook = new AppointmentBook();
-        Appointment appointment = new Appointment();
+        Appointment appointment = null;
+        try {
+             appointment = new Appointment(description, begin_time, end_time);
+        } catch (ParseException e) {
+            fail("Failed to initialize an appointment");
+        }
         appointmentBook.addAppointment(appointment);
         assertThat(appointmentBook.getAppointments(), (Matcher)hasItems(appointment));
     }

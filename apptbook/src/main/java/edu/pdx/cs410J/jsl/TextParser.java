@@ -4,6 +4,7 @@ import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.AppointmentBookParser;
 import edu.pdx.cs410J.ParserException;
 import java.io.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,10 +184,15 @@ public class TextParser implements AppointmentBookParser {
                     // using arraylist size to confirm data
                     // because each data has been inserted with a specific index
                     if (appointment_data.size() == 3) {
-                        appointmentBook.addAppointment(new Appointment(
-                                replaceNewLineCharacters(appointment_data.get(0)),
-                                replaceNewLineCharacters(appointment_data.get(1)),
-                                replaceNewLineCharacters(appointment_data.get(2))));
+                        // added try catch for ParseException because of Project 3
+                        try {
+                            appointmentBook.addAppointment(new Appointment(
+                                    replaceNewLineCharacters(appointment_data.get(0)),
+                                    replaceNewLineCharacters(appointment_data.get(1)),
+                                    replaceNewLineCharacters(appointment_data.get(2))));
+                        } catch (ParseException e) {
+                            throw new ParserException("Failed to create an appointment" + lineNumber(line));
+                        }
                     }
 
                     token = getNextToken(br);

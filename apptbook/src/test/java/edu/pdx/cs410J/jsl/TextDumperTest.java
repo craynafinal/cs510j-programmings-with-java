@@ -21,10 +21,10 @@ public class TextDumperTest {
     static final String owner = "owner";
     static final String desc1 = "desc1";
     static final String desc2 = "desc2";
-    static final String begintime1 = "begintime1";
-    static final String begintime2 = "begintime2";
-    static final String endtime1 = "endtime1";
-    static final String endtime2 = "endtime2";
+    static final String begintime1 = "11/11/1999 11:11 am";
+    static final String begintime2 = "11/11/1999 1:1 am";
+    static final String endtime1 = "11/11/1999 11:11 pm";
+    static final String endtime2 = "11/11/1999 1:1 pm";
 
     /**
      * Setup member variables.
@@ -32,9 +32,12 @@ public class TextDumperTest {
     @Before
     public void appointmentSetup() {
         appointmentBook = new AppointmentBook(owner);
-        appointmentBook.addAppointment(new Appointment(desc1, begintime1, endtime1));
-        appointmentBook.addAppointment(new Appointment(desc2, begintime2, endtime2));
-
+        try {
+            appointmentBook.addAppointment(new Appointment(desc1, begintime1, endtime1));
+            appointmentBook.addAppointment(new Appointment(desc2, begintime2, endtime2));
+        } catch (ParseException e) {
+            fail("Failed to initialize an appointment");
+        }
         textDumper = new TextDumper(filename);
     }
 

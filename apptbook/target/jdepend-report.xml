@@ -30,7 +30,7 @@
                     edu.pdx.cs410J.jsl.AppointmentBook
                 </Class>
                 <Class sourceFile="Project1.java">
-                    edu.pdx.cs410J.jsl.Project2
+                    edu.pdx.cs410J.jsl.Project3
                 </Class>
             </ConcreteClasses>
 

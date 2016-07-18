@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -20,6 +21,13 @@ public class TextParserTest {
 
     AppointmentBook ab = null;
 
+    static final String desc1 = "desc1";
+    static final String desc2 = "desc2";
+    static final String begintime1 = "11/11/1999 11:11 am";
+    static final String begintime2 = "11/11/1999 1:1 am";
+    static final String endtime1 = "11/11/1999 11:11 pm";
+    static final String endtime2 = "11/11/1999 1:1 pm";
+
     /**
      * Setup member variables.
      */
@@ -29,8 +37,14 @@ public class TextParserTest {
         textDumper = new TextDumper(filename);
 
         ab = new AppointmentBook("owner");
-        ab.addAppointment(new Appointment("desc1", "time1", "time1"));
-        ab.addAppointment(new Appointment("desc2", "time2", "time2"));
+
+        // added try catch for ParseException because of Project 3
+        try {
+            ab.addAppointment(new Appointment(desc1, begintime1, endtime1));
+            ab.addAppointment(new Appointment(desc2, begintime2, endtime2));
+        } catch (ParseException e) {
+            fail("Failed to initialize appointments");
+        }
     }
 
     /**
@@ -82,7 +96,12 @@ public class TextParserTest {
      */
     @Test
     public void shouldHandleNewLineCharacters() {
-        ab.addAppointment(new Appointment("desc\n", "begintime1\r", "begintime2\n"));
+        // added try catch for ParseException because of Project 3
+        try {
+            ab.addAppointment(new Appointment("desc\n", "11/11/1999 11:11 am\r", "11/11/1999 11:11 pm\n"));
+        } catch (ParseException e) {
+            fail("Failed to initialize an appointment");
+        }
 
         try {
             textDumper.dump(ab);

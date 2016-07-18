@@ -3,12 +3,13 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.Before;
 import org.junit.Test;
-import sun.applet.Main;
 
 import java.io.IOException;
-import java.io.InvalidObjectException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -17,9 +18,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Integration tests for the {@link Project2} main class.
+ * Integration tests for the {@link Project3} main class.
  */
-public class Project2IT extends InvokeMainTestCase {
+public class Project3IT extends InvokeMainTestCase {
   String owner;
   String description;
   String begin_time;
@@ -37,23 +38,28 @@ public class Project2IT extends InvokeMainTestCase {
   public void initialization() {
     owner = "owner";
     description = "description";
-    begin_time = "01/01/0001 01:0";
-    end_time = "11/11/1111 11:11";
+    begin_time = "11/11/1999 11:11 am";
+    end_time = "11/11/1999 11:11 pm";
     print = "-print";
     read_me = "-README";
     filename = "/home/crayna/Downloads/test111.txt";
     text_file = "-textFile";
     empty_filename = "/home/crayna/Downloads/test222.txt";
 
-    appointment = new Appointment(description, begin_time, end_time);
+    // added try catch for ParseException because of Project 3
+    try {
+      appointment = new Appointment(description, begin_time, end_time);
+    } catch (ParseException e) {
+      fail("Failed to initialize an appointment");
+    }
     appointment_book = null;
   }
 
   /**
-   * Invokes the main method of {@link Project2} with the given arguments.
+   * Invokes the main method of {@link Project3} with the given arguments.
    */
   private MainMethodResult invokeMain(String... args) {
-    return invokeMain( Project2.class, args );
+    return invokeMain( Project3.class, args );
   }
 
   /**
@@ -103,7 +109,7 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void shouldFailWith2DigitYearFormat() {
-    String date = "11/11/11 14:00";
+    String date = "11/11/11 14:00 am";
     MainMethodResult result = invokeMain(owner, description, date, end_time);
     assertThat(result.getExitCode(), is(equalTo(1)));
     assertThat(result.getErr(), containsString(date));
@@ -114,10 +120,11 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void shouldWorkWith24HourFormat() {
-    String date = "11/11/1111 14:00";
+    String date = "11/11/1111 14:00 am";
     MainMethodResult result = invokeMain(owner, description, date, end_time, print);
     assertThat(result.getExitCode(), is(equalTo(null)));
-    assertThat(result.getOut(), containsString(date));
+    assertThat(result.getOut(),
+            containsString(getDateTimeString(date)));
   }
 
   /**
@@ -125,10 +132,11 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void shouldWorkWith12HourFormat() {
-    String date = "11/11/1111 1:00";
+    String date = "11/11/1111 1:00 am";
     MainMethodResult result = invokeMain(owner, description, date, end_time, print);
     assertThat(result.getExitCode(), is(equalTo(null)));
-    assertThat(result.getOut(), containsString(date));
+    assertThat(result.getOut(),
+            containsString(getDateTimeString(date)));
   }
 
   /**
@@ -136,10 +144,11 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void shouldWorkWith1DigitMonthFormat() {
-    String date = "1/11/1111 00:00";
+    String date = "1/11/1111 00:00 am";
     MainMethodResult result = invokeMain(owner, description, date, end_time, print);
     assertThat(result.getExitCode(), is(equalTo(null)));
-    assertThat(result.getOut(), containsString(date));
+    assertThat(result.getOut(),
+            containsString(getDateTimeString(date)));
   }
 
   /**
@@ -147,10 +156,11 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void shouldWorkWith2DigitMonthFormat() {
-    String date = "01/11/1111 00:00";
+    String date = "01/11/1999 00:00 am";
     MainMethodResult result = invokeMain(owner, description, date, end_time, print);
     assertThat(result.getExitCode(), is(equalTo(null)));
-    assertThat(result.getOut(), containsString(date));
+    assertThat(result.getOut(),
+            containsString(getDateTimeString(date)));
   }
 
   /**
@@ -312,14 +322,20 @@ public class Project2IT extends InvokeMainTestCase {
   public void twoDateStringShouldWork() {
     String beginDate = "12/12/1999";
     String beginTime = "00:00";
+    String beginToken = "am";
 
     String endDate = "12/12/2000";
     String endTime = "11:11";
+    String endToken = "pm";
 
-    MainMethodResult result = invokeMain(owner, description, beginDate, beginTime, endDate, endTime, print);
+    MainMethodResult result =
+            invokeMain(owner, description, beginDate, beginTime, beginToken, endDate, endTime, endToken, print);
+    System.out.println(result.getErr());
     assertThat(result.getExitCode(), is(equalTo(null)));
-    assertThat(result.getOut(), containsString(beginDate + " " + beginTime));
-    assertThat(result.getOut(), containsString(endDate + " " + endTime));
+    assertThat(result.getOut(),
+            containsString(getDateTimeString(beginDate + " " + beginTime + " " + beginToken)));
+    assertThat(result.getOut(),
+            containsString(getDateTimeString(endDate + " " + endTime + " " + endToken)));
   }
 
   /**
@@ -329,8 +345,9 @@ public class Project2IT extends InvokeMainTestCase {
   public void twoDateStringMissingEndDate() {
     String beginDate = "12/12/1999";
     String beginTime = "00:00";
+    String beginToken = "am";
 
-    MainMethodResult result = invokeMain(owner, description, beginDate, beginTime, print);
+    MainMethodResult result = invokeMain(owner, description, beginDate, beginTime, beginToken, print);
     assertThat(result.getExitCode(), is(equalTo(1)));
     assertThat(result.getErr(), containsString("Missing"));
   }
@@ -343,11 +360,16 @@ public class Project2IT extends InvokeMainTestCase {
     TextDumper textDumper = new TextDumper(filename);
 
     String special_description = "description111";
-    String special_begin_time = "begintime111";
+    String special_begin_time = "11/11/2016 11:11 am";
     String temp = null;
 
     appointment_book = new AppointmentBook(owner);
-    appointment_book.addAppointment(new Appointment(description, special_begin_time, end_time));
+    // added try catch for ParseException because of Project 3
+    try {
+      appointment_book.addAppointment(new Appointment(description, special_begin_time, end_time));
+    } catch (ParseException e) {
+      fail("Failed to initialize an appointment");
+    }
 
     try {
       textDumper.dump(appointment_book);
@@ -361,7 +383,25 @@ public class Project2IT extends InvokeMainTestCase {
 
     temp = result.getOut();
     assertThat(temp, containsString(special_description));
-    assertThat(temp, containsString(special_begin_time));
+    assertThat(temp,
+            containsString(getDateTimeString(begin_time)));
+  }
+
+  /**
+   * Convert a date time string into a string filtered by <code>DateFormat.Short</code>.
+   * @param dateTime  a date time format in mm/dd/yyyy hh:mm am/pm
+   * @return
+     */
+  private String getDateTimeString(String dateTime) {
+    DateFormat date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
+    String dateTimeInFormat = null;
+    try {
+      dateTimeInFormat = date_format.parse(dateTime).toString();
+    } catch (ParseException e) {
+      fail("Failed to parse the date time string: " + dateTime);
+    }
+
+    return dateTimeInFormat;
   }
 
   /**
@@ -391,9 +431,9 @@ public class Project2IT extends InvokeMainTestCase {
   @Test
   public void shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat() {
     MainMethodResult result =
-            invokeMain(owner, description, text_file, "11/11/1999", "00:11", "11/22/1234", "11:23", print);
+            invokeMain(owner, description, text_file, "11/11/1999", "00:11", "am", "11/22/1234", "11:23", "am", print);
     assertThat(result.getExitCode(), is(equalTo(1)));
-    assertThat(result.getErr(), containsString("00:11"));
+    assertThat(result.getErr(), containsString("Too many command line arguments"));
   }
 
   /**
@@ -407,7 +447,12 @@ public class Project2IT extends InvokeMainTestCase {
     String temp = null;
 
     appointment_book = new AppointmentBook(special_onwer);
-    appointment_book.addAppointment(new Appointment(description, begin_time, end_time));
+    // added try catch for ParseException because of Project 3
+    try {
+      appointment_book.addAppointment(new Appointment(description, begin_time, end_time));
+    } catch(ParseException e) {
+      fail("Failed to initialize an appointment");
+    }
 
     try {
       textDumper.dump(appointment_book);
