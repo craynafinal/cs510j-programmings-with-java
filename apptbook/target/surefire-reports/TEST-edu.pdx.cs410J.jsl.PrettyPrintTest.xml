@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.Project3IT" time="0.686" tests="30" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.PrettyPrintTest" time="0.05" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -59,34 +59,6 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="shouldWorkWith2DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.347"/>
-  <testcase name="shouldFailWith2DigitYearFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.011"/>
-  <testcase name="printOptionCouldBeInTheMiddle" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.006"/>
-  <testcase name="shouldWorkWith24HourFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.014"/>
-  <testcase name="shouldNotAllowDay0" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.006"/>
-  <testcase name="shouldNotAllowDayOver31" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.007"/>
-  <testcase name="shouldFailWhenOwnerNamesAreDifferent" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.04"/>
-  <testcase name="shouldNotAllowMonthOver12" classname="edu.pdx.cs410J.jsl.Project3IT" time="0"/>
-  <testcase name="shouldFailWithIncorrectBeginDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001"/>
-  <testcase name="testNoCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004"/>
-  <testcase name="printOptionCouldBeAtFront" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.01"/>
-  <testcase name="shouldFailWithIncorrectEndDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.007"/>
-  <testcase name="shouldFailWithoutFilename" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001"/>
-  <testcase name="printReadMeShouldWorkEvenWithOtherArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.01"/>
-  <testcase name="twoDateStringShouldWork" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.007"/>
-  <testcase name="wrongOptionShouldFail" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.018"/>
-  <testcase name="twoDateStringMissingEndDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.019"/>
-  <testcase name="wrongFileOptionShouldGenerateEmptyAppointmentBook" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.036"/>
-  <testcase name="shouldReadAndWriteToFileIfFileIsCorrect" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.028"/>
-  <testcase name="shouldNotAllowMinuteOver59" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.007"/>
-  <testcase name="shouldWorkWith1DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004"/>
-  <testcase name="printOptionShouldPrintAppointmentDescription" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002"/>
-  <testcase name="shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001"/>
-  <testcase name="shouldNotAllowMonth0" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001"/>
-  <testcase name="printReadMeWhenReadMeOptionSpecified" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001"/>
-  <testcase name="shouldWorkWith12HourFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.013"/>
-  <testcase name="appointmentDescriptionShouldNotPrintWithoutPrintOption" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002"/>
-  <testcase name="shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004"/>
-  <testcase name="shouldNotAllowHourOver23" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004"/>
-  <testcase name="testTooManyCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002"/>
+  <testcase name="shouldSetFileNameCorrectly" classname="edu.pdx.cs410J.jsl.PrettyPrintTest" time="0.009"/>
+  <testcase name="shouldWriteToFileCorrectly" classname="edu.pdx.cs410J.jsl.PrettyPrintTest" time="0.037"/>
 </testsuite>
