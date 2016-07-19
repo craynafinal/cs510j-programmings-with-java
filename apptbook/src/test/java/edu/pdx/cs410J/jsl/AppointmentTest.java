@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -20,6 +23,16 @@ public class AppointmentTest {
   String begin_time = null;
   String end_time = null;
 
+  Appointment a1 = null;
+  Appointment a2 = null;
+  Appointment a3 = null;
+  Appointment a4 = null;
+  Appointment a5 = null;
+  Appointment a6 = null;
+  Appointment a7 = null;
+
+  List<Appointment> list = null;
+
   @Before
   public void appointmentSetup() {
     description = "test description";
@@ -27,6 +40,8 @@ public class AppointmentTest {
     end_time = "11/11/1999 11:11 pm";
 
     appointment = createAppointment(description, begin_time, end_time);
+
+    list = new ArrayList<>();
   }
 
   /**
@@ -92,5 +107,106 @@ public class AppointmentTest {
     }
 
     return dateTimeInFormat;
+  }
+
+  /**
+   * Check ordering of <code>Appointment</code> instances using descriptions.
+   */
+  @Test
+  public void checkAppointmentOrderingDescription() {
+    try {
+      a1 = new Appointment("z", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a2 = new Appointment("b", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a3 = new Appointment("c", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a4 = new Appointment("d", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a5 = new Appointment("e", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a6 = new Appointment("a", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a7 = new Appointment("x", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+    } catch (ParseException e) {
+      fail("Failed to initialize an appointment");
+    }
+
+    addAppointmentsToListAndSort();
+
+    assertThat(list.get(0), is(equalTo(a6)));
+    assertThat(list.get(1), is(equalTo(a2)));
+    assertThat(list.get(2), is(equalTo(a3)));
+    assertThat(list.get(3), is(equalTo(a4)));
+    assertThat(list.get(4), is(equalTo(a5)));
+    assertThat(list.get(5), is(equalTo(a7)));
+    assertThat(list.get(6), is(equalTo(a1)));
+  }
+
+  /**
+   * Add appointments to the list and sort.
+   */
+  private void addAppointmentsToListAndSort() {
+    list.add(a1);
+    list.add(a2);
+    list.add(a3);
+    list.add(a4);
+    list.add(a5);
+    list.add(a6);
+    list.add(a7);
+
+    Collections.sort(list);
+  }
+
+  /**
+   * Check ordering of <code>Appointment</code> instances using begin times.
+   */
+  @Test
+  public void checkAppointmentOrderingBeginTime() {
+
+    try {
+      a1 = new Appointment("a", "11/11/2000 11:11 am", "11/11/1999 11:11 pm");
+      a2 = new Appointment("a", "11/11/1990 11:10 am", "11/11/1999 11:11 pm");
+      a3 = new Appointment("a", "11/11/1999 03:11 pm", "11/11/1999 11:11 pm");
+      a4 = new Appointment("a", "12/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a5 = new Appointment("a", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+      a6 = new Appointment("a", "11/01/1999 11:11 am", "11/11/1999 11:11 pm");
+      a7 = new Appointment("a", "11/11/1999 11:11 pm", "11/11/1999 11:11 pm");
+    } catch (ParseException e) {
+      fail("Failed to initialize an appointment");
+    }
+
+    addAppointmentsToListAndSort();
+
+    assertThat(list.get(0), is(equalTo(a2)));
+    assertThat(list.get(1), is(equalTo(a6)));
+    assertThat(list.get(2), is(equalTo(a5)));
+    assertThat(list.get(3), is(equalTo(a3)));
+    assertThat(list.get(4), is(equalTo(a7)));
+    assertThat(list.get(5), is(equalTo(a4)));
+    assertThat(list.get(6), is(equalTo(a1)));
+  }
+
+  /**
+   * Check ordering of <code>Appointment</code> instances using end times.
+   */
+  @Test
+  public void checkAppointmentOrderingEndTime() {
+
+    try {
+      a1 = new Appointment("a", "11/11/1999 11:11 am", "11/11/2000 11:11 am");
+      a2 = new Appointment("a", "11/11/1999 11:11 am", "11/11/1990 11:10 am");
+      a3 = new Appointment("a", "11/11/1999 11:11 am", "11/11/1999 03:11 pm");
+      a4 = new Appointment("a", "11/11/1999 11:11 am", "12/11/1999 11:11 am");
+      a5 = new Appointment("a", "11/11/1999 11:11 am", "11/11/1999 11:11 am");
+      a6 = new Appointment("a", "11/11/1999 11:11 am", "11/01/1999 11:11 am");
+      a7 = new Appointment("a", "11/11/1999 11:11 am", "11/11/1999 11:11 pm");
+    } catch (ParseException e) {
+      fail("Failed to initialize an appointment");
+    }
+
+    addAppointmentsToListAndSort();
+
+    assertThat(list.get(0), is(equalTo(a2)));
+    assertThat(list.get(1), is(equalTo(a6)));
+    assertThat(list.get(2), is(equalTo(a5)));
+    assertThat(list.get(3), is(equalTo(a3)));
+    assertThat(list.get(4), is(equalTo(a7)));
+    assertThat(list.get(5), is(equalTo(a4)));
+    assertThat(list.get(6), is(equalTo(a1)));
   }
 }

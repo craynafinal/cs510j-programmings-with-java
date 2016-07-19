@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @version   %I%, %G%
  * @since     1.0
  */
-public class Appointment extends AbstractAppointment {
+public class Appointment extends AbstractAppointment implements Comparable<Appointment> {
   private String description = null;
   private String begin_input = null;
   private String end_input = null;
@@ -123,5 +123,29 @@ public class Appointment extends AbstractAppointment {
      */
   public int getDurationInMinutes() {
     return (int)TimeUnit.MILLISECONDS.toMinutes(end_date.getTime() - begin_date.getTime());
+  }
+
+  /**
+   * Compares two <code>Appointment</code> object and determine their orders.
+   * The order of comparision is begin time, end time, and description.
+   *
+   * @param appointment another <code>Appointment</code> object
+   * @return            returns 0 if two objects are equal, -1 if the other object is smaller, otherwise 1
+     */
+  @Override
+  public int compareTo(Appointment appointment) {
+    int result = this.getBeginTime().compareTo(appointment.getBeginTime());
+
+    if (result != 0) {
+      return result;
+    }
+
+    result = this.getEndTime().compareTo(appointment.getEndTime());;
+
+    if (result != 0) {
+      return result;
+    }
+
+    return this.getDescription().compareTo(appointment.getDescription());
   }
 }
