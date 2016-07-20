@@ -51,6 +51,8 @@ public class Project3 {
     return option.equals(allowed_options.get("TextFile"));
   }
 
+  private static boolean isOptionPretty(String option) { return option.equals(allowed_options.get("Pretty")); }
+
   /**
    * This method will check if a given command line argument is a recognizable option.
    *
@@ -197,6 +199,9 @@ public class Project3 {
 
     String date_time_temp = null;
 
+    String prettyPrint_filename = null;
+    PrettyPrinter prettyPrinter = null;
+
     initOptions();
 
     for (int i = 0; i < args.length; i++) {
@@ -208,6 +213,13 @@ public class Project3 {
               filename = args[i];
             } else {
               programFail("Missing a filename argument");
+            }
+          } else if (isOptionPretty(args[i])) {
+            if (i < args.length - 1) {
+              options.add(args[i++]);
+              prettyPrint_filename = args[i];
+            } else {
+              programFail("Missing a pretty printer argument");
             }
           } else if (isOption(args[i])) {
             options.add(args[i]);
@@ -278,10 +290,23 @@ public class Project3 {
         }
       }
 
-      // print it out if option is on
+      // print the new appointment if print option is on
       if (options.contains(allowed_options.get("Print"))) {
-        for (Appointment app: appointment_book.getAppointments()) {
-          System.out.println(app);
+        System.out.println(appointment);
+      }
+
+      // pretty print if the option is on
+      if (options.contains(allowed_options.get("Pretty"))) {
+        if (prettyPrint_filename.equals("-")) {
+          prettyPrinter = new PrettyPrinter();
+        } else {
+          prettyPrinter = new PrettyPrinter(prettyPrint_filename);
+        }
+
+        try {
+          prettyPrinter.dump(appointment_book);
+        } catch (IOException e) {
+          programFail(e.getMessage());
         }
       }
     }
@@ -295,6 +320,7 @@ public class Project3 {
     allowed_options.put("TextFile", "-textFile");
     allowed_options.put("Print", "-print");
     allowed_options.put("ReadMe", "-README");
+    allowed_options.put("Pretty", "-pretty");
   }
 
 }

@@ -1,5 +1,6 @@
 package edu.pdx.cs410J.jsl;
 
+import edu.pdx.cs410J.ParserException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Created by crayna on 7/19/16.
+ * Unit tests for the {@link PrettyPrinter} class.
  */
 public class PrettyPrintTest {
     AppointmentBook appointmentBook = null;
@@ -49,7 +50,6 @@ public class PrettyPrintTest {
         } catch (ParseException e) {
             fail("Failed to initialize an appointment");
         }
-        prettyPrinter = new PrettyPrinter(filename);
 
         dateFormat = new SimpleDateFormat("mm/dd/yyyy 'at' HH:mm a z");
         date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
@@ -60,6 +60,7 @@ public class PrettyPrintTest {
      */
     @Test
     public void shouldSetFileNameCorrectly() {
+        prettyPrinter = new PrettyPrinter(filename);
         assertThat(prettyPrinter.getFileName(), is(equalTo(filename)));
     }
 
@@ -68,6 +69,8 @@ public class PrettyPrintTest {
      */
     @Test
     public void shouldWriteToFileCorrectly() {
+        prettyPrinter = new PrettyPrinter(filename);
+
         try {
             prettyPrinter.dump(appointmentBook);
         } catch (IOException e) {
