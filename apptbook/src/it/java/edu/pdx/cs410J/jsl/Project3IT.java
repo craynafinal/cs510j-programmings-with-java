@@ -124,12 +124,12 @@ public class Project3IT extends InvokeMainTestCase {
    * It will check if the program runs fine with a 24 hour format date.
    */
   @Test
-  public void shouldWorkWith24HourFormat() {
+  public void shouldNotWorkWith24HourFormat() {
     String date = "11/11/1111 14:00 am";
     MainMethodResult result = invokeMain(owner, description, date, end_time, print);
-    assertThat(result.getExitCode(), is(equalTo(null)));
-    assertThat(result.getOut(),
-            containsString(getDateTimeString(date)));
+    assertThat(result.getExitCode(), is(equalTo(1)));
+    assertThat(result.getErr(),
+            containsString(date));
   }
 
   /**
