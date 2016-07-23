@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.jsl;
 
 import com.google.common.annotations.VisibleForTesting;
+import edu.pdx.cs410J.ParserException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +64,8 @@ public class AppointmentBookServlet extends HttpServlet
         pretty.dump(book);
     }
 
-    private AppointmentBook getAppointmentBookForOwner(String owner) {
+    @VisibleForTesting
+    AppointmentBook getAppointmentBookForOwner(String owner) {
         return this.appointmentBooks.get(owner);
     }
 
@@ -74,6 +77,28 @@ public class AppointmentBookServlet extends HttpServlet
     @Override
     protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
     {
+        response.setContentType( "text/plain" );
+
+        String owner = getParameter("owner", request);
+
+        AppointmentBook book = getAppointmentBookForOwner(owner);
+
+        String description = getParameter("description", request);
+        String beginTime = getParameter("beginTime", request);
+        String endTime = getParameter("endTime", request);
+
+        Appointment appointment = null;
+
+        try {
+            appointment = new Appointment(description, beginTime, endTime);
+        } catch (ParseException e) {
+            throw new IOException(e.getMessage());
+        }
+
+        book.addAppointment(appointment);
+
+        response.setStatus(HttpServletResponse.SC_OK);
+
         /*
         response.setContentType( "text/plain" );
 

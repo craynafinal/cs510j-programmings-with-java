@@ -61,6 +61,14 @@ public class PrettyPrinter implements AppointmentBookDumper {
         }
         */
         this.writer.println(abstractAppointmentBook.getOwnerName());
+
+        AppointmentBook appoitnmentBook = (AppointmentBook) abstractAppointmentBook;
+
+        for (Appointment appointment: appoitnmentBook.getAppointments()) {
+            this.writer.println(appointment.getDescription());
+            this.writer.println(appointment.getBeginTimeString());
+            this.writer.println(appointment.getEndTimeString());
+        }
     }
 
     /**

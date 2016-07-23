@@ -26,6 +26,37 @@ public class AppointmentBookRestClientIT {
   }
 
   @Test
+  public void invokingGETWithJustOwnerParameterPrettyPrintsOwnerName() throws IOException {
+    AppointmentBookRestClient client = newAppointmentBookRestClient();
+
+    String owner = "PreCannedOwner";
+    Response response = client.prettyPrintAppointmentBook(owner);
+    assertThat(response.getContent(), response.getCode(), equalTo(200));
+    assertThat(response.getContent(), containsString(owner));
+  }
+
+  @Test
+  public void invokingPOSTCreatesAnAppointment() throws IOException {
+    AppointmentBookRestClient client = newAppointmentBookRestClient();
+
+    String owner = "PreCannedOwner";
+
+    String description = "Description";
+    String beginTime = "1/1/2016 1:00 PM";
+    String endTime = "1/2/2016 2:00 PM";
+    Response response = client.createAppointment(owner, description, beginTime, endTime);
+    assertThat(response.getContent(), response.getCode(), equalTo(200));
+
+    response = client.prettyPrintAppointmentBook(owner);
+    assertThat(response.getContent(), response.getCode(), equalTo(200));
+    assertThat(response.getContent(), containsString(owner));
+    assertThat(response.getContent(), containsString(description));
+    //assertThat(response.getContent(), containsString(beginTime));
+    //assertThat(response.getContent(), containsString(endTime));
+  }
+
+  /*
+  @Test
   public void test0RemoveAllMappings() throws IOException {
     AppointmentBookRestClient client = newAppointmentBookRestClient();
     Response response = client.removeAllMappings();
@@ -59,5 +90,6 @@ public class AppointmentBookRestClientIT {
     assertThat(response.getContent(), containsString(Messages.missingRequiredParameter("key")));
     assertThat(response.getCode(), equalTo(HttpURLConnection.HTTP_PRECON_FAILED));
   }
+  */
 
 }
