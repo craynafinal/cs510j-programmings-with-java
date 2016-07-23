@@ -1,0 +1,189 @@
+-------------------------------------------------------------------------------
+Test set: edu.pdx.cs410J.jsl.Project3IT
+-------------------------------------------------------------------------------
+Tests run: 37, Failures: 0, Errors: 37, Skipped: 0, Time elapsed: 0.256 sec <<< FAILURE! - in edu.pdx.cs410J.jsl.Project3IT
+shouldWorkWith2DigitMonthFormat(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.111 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldWorkWith2DigitMonthFormat(Project3IT.java:165)
+
+shouldFailWith2DigitYearFormat(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWith2DigitYearFormat(Project3IT.java:118)
+
+printOptionCouldBeInTheMiddle(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.printOptionCouldBeInTheMiddle(Project3IT.java:260)
+
+shouldNotAllowDay0(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowDay0(Project3IT.java:232)
+
+shouldNotAllowDayOver31(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowDayOver31(Project3IT.java:210)
+
+shouldFailWhenOwnerNamesAreDifferent(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.035 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWhenOwnerNamesAreDifferent(Project3IT.java:601)
+
+shouldPrettyPrintToStandardOutputStream(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToStandardOutputStream(Project3IT.java:424)
+
+shouldNotAllowMonthOver12(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowMonthOver12(Project3IT.java:199)
+
+shouldFailWithIncorrectBeginDate(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithIncorrectBeginDate(Project3IT.java:96)
+
+testNoCommandLineArguments(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.005 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.testNoCommandLineArguments(Project3IT.java:75)
+
+printOptionCouldBeAtFront(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.printOptionCouldBeAtFront(Project3IT.java:251)
+
+shouldFailWithIncorrectEndDate(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithIncorrectEndDate(Project3IT.java:107)
+
+shouldFailWithoutFilename(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.009 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithoutFilename(Project3IT.java:549)
+
+printReadMeShouldWorkEvenWithOtherArguments(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.printReadMeShouldWorkEvenWithOtherArguments(Project3IT.java:289)
+
+twoDateStringShouldWork(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.twoDateStringShouldWork(Project3IT.java:333)
+
+wrongOptionShouldFail(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.wrongOptionShouldFail(Project3IT.java:299)
+
+twoDateStringMissingEndDate(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.twoDateStringMissingEndDate(Project3IT.java:351)
+
+wrongFileOptionShouldGenerateEmptyAppointmentBook(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.004 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.wrongFileOptionShouldGenerateEmptyAppointmentBook(Project3IT.java:313)
+
+shouldPrettyPrintToStandardOutputStreamWithPrint(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToStandardOutputStreamWithPrint(Project3IT.java:439)
+
+shouldReadAndWriteToFileIfFileIsCorrect(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.008 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldReadAndWriteToFileIfFileIsCorrect(Project3IT.java:382)
+
+shouldNotWorkWith24HourFormat(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotWorkWith24HourFormat(Project3IT.java:129)
+
+shouldNotAllowMinuteOver59(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowMinuteOver59(Project3IT.java:188)
+
+shouldWorkWith1DigitMonthFormat(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldWorkWith1DigitMonthFormat(Project3IT.java:153)
+
+printOptionShouldPrintAppointmentDescription(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.printOptionShouldPrintAppointmentDescription(Project3IT.java:242)
+
+shouldPrettyPrintToFileWithTextFileAndPrint(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.004 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFileWithTextFileAndPrint(Project3IT.java:515)
+
+shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat(Project3IT.java:571)
+
+shouldNotAllowMonth0(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowMonth0(Project3IT.java:221)
+
+shouldPrettyPrintToFileWithTextFile(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFileWithTextFile(Project3IT.java:499)
+
+printReadMeWhenReadMeOptionSpecified(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.printReadMeWhenReadMeOptionSpecified(Project3IT.java:279)
+
+shouldPrettyPrintToFile(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.004 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFile(Project3IT.java:413)
+
+shouldWorkWith12HourFormat(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldWorkWith12HourFormat(Project3IT.java:141)
+
+shouldPrettyPrintToFileWithPrint(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFileWithPrint(Project3IT.java:480)
+
+shouldPrettyPrintToStandardOutputStreamWithTextFileAndPrint(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToStandardOutputStreamWithTextFileAndPrint(Project3IT.java:460)
+
+appointmentDescriptionShouldNotPrintWithoutPrintOption(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.appointmentDescriptionShouldNotPrintWithoutPrintOption(Project3IT.java:269)
+
+shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven(Project3IT.java:559)
+
+shouldNotAllowHourOver23(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowHourOver23(Project3IT.java:177)
+
+testTooManyCommandLineArguments(edu.pdx.cs410J.jsl.Project3IT)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
+	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
+	at edu.pdx.cs410J.jsl.Project3IT.testTooManyCommandLineArguments(Project3IT.java:85)
+

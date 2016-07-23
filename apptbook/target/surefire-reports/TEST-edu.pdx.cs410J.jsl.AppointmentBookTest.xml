@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.069" tests="2" errors="0" skipped="0" failures="2">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.AppointmentBookTest" time="0.018" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -58,22 +58,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
-    <property name="org.apache.commons.logging.Log" value="org.apache.commons.logging.impl.SimpleLog"/>
   </properties>
-  <testcase name="invokingGETWithJustOwnerParameterPrettyPrintsOwnerName" classname="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0">
-    <failure message="Server Error&#10;Expected: &lt;200&gt;&#10;     but: was &lt;500&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: 
-Server Error
-Expected: <200>
-     but: was <500>
-	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingGETWithJustOwnerParameterPrettyPrintsOwnerName(AppointmentBookRestClientIT.java:34)
-]]></failure>
-  </testcase>
-  <testcase name="invokingPOSTCreatesAnAppointment" classname="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.069">
-    <failure message="Server Error&#10;Expected: &lt;200&gt;&#10;     but: was &lt;500&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: 
-Server Error
-Expected: <200>
-     but: was <500>
-	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingPOSTCreatesAnAppointment(AppointmentBookRestClientIT.java:48)
-]]></failure>
-  </testcase>
+  <testcase name="getAppointmentShouldReturnAppointment" classname="edu.pdx.cs410J.jsl.AppointmentBookTest" time="0.004"/>
+  <testcase name="getOwnerNameShouldBeImplemented" classname="edu.pdx.cs410J.jsl.AppointmentBookTest" time="0"/>
+  <testcase name="getAppointmentShouldReturnEmptyWithoutAdd" classname="edu.pdx.cs410J.jsl.AppointmentBookTest" time="0.004"/>
 </testsuite>

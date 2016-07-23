@@ -1,4 +1,32 @@
 -------------------------------------------------------------------------------
 Test set: edu.pdx.cs410J.jsl.Project4IT
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.161 sec - in edu.pdx.cs410J.jsl.Project4IT
+Tests run: 5, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.193 sec <<< FAILURE! - in edu.pdx.cs410J.jsl.Project4IT
+test2EmptyServer(edu.pdx.cs410J.jsl.Project4IT)  Time elapsed: 0.015 sec  <<< FAILURE!
+java.lang.AssertionError: 
+
+
+Expected: a string containing "Server contains 0 key/value pairs"
+     but: was "
+"
+	at edu.pdx.cs410J.jsl.Project4IT.test2EmptyServer(Project4IT.java:43)
+
+test3NoValues(edu.pdx.cs410J.jsl.Project4IT)  Time elapsed: 0.014 sec  <<< FAILURE!
+java.lang.AssertionError: 
+
+
+Expected: a string containing "Server contains 0 key/value pairs"
+     but: was "
+"
+	at edu.pdx.cs410J.jsl.Project4IT.test3NoValues(Project4IT.java:52)
+
+test4AddValue(edu.pdx.cs410J.jsl.Project4IT)  Time elapsed: 0.021 sec  <<< FAILURE!
+java.lang.AssertionError: 
+** Expected HTTP code 200, got code 500.
+
+Server Error
+
+Expected: <0>
+     but: was <1>
+	at edu.pdx.cs410J.jsl.Project4IT.test4AddValue(Project4IT.java:62)
+

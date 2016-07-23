@@ -1,4 +1,11 @@
 edu/pdx/cs410J/jsl/Messages.class
 edu/pdx/cs410J/jsl/AppointmentBookServlet.class
 edu/pdx/cs410J/jsl/Project4.class
+edu/pdx/cs410J/jsl/PrettyPrinter.class
 edu/pdx/cs410J/jsl/AppointmentBookRestClient.class
+edu/pdx/cs410J/jsl/Project3.class
+edu/pdx/cs410J/jsl/Appointment.class
+edu/pdx/cs410J/jsl/ParseToken.class
+edu/pdx/cs410J/jsl/AppointmentBook.class
+edu/pdx/cs410J/jsl/TextParser.class
+edu/pdx/cs410J/jsl/TextDumper.class

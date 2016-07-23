@@ -45,6 +45,11 @@ public class AppointmentBookServlet extends HttpServlet
 
         String owner = getParameter( "owner", request );
 
+        if (owner == null) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
         AppointmentBook book = getAppointmentBookForOwner(owner);
         /*
         if (owner != null) {
