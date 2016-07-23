@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class PrettyPrinter implements AppointmentBookDumper {
 
+    private PrintWriter writer = null;
     private PrintStream printStream = null;
     private String filename = null;
     private SimpleDateFormat dateFormat = null;
@@ -40,6 +41,10 @@ public class PrettyPrinter implements AppointmentBookDumper {
         setDateTimeFormat();
     }
 
+    public PrettyPrinter(PrintWriter pw) {
+        this.writer = pw;
+    }
+
     /**
      * Overrides <code>dump</code> method of {@link AppointmentBookDumper}.
      * This method will take an instance of {@link AppointmentBook} class
@@ -50,9 +55,12 @@ public class PrettyPrinter implements AppointmentBookDumper {
      */
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
+        /*
         if (abstractAppointmentBook instanceof AppointmentBook) {
             dumpToFile((AppointmentBook)abstractAppointmentBook);
         }
+        */
+        this.writer.println(abstractAppointmentBook.getOwnerName());
     }
 
     /**

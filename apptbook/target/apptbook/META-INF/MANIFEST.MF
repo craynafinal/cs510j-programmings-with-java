@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Built-From-Revision: 2628264d94c7ebdd47fa3bb62e644909cb031d5a
+Implementation-Title: Appointment Book Web/REST Project
+Implementation-Version: 1.0-SNAPSHOT
+Archiver-Version: Plexus Archiver
+Built-By: crayna
+Built-From-Branch: master
+Implementation-Vendor-Id: edu.pdx.cs410J.jsl
+Created-By: Apache Maven
+Build-Jdk: 1.8.0_91
+Built-On:  2016-07-22T21:40:00.233-0700
+Implementation-Vendor: Portland State University
+

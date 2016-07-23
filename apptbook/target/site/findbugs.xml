@@ -1,2 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<BugCollection version='3.0.1' threshold='medium' effort='min'><file classname='edu.pdx.cs410J.jsl.Project2'><BugInstance type='UC_USELESS_OBJECT' priority='Normal' category='STYLE' message='Useless object stored in variable appointment_book of method edu.pdx.cs410J.jsl.Project2.main(String[])' lineNumber='158'/></file><Error></Error><Project><SrcDir>/home/crayna/School/cs510j_project_1/apptbook/src/main/java</SrcDir><SrcDir>/home/crayna/School/cs510j_project_1/apptbook/src/test/java</SrcDir></Project></BugCollection>

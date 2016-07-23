@@ -217,6 +217,7 @@ public class Project3 {
    *              those time arguments should be in date format of mm/dd/yyyy hh:mm a
    *              year must be 4 digits and other fields may be 1 or 2 digits
      */
+  /*
   public static void main(String[] args) {
     List<String> arguments = new ArrayList<String>();
     List<String> options = new ArrayList<String>();
@@ -341,7 +342,7 @@ public class Project3 {
       }
     }
   }
-
+  */
   /**
    * This method will initialize the hashmap contains recognizable options.
    * It is implemented in a hashmap style so the options can be accessed via string indice.
