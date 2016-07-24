@@ -19,11 +19,9 @@ import java.util.List;
 public class PrettyPrinter implements AppointmentBookDumper {
 
     private PrintWriter printWriter = null;
-    private SimpleDateFormat dateFormat = null;
 
     public PrettyPrinter(PrintWriter printWriter) {
         this.printWriter = printWriter;
-        setDateTimeFormat();
     }
 
     /**
@@ -40,13 +38,6 @@ public class PrettyPrinter implements AppointmentBookDumper {
         if (abstractAppointmentBook instanceof AppointmentBook) {
             dumpToFile((AppointmentBook)abstractAppointmentBook);
         }
-    }
-
-    /**
-     * Sets the date time format to print appointment's date information.
-     */
-    private void setDateTimeFormat() {
-        dateFormat = new SimpleDateFormat("mm/dd/yyyy 'at' HH:mm a z");
     }
 
     /**
@@ -69,8 +60,8 @@ public class PrettyPrinter implements AppointmentBookDumper {
 
         for (Appointment app: listOfAppointments) {
             printWriter.println(" " + i++ + ") Appointment: " + app.getDescription());
-            printWriter.println("    Begin Time:  " + dateFormat.format(app.getBeginTime()));
-            printWriter.println("    End Time:    " + dateFormat.format(app.getEndTime()));
+            printWriter.println("    Begin Time:  " + DateUtility.parseStringToDatePrettyPrint(app.getBeginTime()));
+            printWriter.println("    End Time:    " + DateUtility.parseStringToDatePrettyPrint(app.getEndTime()));
             printWriter.println("    Duration:    " + app.getDurationInMinutes() + " Minutes");
         }
         printWriter.close();

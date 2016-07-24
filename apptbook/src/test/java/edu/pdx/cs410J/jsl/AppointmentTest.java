@@ -14,6 +14,9 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
+/**
+ * A unit test for the {@link Appointment}.
+ */
 public class AppointmentTest {
   private Appointment appointment = null;
   private String description = null;

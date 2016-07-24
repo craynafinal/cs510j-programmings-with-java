@@ -12,6 +12,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.fail;
 
+/**
+ * A unit test for the {@link DateUtility}.
+ */
 public class DateUtilityTest {
     @Test
     public void shouldParseStringToDateCorrectly() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.069" tests="2" errors="0" skipped="0" failures="2">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.121" tests="2" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -41,7 +41,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-8-openjdk-amd64/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean verify"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher verify"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -60,20 +60,13 @@
     <property name="sun.cpu.isalist" value=""/>
     <property name="org.apache.commons.logging.Log" value="org.apache.commons.logging.impl.SimpleLog"/>
   </properties>
-  <testcase name="invokingGETWithJustOwnerParameterPrettyPrintsOwnerName" classname="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0">
-    <failure message="Server Error&#10;Expected: &lt;200&gt;&#10;     but: was &lt;500&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: 
-Server Error
-Expected: <200>
-     but: was <500>
-	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingGETWithJustOwnerParameterPrettyPrintsOwnerName(AppointmentBookRestClientIT.java:34)
-]]></failure>
-  </testcase>
-  <testcase name="invokingPOSTCreatesAnAppointment" classname="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.069">
-    <failure message="Server Error&#10;Expected: &lt;200&gt;&#10;     but: was &lt;500&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: 
-Server Error
-Expected: <200>
-     but: was <500>
-	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingPOSTCreatesAnAppointment(AppointmentBookRestClientIT.java:48)
-]]></failure>
+  <testcase name="invokingGETWithJustOwnerParameterPrettyPrintsOwnerName" classname="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.059"/>
+  <testcase name="invokingPOSTCreatesAnAppointment" classname="edu.pdx.cs410J.jsl.AppointmentBookRestClientIT" time="0.06">
+    <failure message="&#10;Expected: a string containing &quot;Description&quot;&#10;     but: was &quot;There is no appointment book matching the owner name: PreCannedOwner&quot;" type="java.lang.AssertionError">java.lang.AssertionError: 
+
+Expected: a string containing "Description"
+     but: was "There is no appointment book matching the owner name: PreCannedOwner"
+	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingPOSTCreatesAnAppointment(AppointmentBookRestClientIT.java:56)
+</failure>
   </testcase>
 </testsuite>

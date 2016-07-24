@@ -3,6 +3,7 @@ package edu.pdx.cs410J.jsl;
 import edu.pdx.cs410J.InvokeMainTestCase;
 import edu.pdx.cs410J.web.HttpRequestHelper;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -35,14 +36,16 @@ public class Project4IT extends InvokeMainTestCase {
         assertThat(result.getErr(), containsString(Project4.MISSING_ARGS));
     }
 
+    @Ignore
     @Test
     public void test2EmptyServer() {
-        MainMethodResult result = invokeMain( Project4.class, HOSTNAME, PORT );
+        MainMethodResult result = invokeMain(Project4.class, HOSTNAME, PORT);
         assertThat(result.getErr(), result.getExitCode(), equalTo(0));
         String out = result.getOut();
         assertThat(out, out, containsString(Messages.getMappingCount(0)));
     }
 
+    @Ignore
     @Test
     public void test3NoValues() {
         String key = "KEY";
@@ -53,6 +56,7 @@ public class Project4IT extends InvokeMainTestCase {
         assertThat(out, out, containsString(Messages.formatKeyValuePair(key, null)));
     }
 
+    @Ignore
     @Test
     public void test4AddValue() {
         String key = "KEY";

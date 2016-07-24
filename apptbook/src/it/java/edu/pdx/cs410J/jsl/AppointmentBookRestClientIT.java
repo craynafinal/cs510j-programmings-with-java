@@ -7,10 +7,12 @@ import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.text.ParseException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.fail;
 
 /**
  * Integration test that tests the REST calls made by {@link AppointmentBookRestClient}
@@ -48,11 +50,17 @@ public class AppointmentBookRestClientIT {
     assertThat(response.getContent(), response.getCode(), equalTo(200));
 
     response = client.prettyPrintAppointmentBook(owner);
+
     assertThat(response.getContent(), response.getCode(), equalTo(200));
     assertThat(response.getContent(), containsString(owner));
     assertThat(response.getContent(), containsString(description));
-    //assertThat(response.getContent(), containsString(beginTime));
-    //assertThat(response.getContent(), containsString(endTime));
+
+    try {
+      assertThat(response.getContent(), containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(beginTime))));
+      assertThat(response.getContent(), containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(endTime))));
+    } catch (ParseException e) {
+      fail(e.getMessage());
+    }
   }
 
 }

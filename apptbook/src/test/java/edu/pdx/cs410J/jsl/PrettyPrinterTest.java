@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.jsl;
 
-import edu.pdx.cs410J.ParserException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,15 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Unit tests for the {@link PrettyPrinter} class.
+ * A unit test for the {@link PrettyPrinter}.
  */
-public class PrettyPrintTest {
+public class PrettyPrinterTest {
     AppointmentBook appointmentBook = null;
     PrettyPrinter prettyPrinter = null;
 
@@ -37,9 +34,6 @@ public class PrettyPrintTest {
     SimpleDateFormat dateFormat = null;
     DateFormat date_format = null;
 
-    /**
-     * Setup member variables.
-     */
     @Before
     public void appointmentSetup() {
         appointmentBook = new AppointmentBook(owner);
@@ -54,9 +48,6 @@ public class PrettyPrintTest {
         date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
     }
 
-    /**
-     * Checks if file gets written successfully.
-     */
     @Test
     public void shouldWriteToFileCorrectly() {
         try {

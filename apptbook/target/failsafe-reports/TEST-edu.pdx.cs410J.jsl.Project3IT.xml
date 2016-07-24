@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.Project3IT" time="0.256" tests="37" errors="37" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.pdx.cs410J.jsl.Project3IT" time="0.064" tests="37" errors="0" skipped="37" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -41,7 +41,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-8-openjdk-amd64/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean verify"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher verify"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -60,226 +60,115 @@
     <property name="sun.cpu.isalist" value=""/>
     <property name="org.apache.commons.logging.Log" value="org.apache.commons.logging.impl.SimpleLog"/>
   </properties>
-  <testcase name="shouldWorkWith2DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.111">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldWorkWith2DigitMonthFormat(Project3IT.java:165)
-</error>
+  <testcase name="shouldWorkWith2DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWith2DigitYearFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWith2DigitYearFormat(Project3IT.java:118)
-</error>
+  <testcase name="shouldFailWith2DigitYearFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="printOptionCouldBeInTheMiddle" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.printOptionCouldBeInTheMiddle(Project3IT.java:260)
-</error>
+  <testcase name="printOptionCouldBeInTheMiddle" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldNotAllowDay0" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowDay0(Project3IT.java:232)
-</error>
+  <testcase name="shouldNotAllowDay0" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldNotAllowDayOver31" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowDayOver31(Project3IT.java:210)
-</error>
+  <testcase name="shouldNotAllowDayOver31" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWhenOwnerNamesAreDifferent" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.035">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWhenOwnerNamesAreDifferent(Project3IT.java:601)
-</error>
+  <testcase name="shouldFailWhenOwnerNamesAreDifferent" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToStandardOutputStream" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToStandardOutputStream(Project3IT.java:424)
-</error>
+  <testcase name="shouldPrettyPrintToStandardOutputStream" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldNotAllowMonthOver12" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowMonthOver12(Project3IT.java:199)
-</error>
+  <testcase name="shouldNotAllowMonthOver12" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWithIncorrectBeginDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithIncorrectBeginDate(Project3IT.java:96)
-</error>
+  <testcase name="shouldFailWithIncorrectBeginDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="testNoCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.005">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.testNoCommandLineArguments(Project3IT.java:75)
-</error>
+  <testcase name="testNoCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="printOptionCouldBeAtFront" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.printOptionCouldBeAtFront(Project3IT.java:251)
-</error>
+  <testcase name="printOptionCouldBeAtFront" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWithIncorrectEndDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithIncorrectEndDate(Project3IT.java:107)
-</error>
+  <testcase name="shouldFailWithIncorrectEndDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWithoutFilename" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.009">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithoutFilename(Project3IT.java:549)
-</error>
+  <testcase name="shouldFailWithoutFilename" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="printReadMeShouldWorkEvenWithOtherArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.printReadMeShouldWorkEvenWithOtherArguments(Project3IT.java:289)
-</error>
+  <testcase name="printReadMeShouldWorkEvenWithOtherArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
   <testcase name="twoDateStringShouldWork" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.twoDateStringShouldWork(Project3IT.java:333)
-</error>
+    <skipped/>
   </testcase>
-  <testcase name="wrongOptionShouldFail" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.wrongOptionShouldFail(Project3IT.java:299)
-</error>
+  <testcase name="wrongOptionShouldFail" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="twoDateStringMissingEndDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.twoDateStringMissingEndDate(Project3IT.java:351)
-</error>
+  <testcase name="twoDateStringMissingEndDate" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="wrongFileOptionShouldGenerateEmptyAppointmentBook" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.wrongFileOptionShouldGenerateEmptyAppointmentBook(Project3IT.java:313)
-</error>
+  <testcase name="wrongFileOptionShouldGenerateEmptyAppointmentBook" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToStandardOutputStreamWithPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToStandardOutputStreamWithPrint(Project3IT.java:439)
-</error>
+  <testcase name="shouldPrettyPrintToStandardOutputStreamWithPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldReadAndWriteToFileIfFileIsCorrect" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.008">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldReadAndWriteToFileIfFileIsCorrect(Project3IT.java:382)
-</error>
+  <testcase name="shouldReadAndWriteToFileIfFileIsCorrect" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldNotWorkWith24HourFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotWorkWith24HourFormat(Project3IT.java:129)
-</error>
+  <testcase name="shouldNotWorkWith24HourFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldNotAllowMinuteOver59" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowMinuteOver59(Project3IT.java:188)
-</error>
+  <testcase name="shouldNotAllowMinuteOver59" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldWorkWith1DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldWorkWith1DigitMonthFormat(Project3IT.java:153)
-</error>
+  <testcase name="shouldWorkWith1DigitMonthFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="printOptionShouldPrintAppointmentDescription" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.printOptionShouldPrintAppointmentDescription(Project3IT.java:242)
-</error>
+  <testcase name="printOptionShouldPrintAppointmentDescription" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToFileWithTextFileAndPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFileWithTextFileAndPrint(Project3IT.java:515)
-</error>
+  <testcase name="shouldPrettyPrintToFileWithTextFileAndPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat(Project3IT.java:571)
-</error>
+  <testcase name="shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
   <testcase name="shouldNotAllowMonth0" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowMonth0(Project3IT.java:221)
-</error>
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToFileWithTextFile" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFileWithTextFile(Project3IT.java:499)
-</error>
+  <testcase name="shouldPrettyPrintToFileWithTextFile" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
   <testcase name="printReadMeWhenReadMeOptionSpecified" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.printReadMeWhenReadMeOptionSpecified(Project3IT.java:279)
-</error>
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToFile" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.004">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFile(Project3IT.java:413)
-</error>
+  <testcase name="shouldPrettyPrintToFile" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldWorkWith12HourFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldWorkWith12HourFormat(Project3IT.java:141)
-</error>
+  <testcase name="shouldWorkWith12HourFormat" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToFileWithPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToFileWithPrint(Project3IT.java:480)
-</error>
+  <testcase name="shouldPrettyPrintToFileWithPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldPrettyPrintToStandardOutputStreamWithTextFileAndPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.001">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldPrettyPrintToStandardOutputStreamWithTextFileAndPrint(Project3IT.java:460)
-</error>
+  <testcase name="shouldPrettyPrintToStandardOutputStreamWithTextFileAndPrint" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="appointmentDescriptionShouldNotPrintWithoutPrintOption" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.appointmentDescriptionShouldNotPrintWithoutPrintOption(Project3IT.java:269)
-</error>
+  <testcase name="appointmentDescriptionShouldNotPrintWithoutPrintOption" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
-  <testcase name="shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.002">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven(Project3IT.java:559)
-</error>
+  <testcase name="shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
   <testcase name="shouldNotAllowHourOver23" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.shouldNotAllowHourOver23(Project3IT.java:177)
-</error>
+    <skipped/>
   </testcase>
-  <testcase name="testTooManyCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0.003">
-    <error message="Class edu.pdx.cs410J.jsl.Project3 does not have a main method" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Class edu.pdx.cs410J.jsl.Project3 does not have a main method
-	at edu.pdx.cs410J.jsl.Project3IT.invokeMain(Project3IT.java:67)
-	at edu.pdx.cs410J.jsl.Project3IT.testTooManyCommandLineArguments(Project3IT.java:85)
-</error>
+  <testcase name="testTooManyCommandLineArguments" classname="edu.pdx.cs410J.jsl.Project3IT" time="0">
+    <skipped/>
   </testcase>
 </testsuite>

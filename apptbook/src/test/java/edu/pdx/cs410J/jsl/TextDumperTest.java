@@ -13,6 +13,9 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
+/**
+ * A unit test for the {@link TextDumper}.
+ */
 public class TextDumperTest {
     AppointmentBook appointmentBook = null;
     TextDumper textDumper = null;
@@ -26,9 +29,6 @@ public class TextDumperTest {
     static final String endtime1 = "11/11/1999 11:11 pm";
     static final String endtime2 = "11/11/1999 1:1 pm";
 
-    /**
-     * Setup member variables.
-     */
     @Before
     public void appointmentSetup() {
         appointmentBook = new AppointmentBook(owner);
@@ -41,17 +41,11 @@ public class TextDumperTest {
         textDumper = new TextDumper(filename);
     }
 
-    /**
-     * Checks if file name assigned correctly.
-     */
     @Test
     public void shouldSetFileNameCorrectly() {
         assertThat(textDumper.getFileName(), is(equalTo(filename)));
     }
 
-    /**
-     * Checks if file gets written successfully.
-     */
     @Test
     public void shouldWriteToFileCorrectly() {
         try {

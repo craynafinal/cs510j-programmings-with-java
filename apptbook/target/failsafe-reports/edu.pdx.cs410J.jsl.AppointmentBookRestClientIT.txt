@@ -1,18 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: edu.pdx.cs410J.jsl.AppointmentBookRestClientIT
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.069 sec <<< FAILURE! - in edu.pdx.cs410J.jsl.AppointmentBookRestClientIT
-invokingGETWithJustOwnerParameterPrettyPrintsOwnerName(edu.pdx.cs410J.jsl.AppointmentBookRestClientIT)  Time elapsed: 0 sec  <<< FAILURE!
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.121 sec <<< FAILURE! - in edu.pdx.cs410J.jsl.AppointmentBookRestClientIT
+invokingPOSTCreatesAnAppointment(edu.pdx.cs410J.jsl.AppointmentBookRestClientIT)  Time elapsed: 0.06 sec  <<< FAILURE!
 java.lang.AssertionError: 
-Server Error
-Expected: <200>
-     but: was <500>
-	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingGETWithJustOwnerParameterPrettyPrintsOwnerName(AppointmentBookRestClientIT.java:34)
 
-invokingPOSTCreatesAnAppointment(edu.pdx.cs410J.jsl.AppointmentBookRestClientIT)  Time elapsed: 0.069 sec  <<< FAILURE!
-java.lang.AssertionError: 
-Server Error
-Expected: <200>
-     but: was <500>
-	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingPOSTCreatesAnAppointment(AppointmentBookRestClientIT.java:48)
+Expected: a string containing "Description"
+     but: was "There is no appointment book matching the owner name: PreCannedOwner"
+	at edu.pdx.cs410J.jsl.AppointmentBookRestClientIT.invokingPOSTCreatesAnAppointment(AppointmentBookRestClientIT.java:56)
 

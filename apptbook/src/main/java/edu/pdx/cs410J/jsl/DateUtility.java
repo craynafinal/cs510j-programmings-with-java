@@ -2,6 +2,7 @@ package edu.pdx.cs410J.jsl;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,18 @@ import java.util.concurrent.TimeUnit;
  */
 public class DateUtility {
     static final private DateFormat date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
+    static final private SimpleDateFormat pretty_format = new SimpleDateFormat("mm/dd/yyyy 'at' HH:mm a z");
+
+    /**
+     * Converts a <code>Date</code> object into a <code>String</code> object for pretty printing.
+     *
+     * @param date a <code>Date</code> object to be converted
+     * @return a <code>String</code> object converted
+     * @throws ParseException
+     */
+    public static String parseStringToDatePrettyPrint(Date date) {
+        return pretty_format.format(date);
+    }
 
     /**
      * Parses a <code>String</code> object into a <code>Date</code> object.

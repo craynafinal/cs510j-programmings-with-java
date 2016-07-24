@@ -1,6 +1,7 @@
 edu/pdx/cs410J/jsl/TextParserTest.class
 edu/pdx/cs410J/jsl/AppointmentBookServletTest.class
 edu/pdx/cs410J/jsl/TextDumperTest.class
+edu/pdx/cs410J/jsl/DateUtilityTest.class
+edu/pdx/cs410J/jsl/PrettyPrinterTest.class
 edu/pdx/cs410J/jsl/AppointmentBookTest.class
 edu/pdx/cs410J/jsl/AppointmentTest.class
-edu/pdx/cs410J/jsl/PrettyPrintTest.class
