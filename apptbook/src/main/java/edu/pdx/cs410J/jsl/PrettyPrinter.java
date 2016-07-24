@@ -5,6 +5,7 @@ import edu.pdx.cs410J.AppointmentBookDumper;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,6 +53,8 @@ public class PrettyPrinter implements AppointmentBookDumper {
 
         String ownerName = appointmentBook.getOwnerName();
         List<Appointment> listOfAppointments = appointmentBook.getAppointments();
+        Collections.sort(listOfAppointments);
+
         int i = 1;
 
         printWriter.println("1. Appointment Book Information");

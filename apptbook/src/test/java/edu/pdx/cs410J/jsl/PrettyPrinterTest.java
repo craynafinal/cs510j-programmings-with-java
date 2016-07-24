@@ -19,33 +19,27 @@ import static org.junit.Assert.fail;
  * A unit test for the {@link PrettyPrinter}.
  */
 public class PrettyPrinterTest {
-    AppointmentBook appointmentBook = null;
-    PrettyPrinter prettyPrinter = null;
-
-    static final String filename = "/home/crayna/Downloads/test222.txt";
-    static final String owner = "owner";
-    static final String desc1 = "desc1";
-    static final String desc2 = "desc2";
-    static final String begintime1 = "11/11/1999 11:11 am";
-    static final String begintime2 = "11/11/1999 1:1 am";
-    static final String endtime1 = "11/11/1999 11:11 pm";
-    static final String endtime2 = "12/11/1999 1:1 pm";
-
-    SimpleDateFormat dateFormat = null;
-    DateFormat date_format = null;
+    private AppointmentBook appointmentBook = null;
+    private PrettyPrinter prettyPrinter = null;
+    private String filename = "/home/crayna/Downloads/test222.txt";
+    private String ownerName = "My owner";
+    private String description = "My description";
+    private String[] beginTime = { "1/3/2016 1:00 AM", "1/1/2016 1:00 AM", "1/2/2016 1:00 AM", "1/2/2016 1:00 AM", "1/3/2016 1:00 AM" };
+    private String[] endTime = { "3/3/2016 1:00 PM", "2/1/2016 1:00 PM", "2/2/2016 1:00 PM", "2/1/2016 1:00 PM", "3/3/2016 1:00 PM" };
+    private int[] order = { 1, 3, 2, 0, 4 };
+    private int[] minute = { 45360, 43920, 45360, 87120, 87120 };
 
     @Before
     public void appointmentSetup() {
-        appointmentBook = new AppointmentBook(owner);
+        appointmentBook = new AppointmentBook(ownerName);
+
         try {
-            appointmentBook.addAppointment(new Appointment(desc1, begintime1, endtime1));
-            appointmentBook.addAppointment(new Appointment(desc2, begintime2, endtime2));
+            for (int i = 0; i < beginTime.length; i++) {
+                appointmentBook.addAppointment(new Appointment(description + (i + 1), beginTime[i], endTime[i]));
+            }
         } catch (ParseException e) {
             fail(e.getMessage());
         }
-
-        dateFormat = new SimpleDateFormat("mm/dd/yyyy 'at' HH:mm a z");
-        date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
     }
 
     @Test
@@ -77,27 +71,23 @@ public class PrettyPrinterTest {
             fail(e.getMessage());
         }
 
-        // delete file
         try {
             Files.delete(Paths.get(filename));
         } catch (IOException x) {
             fail(x.getMessage());
         }
 
-        assertThat(fileContent, containsString(owner));
-        assertThat(fileContent, containsString(desc1));
-        assertThat(fileContent, containsString(desc2));
+        assertThat(fileContent, containsString(ownerName));
 
         try {
-            assertThat(fileContent, containsString(dateFormat.format(date_format.parse(begintime1))));
-            assertThat(fileContent, containsString(dateFormat.format(date_format.parse(endtime2))));
-            assertThat(fileContent, containsString(dateFormat.format(date_format.parse(begintime1))));
-            assertThat(fileContent, containsString(dateFormat.format(date_format.parse(endtime2))));
+            for (int i = 0; i < beginTime.length; i++) {
+                assertThat(fileContent, containsString((i + 1) + ") Appointment: " + description + (order[i] + 1)));
+                assertThat(fileContent, containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(beginTime[i]))));
+                assertThat(fileContent, containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(endTime[i]))));
+                assertThat(fileContent, containsString(minute[i] + " Minutes"));
+            }
         } catch (ParseException e) {
             fail(e.getMessage());
         }
-
-        assertThat(fileContent, containsString("720 Minutes"));
-        assertThat(fileContent, containsString("43920 Minutes"));
     }
 }

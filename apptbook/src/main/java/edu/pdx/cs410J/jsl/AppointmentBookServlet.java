@@ -25,7 +25,7 @@ public class AppointmentBookServlet extends HttpServlet
     private final Map<String, AppointmentBook> appointmentBooks = new HashMap<>();
 
     public AppointmentBookServlet() {
-        createPreCannedAppointmentBook();
+        //createPreCannedAppointmentBook();
     }
 
     private void createPreCannedAppointmentBook() {
@@ -89,7 +89,10 @@ public class AppointmentBookServlet extends HttpServlet
         if (book == null) {
             writeMessage("There is no appointment book matching the owner name: " + owner, response);
             setStatusPrecondFailed(response);
-        } else if (beginTime != null && endTime != null) {
+            return;
+        }
+
+        if (beginTime != null && endTime != null) {
             AppointmentBook tempAppointmentBook = null;
             try {
                 tempAppointmentBook = getAppointmentBookWithSearchedAppointments(book, beginTime, endTime);
@@ -101,15 +104,15 @@ public class AppointmentBookServlet extends HttpServlet
 
             prettyPrint(tempAppointmentBook, response.getWriter());
             setStatusOK(response);
-        } else if (beginTime != null) {
-            writeMessage("The begin time is not provided, please try again...", response);
-            setStatusPrecondFailed(response);
-        } else if (endTime != null) {
-            writeMessage("The end time is not provided, please try again...", response);
-            setStatusPrecondFailed(response);
-        } else {
+        } else if (beginTime == null && endTime == null) {
             prettyPrint(book, response.getWriter());
             setStatusOK(response);
+        } else if (beginTime == null) {
+            writeMessage("The begin time is not provided, please try again...", response);
+            setStatusPrecondFailed(response);
+        } else {
+            writeMessage("The end time is not provided, please try again...", response);
+            setStatusPrecondFailed(response);
         }
     }
 
@@ -172,7 +175,7 @@ public class AppointmentBookServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.setContentType( "text/plain" );
+        response.setContentType("text/plain");
 
         String owner = getParameter("owner", request);
 
@@ -181,7 +184,7 @@ public class AppointmentBookServlet extends HttpServlet
         // if there is no appointment book with the owner name, create one
         if (book == null) {
             book = new AppointmentBook(owner);
-            this.appointmentBooks.put("owner", book);
+            this.appointmentBooks.put(owner, book);
         }
 
         String description = getParameter("description", request);
@@ -193,7 +196,23 @@ public class AppointmentBookServlet extends HttpServlet
         try {
             appointment = new Appointment(description, beginTime, endTime);
         } catch (ParseException e) {
-            throw new IOException(e.getMessage());
+            writeMessage("Failed to parse a time argument provided\n" + e.getMessage(),response);
+            setStatusPrecondFailed(response);
+            return;
+        } catch (NullPointerException e) {
+
+            String target = null;
+            if (description == null) {
+                target = "description";
+            } else if (beginTime == null) {
+                target = "beginTime";
+            } else {
+                target = "endTime";
+            }
+
+            writeMessage("Missing argument for an appointment " + target, response);
+            setStatusPrecondFailed(response);
+            return;
         }
 
         book.addAppointment(appointment);
