@@ -61,13 +61,14 @@ public class PrettyPrinter implements AppointmentBookDumper {
 
         String ownerName = appointmentBook.getOwnerName();
         List<Appointment> listOfAppointments = appointmentBook.getAppointments();
+        int i = 1;
 
         printWriter.println("1. Appointment Book Information");
         printWriter.println(" 1) Owner Name: " + ownerName + "\n");
         printWriter.println("2. Appointments");
 
         for (Appointment app: listOfAppointments) {
-            printWriter.println(" 1) Appointment: " + app.getDescription());
+            printWriter.println(" " + i++ + ") Appointment: " + app.getDescription());
             printWriter.println("    Begin Time:  " + dateFormat.format(app.getBeginTime()));
             printWriter.println("    End Time:    " + dateFormat.format(app.getEndTime()));
             printWriter.println("    Duration:    " + app.getDurationInMinutes() + " Minutes");

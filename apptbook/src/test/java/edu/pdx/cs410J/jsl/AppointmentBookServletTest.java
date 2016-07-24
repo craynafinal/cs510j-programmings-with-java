@@ -2,7 +2,6 @@ package edu.pdx.cs410J.jsl;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.stubbing.OngoingStubbing;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.describedAs;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 
@@ -24,69 +22,125 @@ public class AppointmentBookServletTest {
   private AppointmentBookServlet servlet = null;
   private HttpServletRequest request = null;
   private HttpServletResponse response = null;
-  private PrintWriter pw = null;
+  private PrintWriter printWriter = null;
 
   @Before
   public void appointmentBookServletTestInit() {
     servlet = new AppointmentBookServlet();
     request = mock(HttpServletRequest.class);
     response = mock(HttpServletResponse.class);
-    pw = mock(PrintWriter.class);
+    printWriter = mock(PrintWriter.class);
   }
 
   @Test
-  public void getOnServletWithNullOnwerNameShouldPrintMessage() throws ServletException, IOException {
+  public void shouldPrintMessageWhenOwnerNameIsNotProvided() throws ServletException, IOException {
     when(request.getParameter("owner")).thenReturn(null);
 
-    when(response.getWriter()).thenReturn(pw);
+    when(response.getWriter()).thenReturn(printWriter);
 
     servlet.doGet(request, response);
 
-    verify(pw).println("The owner name is not provided, please try again...");
-    verify(response).setStatus(HttpServletResponse.SC_OK);
+    verify(printWriter).println("The owner name is not provided, please try again...");
+    verify(response).setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
   }
 
   @Test
-  public void getOnServletPrettyPrintPreCannedAppointmentBook() throws ServletException, IOException {
+  public void shouldPrintOwnerName() throws ServletException, IOException {
     String ownerName = "PreCannedOwner";
     when(request.getParameter("owner")).thenReturn(ownerName);
 
-    when(response.getWriter()).thenReturn(pw);
+    when(response.getWriter()).thenReturn(printWriter);
 
     servlet.doGet(request, response);
 
-    verify(pw).println(" 1) Owner Name: " + ownerName + "\n");
+    verify(printWriter).println(" 1) Owner Name: " + ownerName + "\n");
     verify(response).setStatus(HttpServletResponse.SC_OK);
   }
 
   @Test
-  public void getOnServletWithOwnerNameDoesNotExistShouldPrintMessage() throws ServletException, IOException {
+  public void shouldPrintMessageWhenOwnerNameDoesNotExist() throws ServletException, IOException {
     String ownerName = "TestOwner";
     when(request.getParameter("owner")).thenReturn(ownerName);
 
-    when(response.getWriter()).thenReturn(pw);
+    when(response.getWriter()).thenReturn(printWriter);
 
     servlet.doGet(request, response);
 
-    //verify(pw).println("There is no appointment book matching the owner name: " + ownerName);
-    verify(response).setStatus(HttpServletResponse.SC_OK);
+    verify(printWriter).println("There is no appointment book matching the owner name: " + ownerName);
+    verify(response).setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
   }
 
   @Test
-  public void postToServletCreatesAppointment() throws ServletException, IOException {
-    String ownerName = "PreCannedOwner"; // non existing owner's name
-    when(request.getParameter("owner")).thenReturn(ownerName);
+  public void shouldPrintAllListOfAppointments() throws ServletException, IOException {
+    // create appointments
+    String ownerName = "PreCannedOwner";
     String description = "My description";
+    String beginTime = "1/1/2016 1:00 AM";
+    String endTime = "1/1/2016 1:00 PM";
+    int i, max = 5;
+
+    for (i = 0; i < max; i++) {
+      addAppointment(ownerName, description + (i + 1), beginTime, endTime);
+    }
+
+    when(request.getParameter("owner")).thenReturn(ownerName);
+
+    when(response.getWriter()).thenReturn(printWriter);
+
+    servlet.doGet(request, response);
+
+    for (i = 0; i < max; i++) {
+      verify(printWriter).println(" " + (i + 1) + ") Appointment: " + description + (i + 1));
+    }
+    verify(response, times(max + 1)).setStatus(HttpServletResponse.SC_OK);
+  }
+
+  @Test
+  public void shouldPrintSearchedListOfAppointments() throws ServletException, IOException {
+    // create appointments
+    String ownerName = "PreCannedOwner";
+    String description = "My description";
+    String[] beginTime = { "1/1/2016 1:00 AM", "1/2/2016 1:00 AM", "1/3/2016 1:00 AM", "1/4/2016 1:00 AM", "1/5/2016 1:00 AM" };
+    String[] endTime = { "1/1/2016 1:00 PM", "1/2/2016 1:00 PM", "1/3/2016 1:00 PM", "1/4/2016 1:00 PM", "1/5/2016 1:00 PM" };
+    int i, max = 5, start = 1, end = 3;
+
+    for (i = 0; i < max; i++) {
+      addAppointment(ownerName, description + (i + 1), beginTime[i], endTime[i]);
+    }
+
+    //  search get
+    when(request.getParameter("owner")).thenReturn(ownerName);
+    when(request.getParameter("beginTime")).thenReturn(beginTime[start]);
+    when(request.getParameter("endTime")).thenReturn(endTime[end]);
+
+    when(response.getWriter()).thenReturn(printWriter);
+
+    servlet.doGet(request, response);
+
+    for (i = start; i <= end; i++) {
+      verify(printWriter).println(" " + i + ") Appointment: " + description + (i + 1));
+    }
+    verify(response, times(max + 1)).setStatus(HttpServletResponse.SC_OK);
+  }
+
+  private void addAppointment(String ownerName, String description, String beginTime, String endTime) throws IOException, ServletException {
+    when(request.getParameter("owner")).thenReturn(ownerName);
     when(request.getParameter("description")).thenReturn(description);
-    String beginTime = "1/1/2016 1:00 PM";
     when(request.getParameter("beginTime")).thenReturn(beginTime);
-    String endTime = "1/2/2016 2:00 PM";
     when(request.getParameter("endTime")).thenReturn(endTime);
 
-    when(response.getWriter()).thenReturn(pw);
-
+    when(response.getWriter()).thenReturn(printWriter);
     servlet.doPost(request, response);
+  }
 
+  @Test
+  public void shouldCreateAnAppointment() throws ServletException, IOException {
+    String ownerName = "PreCannedOwner";
+    String description = "My description";
+    String beginTime = "1/1/2016 1:00 PM";
+    String endTime = "1/2/2016 2:00 PM";
+
+    addAppointment(ownerName, description, beginTime, endTime);
     verify(response).setStatus(HttpServletResponse.SC_OK);
 
     AppointmentBook book = servlet.getAppointmentBookForOwner(ownerName);
@@ -94,50 +148,7 @@ public class AppointmentBookServletTest {
     assertThat(appointments.size(), equalTo(1));
     Appointment appointment = appointments.iterator().next();
     assertThat(appointment.getDescription(), equalTo(description));
-    //assertThat(appointment.getBeginTimeString(), equalTo(beginTime));
-    //assertThat(appointment.getEndTimeString(), equalTo(endTime));
+    assertThat(appointment.getBeginTimeInput(), equalTo(beginTime));
+    assertThat(appointment.getEndTimeInput(), equalTo(endTime));
   }
-
-  /*
-  // initially provided test cases below this line
-  @Test
-  public void initiallyServletContainsNoKeyValueMappings() throws ServletException, IOException {
-    AppointmentBookServlet servlet = new AppointmentBookServlet();
-
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
-    PrintWriter pw = mock(PrintWriter.class);
-
-    when(response.getWriter()).thenReturn(pw);
-
-    servlet.doGet(request, response);
-
-    int expectedMappings = 0;
-    verify(pw).println(Messages.getMappingCount(expectedMappings));
-    verify(response).setStatus(HttpServletResponse.SC_OK);
-  }
-
-  @Test
-  public void addOneMapping() throws ServletException, IOException {
-    AppointmentBookServlet servlet = new AppointmentBookServlet();
-
-    String testKey = "TEST KEY";
-    String testValue = "TEST VALUE";
-
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getParameter("key")).thenReturn(testKey);
-    when(request.getParameter("value")).thenReturn(testValue);
-
-    HttpServletResponse response = mock(HttpServletResponse.class);
-    PrintWriter pw = mock(PrintWriter.class);
-
-    when(response.getWriter()).thenReturn(pw);
-
-    servlet.doPost(request, response);
-    verify(pw).println(Messages.mappedKeyValue(testKey, testValue));
-    verify(response).setStatus(HttpServletResponse.SC_OK);
-
-    assertThat(servlet.getValueForKey(testKey), equalTo(testValue));
-  }
-  */
 }
