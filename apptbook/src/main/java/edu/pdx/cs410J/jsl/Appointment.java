@@ -2,13 +2,8 @@ package edu.pdx.cs410J.jsl;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The <code>Appointment</code> is the class extended from the {@link AbstractAppointment} class
@@ -22,20 +17,8 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   private String description = null;
   private String begin_input = null;
   private String end_input = null;
-
   private Date begin_date = null;
   private Date end_date = null;
-  private DateFormat date_format = null;
-
-  /**
-   * This constructor takes a list of arguments as a parameter, and the list should have
-   * description, begin time, and end time in order as <code>String</code> data type.
-   *
-   * @param arguments   a List collection that contains description, begin time and end time in order
-     */
-  public Appointment(List<String> arguments) throws ParseException {
-    this(arguments.get(0), arguments.get(1), arguments.get(2));
-  }
 
   /**
    * This constructor takes description, begin time and end time in order.
@@ -46,10 +29,8 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
      */
   public Appointment(String desc, String begin, String end) throws ParseException {
     description = desc;
-
-    date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
-    begin_date = date_format.parse(begin);
-    end_date = date_format.parse(end);
+    begin_date = DateUtility.parseStringToDate(begin);
+    end_date = DateUtility.parseStringToDate(end);
 
     // keep the initial date time inputs for dumping purpose
     begin_input = begin;
@@ -122,7 +103,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * @return  a duration in long format
      */
   public int getDurationInMinutes() {
-    return (int)TimeUnit.MILLISECONDS.toMinutes(end_date.getTime() - begin_date.getTime());
+    return DateUtility.getMinutesBetweenDates(begin_date, end_date);
   }
 
   /**

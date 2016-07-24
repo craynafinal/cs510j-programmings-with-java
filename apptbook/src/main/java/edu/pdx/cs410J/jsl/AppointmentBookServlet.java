@@ -1,7 +1,6 @@
 package edu.pdx.cs410J.jsl;
 
 import com.google.common.annotations.VisibleForTesting;
-import edu.pdx.cs410J.ParserException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This servlet ultimately provides a REST API for working with an
@@ -32,6 +30,17 @@ public class AppointmentBookServlet extends HttpServlet
         this.appointmentBooks.put(owner, book);
     }
 
+    private void writeMessage(String message, HttpServletResponse response) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+        pw.println(message);
+        pw.flush();
+    }
+
+    private void setStatusOK(HttpServletResponse response) {
+        response.setStatus( HttpServletResponse.SC_OK );
+    }
+
     /**
      * Handles an HTTP GET request from a client by writing the value of the key
      * specified in the "key" HTTP parameter to the HTTP response.  If the "key"
@@ -39,29 +48,62 @@ public class AppointmentBookServlet extends HttpServlet
      * HTTP response.
      */
     @Override
-    protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.setContentType( "text/plain" );
-
-        String owner = getParameter( "owner", request );
+        response.setContentType("text/plain");
+        String owner = getParameter("owner", request);
+        String beginTime = getParameter("beginTime", request);
+        String endTime = getParameter("endTime", request);
 
         if (owner == null) {
-            response.setStatus(HttpServletResponse.SC_OK);
+            writeMessage("The owner name is not provided, please try again...", response);
+            setStatusOK(response);
             return;
         }
 
         AppointmentBook book = getAppointmentBookForOwner(owner);
-        /*
-        if (owner != null) {
-            writeValue(owner, response);
+
+        if (book == null) {
+            writeMessage("There is no appointment book matching the owner name: " + owner, response);
+            setStatusOK(response);
+            return;
+        }
+
+        if (beginTime != null && endTime != null) {
+            AppointmentBook tempAppointmentBook = null;
+            try {
+                tempAppointmentBook = getAppointmentBookWithSearchedAppointments(book, beginTime, endTime);
+            } catch (ParseException e) {
+                writeMessage(e.getMessage(), response);
+                setStatusOK(response);
+                return;
+            }
+
+            prettyPrint(tempAppointmentBook, response.getWriter());
+            setStatusOK(response);
 
         } else {
-            writeAllMappings(response);
+            prettyPrint(book, response.getWriter());
+            setStatusOK(response);
         }
-        */
-        prettyPrint(book, response.getWriter());
+    }
 
-        response.setStatus(HttpServletResponse.SC_OK);
+    private AppointmentBook getAppointmentBookWithSearchedAppointments(AppointmentBook book, String beginTime, String endTime) throws ParseException {
+        AppointmentBook tempAppointmentBook = new AppointmentBook(book.getOwnerName());
+        Date begin_date = null;
+        Date end_date = null;
+
+        begin_date = DateUtility.parseStringToDate(beginTime);
+        end_date = DateUtility.parseStringToDate(endTime);
+
+        for (Appointment appointment: book.getAppointments()) {
+            if (appointment.getBeginTime().compareTo(begin_date) >= 0
+                    && appointment.getEndTime().compareTo(end_date) <= 0) {
+                tempAppointmentBook.addAppointment(appointment);
+            }
+        }
+
+        return tempAppointmentBook;
     }
 
     private void prettyPrint(AppointmentBook book, PrintWriter pw) throws IOException {
@@ -80,7 +122,7 @@ public class AppointmentBookServlet extends HttpServlet
      * HTTP response.
      */
     @Override
-    protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setContentType( "text/plain" );
 
@@ -101,32 +143,7 @@ public class AppointmentBookServlet extends HttpServlet
         }
 
         book.addAppointment(appointment);
-
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        /*
-        response.setContentType( "text/plain" );
-
-        String key = getParameter( "key", request );
-        if (key == null) {
-            missingRequiredParameter(response, "key");
-            return;
-        }
-
-        String value = getParameter( "value", request );
-        if ( value == null) {
-            missingRequiredParameter( response, "value" );
-            return;
-        }
-
-        this.appoitnmentBooks.put(key, value);
-
-        PrintWriter pw = response.getWriter();
-        pw.println(Messages.mappedKeyValue(key, value));
-        pw.flush();
-
-        response.setStatus( HttpServletResponse.SC_OK);
-        */
+        setStatusOK(response);
     }
 
     /**
@@ -153,54 +170,11 @@ public class AppointmentBookServlet extends HttpServlet
      *
      * The text of the error message is created by {@link Messages#missingRequiredParameter(String)}
      */
-    private void missingRequiredParameter( HttpServletResponse response, String parameterName )
+    private void missingRequiredParameter(HttpServletResponse response, String parameterName)
         throws IOException
     {
         String message = Messages.missingRequiredParameter(parameterName);
         response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, message);
-    }
-
-    /**
-     * Writes the value of the given key to the HTTP response.
-     *
-     * The text of the message is formatted with {@link Messages#getMappingCount(int)}
-     * and {@link Messages#formatKeyValuePair(String, String)}
-     */
-    private void writeValue( String key, HttpServletResponse response ) throws IOException
-    {
-        /*
-        String value = this.appoitnmentBooks.get(key);
-
-        PrintWriter pw = response.getWriter();
-        pw.println(Messages.getMappingCount( value != null ? 1 : 0 ));
-        pw.println(Messages.formatKeyValuePair(key, value));
-
-        pw.flush();
-
-        response.setStatus( HttpServletResponse.SC_OK );
-        */
-    }
-
-    /**
-     * Writes all of the key/value pairs to the HTTP response.
-     *
-     * The text of the message is formatted with
-     * {@link Messages#formatKeyValuePair(String, String)}
-     */
-    private void writeAllMappings( HttpServletResponse response ) throws IOException
-    {
-        /*
-        PrintWriter pw = response.getWriter();
-        pw.println(Messages.getMappingCount(appoitnmentBooks.size()));
-
-        for (Map.Entry<String, String> entry : this.appoitnmentBooks.entrySet()) {
-            pw.println(Messages.formatKeyValuePair(entry.getKey(), entry.getValue()));
-        }
-
-        pw.flush();
-
-        response.setStatus( HttpServletResponse.SC_OK );
-        */
     }
 
     /**
@@ -215,18 +189,7 @@ public class AppointmentBookServlet extends HttpServlet
         return null;
 
       } else {
-        return value;
+        return value.replace("%20", " ");
       }
-    }
-    /*
-    @VisibleForTesting
-    void setValueForKey(String key, String value) {
-        this.appoitnmentBooks.put(key, value);
-    }
-    */
-    @VisibleForTesting
-    String getValueForKey(String key) {
-        //return this.appoitnmentBooks.get(key);
-        throw new UnsupportedOperationException("test");
     }
 }

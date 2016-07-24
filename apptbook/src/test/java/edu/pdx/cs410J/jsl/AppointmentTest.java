@@ -14,24 +14,21 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-/**
- * Unit tests for the {@link Appointment} class.
- */
 public class AppointmentTest {
-  Appointment appointment = null;
-  String description = null;
-  String begin_time = null;
-  String end_time = null;
+  private Appointment appointment = null;
+  private String description = null;
+  private String begin_time = null;
+  private String end_time = null;
 
-  Appointment a1 = null;
-  Appointment a2 = null;
-  Appointment a3 = null;
-  Appointment a4 = null;
-  Appointment a5 = null;
-  Appointment a6 = null;
-  Appointment a7 = null;
+  private Appointment a1 = null;
+  private Appointment a2 = null;
+  private Appointment a3 = null;
+  private Appointment a4 = null;
+  private Appointment a5 = null;
+  private Appointment a6 = null;
+  private Appointment a7 = null;
 
-  List<Appointment> list = null;
+  private List<Appointment> list = null;
 
   @Before
   public void appointmentSetup() {
@@ -44,9 +41,6 @@ public class AppointmentTest {
     list = new ArrayList<>();
   }
 
-  /**
-   * Creates an appointment instance.
-   */
   private Appointment createAppointment(String description, String beginTime, String endTime) {
     // added try catch for ParseException because of Project 3
     try {
@@ -58,45 +52,28 @@ public class AppointmentTest {
     return null;
   }
 
-  /**
-   * It will check if a description of an appointment is assigned correctly.
-   */
   @Test
   public void getDescriptionNeedsToBeImplemented() {
     assertThat(appointment.getDescription(), is(equalTo(description)));
   }
 
-  /**
-   * It will check if a begin time of an appointment is assigned correctly.
-   */
   @Test
   public void getTimeStringNeedsToBeImplemented() {
     assertThat(appointment.getBeginTimeString(), containsString(getDateTimeString(begin_time)));
     assertThat(appointment.getEndTimeString(), containsString(getDateTimeString(end_time)));
   }
 
-  /**
-   * The get input methods should return raw time inputs.
-   */
   @Test
   public void getInputMethodsShouldReturnRawInputs() {
     assertThat(appointment.getBeginTimeInput(), is(equalTo(begin_time)));
     assertThat(appointment.getEndTimeInput(), is(equalTo(end_time)));
   }
 
-  /**
-   * The duration of an appointment should be correct.
-   */
   @Test
   public void durationOfAppointmentShouldBeCorrect() {
     assertThat(appointment.getDurationInMinutes(), is(equalTo(12*60)));
   }
 
-  /**
-   * Convert a date time string into a string filtered by <code>DateFormat.Short</code>.
-   * @param dateTime  a date time format in mm/dd/yyyy hh:mm am/pm
-   * @return
-   */
   private String getDateTimeString(String dateTime) {
     DateFormat date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
     String dateTimeInFormat = null;
@@ -109,9 +86,6 @@ public class AppointmentTest {
     return dateTimeInFormat;
   }
 
-  /**
-   * Check ordering of <code>Appointment</code> instances using descriptions.
-   */
   @Test
   public void checkAppointmentOrderingDescription() {
     try {
@@ -137,9 +111,6 @@ public class AppointmentTest {
     assertThat(list.get(6), is(equalTo(a1)));
   }
 
-  /**
-   * Add appointments to the list and sort.
-   */
   private void addAppointmentsToListAndSort() {
     list.add(a1);
     list.add(a2);
@@ -152,9 +123,6 @@ public class AppointmentTest {
     Collections.sort(list);
   }
 
-  /**
-   * Check ordering of <code>Appointment</code> instances using begin times.
-   */
   @Test
   public void checkAppointmentOrderingBeginTime() {
 
@@ -181,9 +149,6 @@ public class AppointmentTest {
     assertThat(list.get(6), is(equalTo(a1)));
   }
 
-  /**
-   * Check ordering of <code>Appointment</code> instances using end times.
-   */
   @Test
   public void checkAppointmentOrderingEndTime() {
 
