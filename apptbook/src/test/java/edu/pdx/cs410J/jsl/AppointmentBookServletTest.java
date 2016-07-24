@@ -28,16 +28,15 @@ public class AppointmentBookServletTest {
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
     PrintWriter pw = mock(PrintWriter.class);
-
-
-    String ownerName = "PreCannedOwner"; // non existing owner's name
+    
+    String ownerName = "PreCannedOwner";
     when(request.getParameter("owner")).thenReturn(ownerName);
 
     when(response.getWriter()).thenReturn(pw);
 
     servlet.doGet(request, response);
 
-    verify(pw).println(ownerName);
+    verify(pw).println(" 1) Owner Name: " + ownerName + "\n");
     verify(response).setStatus(HttpServletResponse.SC_OK);
   }
 

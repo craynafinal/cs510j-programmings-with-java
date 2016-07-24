@@ -4,8 +4,7 @@ import edu.pdx.cs410J.ParserException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -48,7 +47,7 @@ public class PrettyPrintTest {
             appointmentBook.addAppointment(new Appointment(desc1, begintime1, endtime1));
             appointmentBook.addAppointment(new Appointment(desc2, begintime2, endtime2));
         } catch (ParseException e) {
-            fail("Failed to initialize an appointment");
+            fail(e.getMessage());
         }
 
         dateFormat = new SimpleDateFormat("mm/dd/yyyy 'at' HH:mm a z");
@@ -56,25 +55,20 @@ public class PrettyPrintTest {
     }
 
     /**
-     * Checks if file name assigned correctly.
-     */
-    @Test
-    public void shouldSetFileNameCorrectly() {
-        prettyPrinter = new PrettyPrinter(filename);
-        assertThat(prettyPrinter.getFileName(), is(equalTo(filename)));
-    }
-
-    /**
      * Checks if file gets written successfully.
      */
     @Test
-    public void shouldWriteToFileCorrectly() {/*
-        prettyPrinter = new PrettyPrinter(filename);
+    public void shouldWriteToFileCorrectly() {
+        try {
+            prettyPrinter = new PrettyPrinter(new PrintWriter(new File(filename)));
+        } catch (FileNotFoundException e) {
+            fail(e.getMessage());
+        }
 
         try {
             prettyPrinter.dump(appointmentBook);
         } catch (IOException e) {
-            fail("IO Exception triggered while dumping to file");
+            fail(e.getMessage());
         }
 
         byte[] encoded = null;
@@ -83,20 +77,20 @@ public class PrettyPrintTest {
         try {
             encoded = Files.readAllBytes(Paths.get(filename));
         } catch (IOException e) {
-            fail("IO Exception triggered while getting file content");
+            fail(e.getMessage());
         }
 
         try {
             fileContent = new String(encoded, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            fail("Unsupported Encoding Exception triggered");
+            fail(e.getMessage());
         }
 
         // delete file
         try {
             Files.delete(Paths.get(filename));
         } catch (IOException x) {
-            fail("IO Exception triggered while deleting file");
+            fail(x.getMessage());
         }
 
         assertThat(fileContent, containsString(owner));
@@ -113,6 +107,6 @@ public class PrettyPrintTest {
         }
 
         assertThat(fileContent, containsString("720 Minutes"));
-        assertThat(fileContent, containsString("43920 Minutes"));*/
+        assertThat(fileContent, containsString("43920 Minutes"));
     }
 }
