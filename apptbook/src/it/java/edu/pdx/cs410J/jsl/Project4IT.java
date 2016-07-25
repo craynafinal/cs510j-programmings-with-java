@@ -140,7 +140,7 @@ public class Project4IT extends InvokeMainTestCase {
             }
         }
 
-        MainMethodResult result = invokeMain(OPTION_HOST, HOSTNAME, OPTION_PORT, PORT, ownerName, beginTime[start], endTime[end], OPTION_SEARCH);
+        MainMethodResult result = invokeMain(OPTION_HOST, HOSTNAME, OPTION_PORT, PORT, ownerName, description, beginTime[start], endTime[end], OPTION_SEARCH);
 
         assertThat(result.getExitCode(), is(equalTo(null)));
         assertThat(result.getOut(), containsString(ownerName));

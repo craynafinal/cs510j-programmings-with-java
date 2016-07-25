@@ -1,12 +1,12 @@
 package edu.pdx.cs410J.jsl;
 
+import edu.pdx.cs410J.web.HttpRequestHelper;
 import edu.pdx.cs410J.web.HttpRequestHelper.Response;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.text.ParseException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,17 +31,16 @@ public class AppointmentBookRestClientIT {
   @Test
   public void invokingGETWithJustOwnerParameterPrettyPrintsOwnerName() throws IOException {
 
-    /*
     AppointmentBookRestClient client = newAppointmentBookRestClient();
 
     String owner = "My Owner";
-    Response response = client.prettyPrintAppointmentBook(owner);
+    HttpRequestHelper.Response response = client.prettyPrintAppointmentBook(owner);
 
     System.out.println(response.getCode());
+    System.out.println(response.getContent());
 
     assertThat(response.getContent(), response.getCode(), equalTo(401));
     assertThat(response.getContent(), containsString(owner));
-    */
   }
 
 
@@ -88,6 +87,39 @@ public class AppointmentBookRestClientIT {
       assertThat(response.getContent(), containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(endTime))));
     } catch (ParseException e) {
       fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void invokingGETSearchesAppointments() throws IOException {
+    AppointmentBookRestClient client = newAppointmentBookRestClient();
+
+    String owner = "My Owner";
+    String description = "Description";
+    String[] beginTime = { "1/1/2016 1:00 AM", "1/2/2016 1:00 AM", "1/3/2016 1:00 AM", "1/4/2016 1:00 AM", "1/5/2016 1:00 AM" };
+    String[] endTime = { "1/1/2016 1:00 PM", "1/2/2016 1:00 PM", "1/3/2016 1:00 PM", "1/4/2016 1:00 PM", "1/5/2016 1:00 PM" };
+    int i, max = 5, start = 1, end = 3;
+
+    Response response = null;
+
+    for (i = 0; i < max; i++) {
+      response = client.createAppointment(owner, description + (i + 1), beginTime[i], endTime[i]);
+      assertThat(response.getContent(), response.getCode(), equalTo(200));
+    }
+
+    response = client.searchAppointment(owner, beginTime[start], endTime[end]);
+
+    assertThat(response.getContent(), response.getCode(), equalTo(200));
+    assertThat(response.getContent(), containsString(owner));
+
+    for (i = start; i < end; i++) {
+      assertThat(response.getContent(), containsString(description + (i + 1)));
+      try {
+        assertThat(response.getContent(), containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(beginTime[i]))));
+        assertThat(response.getContent(), containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(endTime[i]))));
+      } catch (ParseException e) {
+        fail(e.getMessage());
+      }
     }
   }
 
