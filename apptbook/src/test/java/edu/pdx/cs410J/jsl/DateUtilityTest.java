@@ -46,4 +46,42 @@ public class DateUtilityTest {
 
         assertThat(DateUtility.getMinutesBetweenDates(firstDate, secondDate), is(equalTo(60)));
     }
+
+    @Test
+    public void shouldRecognizeDateTimeString() {
+        String correct = "1/1/2016 1:00 PM";
+        String incorrect = "wrong format";
+
+        assertThat(DateUtility.checkDateTimeFormat(correct), is(equalTo(true)));
+        assertThat(DateUtility.checkDateTimeFormat(incorrect), is(equalTo(false)));
+    }
+
+    @Test
+    public void shouldRecognizeDateString() {
+        String correct = "1/1/2016";
+        String incorrect = "wrong format";
+
+        assertThat(DateUtility.checkDateFormat(correct), is(equalTo(true)));
+        assertThat(DateUtility.checkDateFormat(incorrect), is(equalTo(false)));
+    }
+
+    @Test
+    public void shouldRecognizeTimeString() {
+        String correct = "1:00";
+        String incorrect = "wrong format";
+
+        assertThat(DateUtility.checkTimeFormat(correct), is(equalTo(true)));
+        assertThat(DateUtility.checkTimeFormat(incorrect), is(equalTo(false)));
+    }
+
+    @Test
+    public void shouldRecognizeAMOrPMString() {
+        String am = "AM";
+        String pm = "PM";
+        String incorrect = "wrong format";
+
+        assertThat(DateUtility.checkAMOrPM(am), is(equalTo(true)));
+        assertThat(DateUtility.checkAMOrPM(pm), is(equalTo(true)));
+        assertThat(DateUtility.checkAMOrPM(incorrect), is(equalTo(false)));
+    }
 }
