@@ -113,7 +113,7 @@ public class AppointmentBookServletTest {
       addAppointment(ownerName, description + (i + 1), beginTime[i], endTime[i]);
     }
 
-    //  search get
+    // search get
     when(request.getParameter("owner")).thenReturn(ownerName);
     when(request.getParameter("beginTime")).thenReturn(beginTime[start]);
     when(request.getParameter("endTime")).thenReturn(endTime[end]);

@@ -78,19 +78,24 @@ public class AppointmentBookServlet extends HttpServlet
         String beginTime = getParameter("beginTime", request);
         String endTime = getParameter("endTime", request);
 
+
         if (owner == null) {
             writeMessage("The owner name is not provided, please try again...", response);
             setStatusPrecondFailed(response);
             return;
         }
 
+
         AppointmentBook book = getAppointmentBookForOwner(owner);
+
 
         if (book == null) {
             writeMessage("There is no appointment book matching the owner name: " + owner, response);
             setStatusPrecondFailed(response);
+
             return;
         }
+
 
         if (beginTime != null && endTime != null) {
             AppointmentBook tempAppointmentBook = null;

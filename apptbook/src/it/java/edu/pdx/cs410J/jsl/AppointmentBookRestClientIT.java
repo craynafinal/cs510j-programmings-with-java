@@ -30,12 +30,37 @@ public class AppointmentBookRestClientIT {
   // this one is also not working, getting there is no precondowner msg
   @Test
   public void invokingGETWithJustOwnerParameterPrettyPrintsOwnerName() throws IOException {
+
     /*
     AppointmentBookRestClient client = newAppointmentBookRestClient();
 
-    String owner = "PreCannedOwner";
+    String owner = "My Owner";
     Response response = client.prettyPrintAppointmentBook(owner);
+
+    System.out.println(response.getCode());
+
     assertThat(response.getContent(), response.getCode(), equalTo(401));
+    assertThat(response.getContent(), containsString(owner));
+    */
+  }
+
+
+  @Test
+  public void invokingGETWithOwnerParameterPrettyPrintsAppointmentBook() throws IOException {
+    /*
+    AppointmentBookRestClient client = newAppointmentBookRestClient();
+
+    String owner = "My Owner";
+
+    String description = "Description";
+    String beginTime = "1/1/2016 1:00 PM";
+    String endTime = "1/2/2016 2:00 PM";
+    Response response = client.createAppointment(owner, description, beginTime, endTime);
+    assertThat(response.getContent(), response.getCode(), equalTo(200));
+
+    System.out.println(response.getCode());
+
+    assertThat(response.getContent(), response.getCode(), equalTo(200));
     assertThat(response.getContent(), containsString(owner));
     */
   }

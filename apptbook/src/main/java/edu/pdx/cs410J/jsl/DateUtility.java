@@ -50,4 +50,45 @@ public class DateUtility {
     public static int getMinutesBetweenDates(Date begin_date, Date end_date) {
         return (int) TimeUnit.MILLISECONDS.toMinutes(end_date.getTime() - begin_date.getTime());
     }
+
+    /**
+     * This method will use regex to check if a given date time is in date time format.
+     *
+     * @param datetime  a date in string format
+     * @return          true if a date is in date format, otherwise false
+     */
+    public static boolean checkDateTimeFormat(String datetime) {
+        return datetime.matches
+                ("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4} ([0]?[0-9]|1[0-2]):[0-5]?[0-9] (am|AM|pm|PM)");
+    }
+
+    /**
+     * This method will use regex to check if a given date is in date format.
+     *
+     * @param date  a date in string format
+     * @return      true if a date is in date format, otherwise false
+     */
+    public static boolean checkDateFormat(String date) {
+        return date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4}");
+    }
+
+    /**
+     * This method will use regex to check if a given date is in time format.
+     *
+     * @param time  a date in string format
+     * @return      true if a date is in date format, otherwise false
+     */
+    public static boolean checkTimeFormat(String time) {
+        return time.matches("([0]?[0-9]|1[0-2]):[0-5]?[0-9]");
+    }
+
+    /**
+     * This method will use regex to check if a given date is am, AM, pm, or PM.
+     *
+     * @param token a token in string format
+     * @return      true if it is either am, AM, pm, or PM, otherwise false
+     */
+    public static boolean checkAMOrPM(String token) {
+        return token.matches("(am|AM|pm|PM)");
+    }
 }

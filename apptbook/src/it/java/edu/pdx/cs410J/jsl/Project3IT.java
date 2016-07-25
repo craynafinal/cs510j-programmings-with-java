@@ -65,13 +65,13 @@ public class Project3IT extends InvokeMainTestCase {
    * Invokes the main method of {@link Project3} with the given arguments.
    */
   private MainMethodResult invokeMain(String... args) {
-    return invokeMain( Project3.class, args );
+    return invokeMain( Project4.class, args );
   }
 
   /**
    * Tests that invoking the main method with no arguments issues an error.
    */
-  @Ignore
+
   @Test
   public void testNoCommandLineArguments() {
     MainMethodResult result = invokeMain();
@@ -82,7 +82,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails when executed with too many arguments.
    */
-  @Ignore
+
   @Test
   public void testTooManyCommandLineArguments() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, owner);
@@ -93,7 +93,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails when executed with an incorrect begin date.
    */
-  @Ignore
+
   @Test
   public void shouldFailWithIncorrectBeginDate() {
     String date = "wrong format";
@@ -105,7 +105,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails when executed with an incorrect end date.
    */
-  @Ignore
+
   @Test
   public void shouldFailWithIncorrectEndDate() {
     String date = "wrong format";
@@ -117,7 +117,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails when executed with a 2 digit year date.
    */
-  @Ignore
+
   @Test
   public void shouldFailWith2DigitYearFormat() {
     String date = "11/11/11 14:00 am";
@@ -129,7 +129,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program runs fine with a 24 hour format date.
    */
-  @Ignore
+
   @Test
   public void shouldNotWorkWith24HourFormat() {
     String date = "11/11/1111 14:00 am";
@@ -142,7 +142,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program runs fine with a 12 hour format date.
    */
-  @Ignore
+
   @Test
   public void shouldWorkWith12HourFormat() {
     String date = "11/11/1111 1:00 am";
@@ -155,7 +155,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program runs fine with a 1 digit month.
    */
-  @Ignore
+
   @Test
   public void shouldWorkWith1DigitMonthFormat() {
     String date = "1/11/1111 00:00 am";
@@ -168,7 +168,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program runs fine with a 2 digit month.
    */
-  @Ignore
+
   @Test
   public void shouldWorkWith2DigitMonthFormat() {
     String date = "01/11/1999 00:00 am";
@@ -181,7 +181,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a time over 23.
    */
-  @Ignore
+
   @Test
   public void shouldNotAllowHourOver23() {
     String date = "01/11/1111 24:00";
@@ -193,7 +193,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a minute over 59.
    */
-  @Ignore
+
   @Test
   public void shouldNotAllowMinuteOver59() {
     String date = "01/11/1111 01:60";
@@ -205,7 +205,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a month over 12.
    */
-  @Ignore
+
   @Test
   public void shouldNotAllowMonthOver12() {
     String date = "13/11/1111 01:01";
@@ -217,7 +217,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a day over 13.
    */
-  @Ignore
+
   @Test
   public void shouldNotAllowDayOver31() {
     String date = "01/32/1111 01:01";
@@ -229,7 +229,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a month value 0.
    */
-  @Ignore
+
   @Test
   public void shouldNotAllowMonth0() {
     String date = "0/11/1111 01:01";
@@ -241,7 +241,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a day value 0.
    */
-  @Ignore
+
   @Test
   public void shouldNotAllowDay0() {
     String date = "01/0/1111 01:01";
@@ -253,7 +253,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program prints information of an appointment with print option.
    */
-  @Ignore
+
   @Test
   public void printOptionShouldPrintAppointmentDescription() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, print);
@@ -263,7 +263,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program prints information when print option is at front.
    */
-  @Ignore
+
   @Test
   public void printOptionCouldBeAtFront() {
     MainMethodResult result = invokeMain(print, owner, description, begin_time, end_time);
@@ -273,7 +273,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program prints information when print option is in the middle.
    */
-  @Ignore
+
   @Test
   public void printOptionCouldBeInTheMiddle() {
     MainMethodResult result = invokeMain(owner, description, print, begin_time, end_time);
@@ -283,7 +283,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program does not print information without print option.
    */
-  @Ignore
+
   @Test
   public void appointmentDescriptionShouldNotPrintWithoutPrintOption() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time);
@@ -294,7 +294,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program prints readme when readme option is specified.
    */
-  @Ignore
+
   @Test
   public void printReadMeWhenReadMeOptionSpecified() {
     MainMethodResult result = invokeMain(read_me);
@@ -305,7 +305,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program performs readme print even with other arguments and print option on.
    */
-  @Ignore
+
   @Test
   public void printReadMeShouldWorkEvenWithOtherArguments() {
     MainMethodResult result = invokeMain(read_me, owner, description, begin_time, end_time, print);
@@ -316,7 +316,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with a wrong option given.
    */
-  @Ignore
+
   @Test
   public void wrongOptionShouldFail() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, "-test");
@@ -327,7 +327,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program generates an empty appointment book when it cannot find the given file.
    */
-  @Ignore
+
   @Test
   public void wrongFileOptionShouldGenerateEmptyAppointmentBook() {
     deleteFile(empty_filename);
@@ -343,7 +343,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Testing multi word dates
    */
-  @Ignore
+
   @Test
   public void twoDateStringShouldWork() {
     String beginDate = "12/12/1999";
@@ -367,7 +367,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Testing mutl word end date missing
    */
-  @Ignore
+
   @Test
   public void twoDateStringMissingEndDate() {
     String beginDate = "12/12/1999";
@@ -382,7 +382,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program works as expected when a file is given.
    */
-  @Ignore
+
   @Test
   public void shouldReadAndWriteToFileIfFileIsCorrect() {
     deleteFile(filename);
@@ -420,7 +420,7 @@ public class Project3IT extends InvokeMainTestCase {
    * Deletes the provided file.
    *
    * @param filename  A name of a file to delete
-     */
+   */
   private void deleteFile(String filename) {
     if (Files.exists(Paths.get(filename))) {
       try {
@@ -434,7 +434,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Tests if a file generated by pretty printer.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToFile() {
     deleteFile(filename);
@@ -447,7 +447,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Tests if pretty printed on standard output.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToStandardOutputStream() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, pretty, "-");
@@ -463,7 +463,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Tests if pretty printed on standard output with print option.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToStandardOutputStreamWithPrint() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, pretty, "-", print);
@@ -483,7 +483,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Tests if pretty printed on standard output with print and text file options.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToStandardOutputStreamWithTextFileAndPrint() {
     deleteFile(filename);
@@ -505,7 +505,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Tests if a file generated by pretty printer and print option should print the new appointment.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToFileWithPrint() {
     deleteFile(filename);
@@ -523,7 +523,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * Tests if a file generated by pretty printer and text file.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToFileWithTextFile() {
     deleteFile(filename);
@@ -540,7 +540,7 @@ public class Project3IT extends InvokeMainTestCase {
    * Tests if a file generated by pretty printer and text file,
    * and printer writes the appointment to standard output stream.
    */
-  @Ignore
+
   @Test
   public void shouldPrettyPrintToFileWithTextFileAndPrint() {
     deleteFile(filename);
@@ -562,7 +562,7 @@ public class Project3IT extends InvokeMainTestCase {
    * Convert a date time string into a string filtered by <code>DateFormat.Short</code>.
    * @param dateTime  a date time format in mm/dd/yyyy hh:mm am/pm
    * @return
-     */
+   */
   private String getDateTimeString(String dateTime) {
     DateFormat date_format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH);
     String dateTimeInFormat = null;
@@ -578,7 +578,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails with no filename given.
    */
-  @Ignore
+
   @Test
   public void shouldFailWithoutFilename() {
     MainMethodResult result = invokeMain(owner, description, begin_time, end_time, print, text_file);
@@ -589,7 +589,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It will check if the program fails when one of the arguments consumed as a text file path.
    */
-  @Ignore
+
   @Test
   public void shouldFailWithFileOptionInTheMiddleAndNoFilenameGiven() {
     MainMethodResult result = invokeMain(owner, description, text_file, begin_time, end_time, print);
@@ -601,7 +601,7 @@ public class Project3IT extends InvokeMainTestCase {
    * It will check if the program fails when one of the arguments consumed as a text file path
    * and using two word date format.
    */
-  @Ignore
+
   @Test
   public void shouldFailWithFileOptionInTheMiddleAndNoFilenameGivenTwoWordDateFormat() {
     MainMethodResult result =
@@ -613,7 +613,7 @@ public class Project3IT extends InvokeMainTestCase {
   /**
    * It should fail when the owner name in the file is different from the command line argument.
    */
-  @Ignore
+
   @Test
   public void shouldFailWhenOwnerNamesAreDifferent() {
     deleteFile(filename);

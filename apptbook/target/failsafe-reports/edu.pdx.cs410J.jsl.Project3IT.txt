@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.pdx.cs410J.jsl.Project3IT
 -------------------------------------------------------------------------------
-Tests run: 37, Failures: 0, Errors: 0, Skipped: 37, Time elapsed: 0.029 sec - in edu.pdx.cs410J.jsl.Project3IT
+Tests run: 37, Failures: 0, Errors: 0, Skipped: 37, Time elapsed: 0.067 sec - in edu.pdx.cs410J.jsl.Project3IT
