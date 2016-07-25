@@ -45,24 +45,6 @@ public class AppointmentBookServletTest {
   }
 
   @Test
-  public void shouldPrintOwnerName() throws ServletException, IOException {
-    /*
-    String ownerName = "PreCannedOwner";
-    when(request.getParameter("owner")).thenReturn(ownerName);
-    //when(request.getParameter("owner")).thenReturn(ownerName);
-    //when(request.getParameter("owner")).thenReturn(ownerName);
-
-    when(response.getWriter()).thenReturn(printWriter);
-
-    servlet.doPost(request, response);
-    servlet.doGet(request, response);
-
-    verify(printWriter).println(" 1) Owner Name: " + ownerName + "\n");
-    verify(response).setStatus(HttpServletResponse.SC_OK);
-    */
-  }
-
-  @Test
   public void shouldPrintMessageWhenOwnerNameDoesNotExist() throws ServletException, IOException {
     String ownerName = "TestOwner";
     when(request.getParameter("owner")).thenReturn(ownerName);

@@ -7,6 +7,10 @@ import java.io.IOException;
 
 /**
  * A helper class for accessing the rest client
+ *
+ * @author Jong Seong Lee
+ * @version   %I%, %G%
+ * @since     1.0
  */
 public class AppointmentBookRestClient extends HttpRequestHelper
 {
@@ -17,7 +21,8 @@ public class AppointmentBookRestClient extends HttpRequestHelper
 
 
     /**
-     * Creates a client to the appointment book REST service running on the given host and port
+     * Creates a client to the appointment book REST service running on the given host and port.
+     *
      * @param hostName The name of the host
      * @param port The port
      */
@@ -27,43 +32,39 @@ public class AppointmentBookRestClient extends HttpRequestHelper
     }
 
     /**
-     * Returns all keys and values from the server
+     * Pretty prints the appointment book and its appointments.
+     *
+     * @param owner
+     * @return
+     * @throws IOException
      */
-    public Response getAllKeysAndValues() throws IOException
-    {
-        return get(this.url );
-    }
-
-    /**
-     * Returns all values for the given key
-     */
-    public Response getValues( String key ) throws IOException
-    {
-        return get(this.url, "key", key);
-    }
-
-    public Response addKeyValuePair( String key, String value ) throws IOException
-    {
-        return postToMyURL("key", key, "value", value);
-    }
-
-    @VisibleForTesting
-    Response postToMyURL(String... keysAndValues) throws IOException {
-        return post(this.url, keysAndValues);
-    }
-
-    public Response removeAllMappings() throws IOException {
-        return delete(this.url);
-    }
-
     public Response prettyPrintAppointmentBook(String owner) throws IOException {
         return get(this.url, "owner", owner);
     }
 
+    /**
+     * Creates an appointment.
+     *
+     * @param owner
+     * @param description
+     * @param beginTime
+     * @param endTime
+     * @return
+     * @throws IOException
+     */
     public Response createAppointment(String owner, String description, String beginTime, String endTime) throws IOException {
         return post(this.url, "owner", owner, "description", description, "beginTime", beginTime, "endTime", endTime);
     }
 
+    /**
+     * Searches appointments.
+     *
+     * @param owner
+     * @param beginTime
+     * @param endTime
+     * @return
+     * @throws IOException
+     */
     public Response searchAppointment(String owner, String beginTime, String endTime) throws IOException {
         return get(this.url, "owner", owner, "beginTime", beginTime, "endTime", endTime);
     }

@@ -24,16 +24,6 @@ public class AppointmentBookServlet extends HttpServlet
 {
     private final Map<String, AppointmentBook> appointmentBooks = new HashMap<>();
 
-    public AppointmentBookServlet() {
-        //createPreCannedAppointmentBook();
-    }
-
-    private void createPreCannedAppointmentBook() {
-        String owner = "PreCannedOwner";
-        AppointmentBook book = new AppointmentBook(owner);
-        this.appointmentBooks.put(owner, book);
-    }
-
     /**
      * Writes a message to the response provided using a <code>PrintWriter</code>
      * @param message a message to be printed
