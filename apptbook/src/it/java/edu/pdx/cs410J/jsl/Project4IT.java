@@ -59,6 +59,33 @@ public class Project4IT extends InvokeMainTestCase {
     }
 
     @Test
+    public void shouldFailWhenConnectionCannotBeMade() {
+        String owner = "My owner";
+        String description = "My description";
+        String beginTime = "1/1/1999 1:00 AM";
+        String endTime = "1/1/1999 5:00 AM";
+        String host = "test host";
+
+        MainMethodResult result = invokeMain(OPTION_HOST, host, OPTION_PORT, "1234", owner, description, beginTime, endTime);
+
+        assertThat(result.getExitCode(), is(equalTo(1)));
+        assertThat(result.getErr(), containsString(host));
+    }
+
+    @Test
+    public void shouldFailWhenDateFormatIsInvalid() {
+        String owner = "My owner";
+        String description = "My description";
+        String beginTime = "test date";
+        String endTime = "1/1/1999 5:00 AM";
+
+        MainMethodResult result = invokeMain(OPTION_HOST, HOSTNAME, OPTION_PORT, PORT, owner, description, beginTime, endTime);
+
+        assertThat(result.getExitCode(), is(equalTo(1)));
+        assertThat(result.getErr(), containsString(beginTime));
+    }
+
+    @Test
     public void shouldAddNewAppointment() {
         String owner = "My owner";
         String description = "My description";

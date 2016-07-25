@@ -118,7 +118,7 @@ public class Project4 {
         AppointmentBook appointment_book = null;
 
         AppointmentBookRestClient client = null;
-        HttpRequestHelper.Response response;
+        HttpRequestHelper.Response response = null;
 
         String host = null;
         int port = -1;
@@ -211,11 +211,9 @@ public class Project4 {
 
                     // search for an appointment
                     try {
-                        System.out.println(arguments);
                         response = client.searchAppointment(arguments.get(0), arguments.get(2), arguments.get(3));
-                    } catch (IOException ex) {
-                        error("While contacting server: " + ex);
-                        return;
+                    } catch (IOException e) {
+                        programFail("Failed to connect to server: " + e);
                     }
                 } else {
                     checkDateFormatOfArguments(arguments, 1, 3);
@@ -223,9 +221,8 @@ public class Project4 {
                     // search for an appointment
                     try {
                         response = client.searchAppointment(arguments.get(0), arguments.get(1), arguments.get(2));
-                    } catch (IOException ex) {
-                        error("While contacting server: " + ex);
-                        return;
+                    } catch (IOException e) {
+                        programFail("Failed to connect to server: " + e);
                     }
                 }
 
@@ -241,9 +238,8 @@ public class Project4 {
                 // create an appointment
                 try {
                     response = client.createAppointment(arguments.get(0), arguments.get(1), arguments.get(2), arguments.get(3));
-                } catch (IOException ex) {
-                    error("While contacting server: " + ex);
-                    return;
+                } catch (IOException e) {
+                    programFail("Failed to connect to server: " + e);
                 }
             }
             checkResponseCode(HttpURLConnection.HTTP_OK, response);
