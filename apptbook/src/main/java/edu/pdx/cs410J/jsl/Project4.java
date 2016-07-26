@@ -73,27 +73,52 @@ public class Project4 {
     }
 
     /**
-     * This method will check if a given command line argument is a recognizable option.
+     * Checks if a given command line argument is a recognizable option.
      *
-     * @param option  a command line argument in string format
-     * @return        true if a command line option is recognized, otherwise false
+     * @param option
+     * @return <code>true</code> if a given option is recognized, otherwise <code>false</code>
      */
     private static boolean isOption(String option) {
         return Arrays.asList(allowed_options).contains(option);
     }
 
+    /**
+     * Checks if a given command line argument is a host option.
+     *
+     * @param option
+     * @return <code>true</code> if a given  option is for host, otherwise <code>false</code>
+     */
     private static boolean isOptionHost(String option) {
         return option.equals(getOptionHost());
     }
 
+    /**
+     * Checks if a given command line argument is a port option.
+     *
+     * @param option
+     * @return <code>true</code> if a given option is for port, otherwise <code>false</code>
+     */
     private static boolean isOptionPort(String option) {
         return option.equals(getOptionPort());
     }
 
+    /**
+     * Checks if a given command line argument is a sesarch option.
+     *
+     * @param option
+     * @return <code>true</code> if a given option is for search, otherwise <code>false</code>
+     */
     private static boolean isOptionSearch(String option) {
         return option.equals(getOptionSearch());
     }
 
+    /**
+     * Checks a number of arguments and fails program if out of range.
+     *
+     * @param target
+     * @param low
+     * @param high
+     */
     private static void checkNumberOfArguments(int target, int low, int high) {
         if (target < low) {
             programFail("Missing command line arguments");
@@ -102,6 +127,13 @@ public class Project4 {
         }
     }
 
+    /**
+     * Checks date format of a range of elements in a list.
+     *
+     * @param arguments
+     * @param low
+     * @param high
+     */
     private static void checkDateFormatOfArguments(List<String> arguments, int low, int high) {
         // date format check
         for (String date : arguments.subList(low, high)) {
@@ -111,6 +143,15 @@ public class Project4 {
         }
     }
 
+    /**
+     * The <code>main</code> method will create a connection to a specified host with a port
+     * and make requests to the connected server. It can create an appointment or an appointment book,
+     * search and display appointments associated to an appointment book, or list all appointments of
+     * an appointment book. If both a host and a port is not provided, it is going to perform
+     * an appointment creation locally and terminate its work.
+     *
+     * @param args
+     */
     public static void main(String... args) {
         List<String> arguments = new ArrayList<String>();
         List<String> options = new ArrayList<String>();
@@ -261,7 +302,7 @@ public class Project4 {
     }
 
     /**
-     * Prints a README documentation3
+     * Prints a README documentation.
      */
     private static void printReadMe() {
         System.out.println(
@@ -304,7 +345,8 @@ public class Project4 {
     }
 
     /**
-     * Makes sure that the give response has the expected HTTP status code
+     * Makes sure that the give response has the expected HTTP status code.
+     *
      * @param code The expected status code
      * @param response The response from the server
      */
@@ -330,7 +372,8 @@ public class Project4 {
     }
 
     /**
-     * Prints usage information for this program and exits
+     * Prints usage information for this program and exits.
+     * 
      * @param message An error message to print
      */
     private static void usage( String message )

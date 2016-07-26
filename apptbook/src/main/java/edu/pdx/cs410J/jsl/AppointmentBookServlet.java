@@ -87,7 +87,7 @@ public class AppointmentBookServlet extends HttpServlet
     }
 
     /**
-     * Returns an <code>AppointmentBook</code> object containig only <code>Appointment</code> objects within
+     * Returns an <code>AppointmentBook</code> object containing only <code>Appointment</code> objects within
      * <code>beginTime</code> and <code>endTime</code>.
      *
      * @param book an original <code>AppointmentBook</code> object

@@ -23,17 +23,19 @@ public class AppointmentBookTest {
 
     @Test
     public void getAppointmentShouldReturnEmptyWithoutAdd() {
-        AppointmentBook appointmentBook = new AppointmentBook();
+        String owner = "owner name";
+        AppointmentBook appointmentBook = new AppointmentBook(owner);
         assertThat(appointmentBook.getAppointments().size(), is(equalTo(0)));
     }
 
     @Test
     public void getAppointmentShouldReturnAppointment() {
+        String owner = "owner name";
         String description = "test description";
         String begin_time = "11/11/1999 11:11 am";
         String end_time = "11/11/1999 11:11 pm";
 
-        AppointmentBook appointmentBook = new AppointmentBook();
+        AppointmentBook appointmentBook = new AppointmentBook(owner);
         Appointment appointment = null;
         try {
              appointment = new Appointment(description, begin_time, end_time);

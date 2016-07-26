@@ -21,6 +21,11 @@ public class PrettyPrinter implements AppointmentBookDumper {
 
     private PrintWriter printWriter = null;
 
+    /**
+     * Constructor takes an instance of <code>PrintWriter</code> object.
+     *
+     * @param printWriter
+     */
     public PrettyPrinter(PrintWriter printWriter) {
         this.printWriter = printWriter;
     }
@@ -30,8 +35,8 @@ public class PrettyPrinter implements AppointmentBookDumper {
      * This method will take an instance of {@link AppointmentBook} class
      * and will print this information out to a specified output source.
      *
-     * @param abstractAppointmentBook   an instance of {@link AppointmentBook} class
-     * @throws IOException              an exception will be thrown if IO problem happens
+     * @param abstractAppointmentBook
+     * @throws IOException
      */
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
@@ -46,8 +51,8 @@ public class PrettyPrinter implements AppointmentBookDumper {
      * The printing format will be easier to read compared to the <code>dump</code> function of
      * {@link TextDumper} class.
      *
-     * @param appointmentBook   an instance of {@link AppointmentBook} class
-     * @throws IOException      an exception will be thrown if IO problem happens
+     * @param appointmentBook
+     * @throws IOException
      */
     private void dumpToFile(AppointmentBook appointmentBook) throws IOException {
 

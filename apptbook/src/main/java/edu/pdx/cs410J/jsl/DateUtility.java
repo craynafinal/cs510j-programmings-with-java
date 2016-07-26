@@ -54,8 +54,8 @@ public class DateUtility {
     /**
      * This method will use regex to check if a given date time is in date time format.
      *
-     * @param datetime  a date in string format
-     * @return          true if a date is in date format, otherwise false
+     * @param datetime
+     * @return <code>true</code> if a date time is in date time format, otherwise <code>false</code>
      */
     public static boolean checkDateTimeFormat(String datetime) {
         return datetime.matches
@@ -65,8 +65,8 @@ public class DateUtility {
     /**
      * This method will use regex to check if a given date is in date format.
      *
-     * @param date  a date in string format
-     * @return      true if a date is in date format, otherwise false
+     * @param date
+     * @return <code>true</code> if a date is in date format, otherwise <code>false</code>
      */
     public static boolean checkDateFormat(String date) {
         return date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4}");
@@ -75,8 +75,8 @@ public class DateUtility {
     /**
      * This method will use regex to check if a given date is in time format.
      *
-     * @param time  a date in string format
-     * @return      true if a date is in date format, otherwise false
+     * @param time
+     * @return <code>true</code> if a time is in time format, otherwise <code>false</code>
      */
     public static boolean checkTimeFormat(String time) {
         return time.matches("([0]?[0-9]|1[0-2]):[0-5]?[0-9]");
@@ -85,8 +85,8 @@ public class DateUtility {
     /**
      * This method will use regex to check if a given date is am, AM, pm, or PM.
      *
-     * @param token a token in string format
-     * @return      true if it is either am, AM, pm, or PM, otherwise false
+     * @param token
+     * @return <code>true</code> if a token is either am, AM, pm, or PM, otherwise <code>false</code>
      */
     public static boolean checkAMOrPM(String token) {
         return token.matches("(am|AM|pm|PM)");
