@@ -12,6 +12,7 @@ import java.text.ParseException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.fail;
 
 /**
@@ -22,47 +23,65 @@ public class AppointmentBookRestClientIT {
   private static final String HOSTNAME = "localhost";
   private static final String PORT = System.getProperty("http.port", "8080");
 
+  private static final int SC_NOT_FOUND = 404;
+  private static final int SC_BAD_REQUEST = 400;
+
   private AppointmentBookRestClient newAppointmentBookRestClient() {
     int port = Integer.parseInt(PORT);
     return new AppointmentBookRestClient(HOSTNAME, port);
   }
 
-  // this one is also not working, getting there is no precondowner msg
   @Test
-  public void invokingGETWithJustOwnerParameterPrettyPrintsOwnerName() throws IOException {
-    /*
+  public void shouldFailWhenOwnerNameIsNotFoundOnGET() throws IOException {
+
     AppointmentBookRestClient client = newAppointmentBookRestClient();
 
-    String owner = "My Owner";
+    String owner = "No name";
     HttpRequestHelper.Response response = client.prettyPrintAppointmentBook(owner);
 
-    System.out.println(response.getCode());
-    System.out.println(response.getContent());
-
-    assertThat(response.getContent(), response.getCode(), equalTo(401));
+    assertThat(response.getContent(), response.getCode(), equalTo(SC_NOT_FOUND));
     assertThat(response.getContent(), containsString(owner));
-    */
   }
 
+  @Test
+  public void shouldFailWhenOwnerNameIsEmptyStringOnGET() throws IOException {
+
+    AppointmentBookRestClient client = newAppointmentBookRestClient();
+
+    HttpRequestHelper.Response response = client.prettyPrintAppointmentBook("");
+
+    assertThat(response.getContent(), response.getCode(), equalTo(SC_BAD_REQUEST));
+    assertThat(response.getContent(), containsString("owner"));
+  }
 
   @Test
-  public void invokingGETWithOwnerParameterPrettyPrintsAppointmentBook() throws IOException {
-    /*
+  public void shouldFailWithWrongDateOnPOST() throws IOException {
     AppointmentBookRestClient client = newAppointmentBookRestClient();
 
     String owner = "My Owner";
-
     String description = "Description";
-    String beginTime = "1/1/2016 1:00 PM";
+    String beginTime = "wrong date";
     String endTime = "1/2/2016 2:00 PM";
     Response response = client.createAppointment(owner, description, beginTime, endTime);
-    assertThat(response.getContent(), response.getCode(), equalTo(200));
 
-    System.out.println(response.getCode());
+    System.out.println(response.getContent());
 
-    assertThat(response.getContent(), response.getCode(), equalTo(200));
-    assertThat(response.getContent(), containsString(owner));
-    */
+    assertThat(response.getContent(), response.getCode(), equalTo(SC_BAD_REQUEST));
+    assertThat(response.getContent(), containsString(beginTime));
+  }
+
+  @Test
+  public void shouldFailWithWrongDateOnGET() throws IOException {
+    AppointmentBookRestClient client = newAppointmentBookRestClient();
+
+    String owner = "My Owner";
+    String beginTime = "1/1/2016 1:00 PM";
+    String endTime = "wrong date";
+
+    Response response = client.searchAppointment(owner, beginTime, endTime);
+
+    assertThat(response.getContent(), response.getCode(), equalTo(SC_BAD_REQUEST));
+    assertThat(response.getContent(), containsString(endTime));
   }
 
   @Test

@@ -40,8 +40,7 @@ public class AppointmentBookServletTest {
 
     servlet.doGet(request, response);
 
-    verify(printWriter).println("The owner name is not provided, please try again...");
-    verify(response).setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
+    verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST, "The owner name is not provided");
   }
 
   @Test
@@ -53,14 +52,13 @@ public class AppointmentBookServletTest {
 
     servlet.doGet(request, response);
 
-    verify(printWriter).println("There is no appointment book matching the owner name: " + ownerName);
-    verify(response).setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
+    verify(response).sendError(HttpServletResponse.SC_NOT_FOUND, "No appointment book matching for " + ownerName);
   }
 
   @Test
   public void shouldPrintAllListOfAppointments() throws ServletException, IOException {
     // create appointments
-    String ownerName = "PreCannedOwner";
+    String ownerName = "TestOwner";
     String description = "My description";
     String beginTime = "1/1/2016 1:00 AM";
     String endTime = "1/1/2016 1:00 PM";
@@ -79,13 +77,12 @@ public class AppointmentBookServletTest {
     for (i = 0; i < max; i++) {
       verify(printWriter).println(" " + (i + 1) + ") Appointment: " + description + (i + 1));
     }
-    verify(response, times(max + 1)).setStatus(HttpServletResponse.SC_OK);
   }
 
   @Test
   public void shouldPrintSearchedListOfAppointments() throws ServletException, IOException {
     // create appointments
-    String ownerName = "PreCannedOwner";
+    String ownerName = "TestOwner";
     String description = "My description";
     String[] beginTime = { "1/1/2016 1:00 AM", "1/2/2016 1:00 AM", "1/3/2016 1:00 AM", "1/4/2016 1:00 AM", "1/5/2016 1:00 AM" };
     String[] endTime = { "1/1/2016 1:00 PM", "1/2/2016 1:00 PM", "1/3/2016 1:00 PM", "1/4/2016 1:00 PM", "1/5/2016 1:00 PM" };
@@ -107,7 +104,6 @@ public class AppointmentBookServletTest {
     for (i = start; i <= end; i++) {
       verify(printWriter).println(" " + i + ") Appointment: " + description + (i + 1));
     }
-    verify(response, times(max + 1)).setStatus(HttpServletResponse.SC_OK);
   }
 
   private void addAppointment(String ownerName, String description, String beginTime, String endTime) throws IOException, ServletException {
@@ -122,13 +118,12 @@ public class AppointmentBookServletTest {
 
   @Test
   public void shouldCreateAnAppointment() throws ServletException, IOException {
-    String ownerName = "PreCannedOwner";
+    String ownerName = "TestOwner";
     String description = "My description";
     String beginTime = "1/1/2016 1:00 PM";
     String endTime = "1/2/2016 2:00 PM";
 
     addAppointment(ownerName, description, beginTime, endTime);
-    verify(response).setStatus(HttpServletResponse.SC_OK);
 
     AppointmentBook book = servlet.getAppointmentBookForOwner(ownerName);
     Collection<Appointment> appointments = book.getAppointments();

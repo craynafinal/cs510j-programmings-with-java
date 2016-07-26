@@ -38,23 +38,6 @@ public class AppointmentBookServlet extends HttpServlet
     }
 
     /**
-     * Sets the status of a <code>HttpServletResponse</code> object to <code>SC_OK</code>.
-     *
-     * @param response
-     */
-    private void setStatusOK(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_OK);
-    }
-
-    /**
-     * Sets the status of a <code>HttpServletResponse</code> object to <code>SC_PRECONDITION_FAILED</code>.
-     * @param response
-     */
-    private void setStatusPrecondFailed(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
-    }
-
-    /**
      * Handles an HTTP GET request from a client by writing the value of the key
      * specified in the "key" HTTP parameter to the HTTP response.  If the "key"
      * parameter is not specified, all of the key/value pairs are written to the
@@ -64,47 +47,42 @@ public class AppointmentBookServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setContentType("text/plain");
+
         String owner = getParameter("owner", request);
         String beginTime = getParameter("beginTime", request);
         String endTime = getParameter("endTime", request);
 
-        if (owner == null) {
-            writeMessage("The owner name is not provided, please try again...", response);
-            setStatusPrecondFailed(response);
+        if (owner == null || owner.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The owner name is not provided");
             return;
         }
 
         AppointmentBook book = getAppointmentBookForOwner(owner);
 
         if (book == null) {
-            writeMessage("There is no appointment book matching the owner name: " + owner, response);
-            setStatusPrecondFailed(response);
-
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "No appointment book matching for " + owner);
             return;
         }
 
 
-        if (beginTime != null && endTime != null) {
+        if ((beginTime != null && !beginTime.isEmpty()) && (endTime != null && !endTime.isEmpty())) {
+            // if both dates are provided, search appointments
             AppointmentBook tempAppointmentBook = null;
             try {
                 tempAppointmentBook = getAppointmentBookWithSearchedAppointments(book, beginTime, endTime);
             } catch (ParseException e) {
-                writeMessage(e.getMessage(), response);
-                setStatusPrecondFailed(response);
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
                 return;
             }
 
             prettyPrint(tempAppointmentBook, response.getWriter());
-            setStatusOK(response);
-        } else if (beginTime == null && endTime == null) {
+        } else if ((beginTime == null || beginTime.isEmpty()) && (endTime == null || endTime.isEmpty())) {
+            // if both dates are not provided, simply print everything
             prettyPrint(book, response.getWriter());
-            setStatusOK(response);
-        } else if (beginTime == null) {
-            writeMessage("The begin time is not provided, please try again...", response);
-            setStatusPrecondFailed(response);
+        } else if (beginTime == null || beginTime.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The begin time is not provided");
         } else {
-            writeMessage("The end time is not provided, please try again...", response);
-            setStatusPrecondFailed(response);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The end time is not provided");
         }
     }
 
@@ -187,28 +165,13 @@ public class AppointmentBookServlet extends HttpServlet
 
         try {
             appointment = new Appointment(description, beginTime, endTime);
-        } catch (ParseException e) {
-            writeMessage("Failed to parse a time argument provided\n" + e.getMessage(),response);
-            setStatusPrecondFailed(response);
-            return;
-        } catch (NullPointerException e) {
-
-            String target = null;
-            if (description == null) {
-                target = "description";
-            } else if (beginTime == null) {
-                target = "beginTime";
-            } else {
-                target = "endTime";
-            }
-
-            writeMessage("Missing argument for an appointment " + target, response);
-            setStatusPrecondFailed(response);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Failed to create an appointment: " + e.getMessage());
             return;
         }
 
         book.addAppointment(appointment);
-        setStatusOK(response);
+        //setStatusOK(response);
     }
 
     /**
