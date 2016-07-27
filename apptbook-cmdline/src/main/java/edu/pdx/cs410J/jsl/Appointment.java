@@ -14,9 +14,9 @@ import java.util.concurrent.TimeUnit;
  * The <code>Appointment</code> is the class extended from the {@link AbstractAppointment} class
  * that describes an appointment with description, begin time and end time.
  *
- * @author    Jong Seong Lee
- * @version   %I%, %G%
- * @since     1.0
+ * @author Jong Seong Lee
+ * @version %I%, %G%
+ * @since 1.0
  */
 public class Appointment extends AbstractAppointment implements Comparable<Appointment> {
   private String description = null;
@@ -31,7 +31,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * This constructor takes a list of arguments as a parameter, and the list should have
    * description, begin time, and end time in order as <code>String</code> data type.
    *
-   * @param arguments   a List collection that contains description, begin time and end time in order
+   * @param arguments a List collection that contains description, begin time and end time in order
      */
   public Appointment(List<String> arguments) throws ParseException {
     this(arguments.get(0), arguments.get(1), arguments.get(2));
@@ -40,9 +40,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   /**
    * This constructor takes description, begin time and end time in order.
    *
-   * @param desc    a description of an appointment in string format
-   * @param begin   a begin time of an appointment in string format
-   * @param end     an end time of an appointment in string format
+   * @param desc a description of an appointment in string format
+   * @param begin a begin time of an appointment in string format
+   * @param end an end time of an appointment in string format
      */
   public Appointment(String desc, String begin, String end) throws ParseException {
     description = desc;
@@ -57,9 +57,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   }
 
   /**
-   * Returns a begin time of an instance in string format.
+   * Returns a begin time of an instance.
    *
-   * @return  a begin time in string format
+   * @return a begin time
      */
   @Override
   public String getBeginTimeString() {
@@ -67,9 +67,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   }
 
   /**
-   * Returns an end time of an instance in string format.
+   * Returns an end time of an instance.
    *
-   * @return  an end time in string format
+   * @return an end time
      */
   @Override
   public String getEndTimeString() {
@@ -77,9 +77,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   }
 
   /**
-   * Returns a description of an instance in string format.
+   * Returns a description of an instance.
    *
-   * @return  a description in string format
+   * @return a description
      */
   @Override
   public String getDescription() {
@@ -87,17 +87,17 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   }
 
   /**
-   * Returns a begin time in date format.
+   * Returns a begin time.
    *
-   * @return  a begin time in date format
+   * @return a begin time
      */
   @Override
   public Date getBeginTime() { return begin_date; }
 
   /**
-   * Returns an end time in date format.
+   * Returns an end time.
    *
-   * @return  an end time in date format
+   * @return an end time
      */
   @Override
   public Date getEndTime() { return end_date; }
@@ -105,21 +105,21 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   /**
    * Returns the initial begin time input.
    *
-   * @return  a begin time in string format
+   * @return a begin time
      */
   public String getBeginTimeInput() { return begin_input; }
 
   /**
    * Returns the initial end time input.
    *
-   * @return  an end time in string format
+   * @return an end time
    */
   public String getEndTimeInput() { return end_input; }
 
   /**
    * Returns a duration of an appointment.
    *
-   * @return  a duration in long format
+   * @return a duration
      */
   public int getDurationInMinutes() {
     return (int)TimeUnit.MILLISECONDS.toMinutes(end_date.getTime() - begin_date.getTime());
@@ -130,7 +130,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * The order of comparision is begin time, end time, and description.
    *
    * @param appointment another <code>Appointment</code> object
-   * @return            returns 0 if two objects are equal, -1 if the other object is smaller, otherwise 1
+   * @return returns 0 if two objects are equal, -1 if the other object is smaller, otherwise 1
      */
   @Override
   public int compareTo(Appointment appointment) {

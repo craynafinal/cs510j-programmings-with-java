@@ -14,9 +14,9 @@ import java.util.List;
  * The main purpose of this class is to write a content of an instance of {@link AppointmentBook}
  * to a file that is given.
  *
- * @author    Jong Seong Lee
- * @version   %I%, %G%
- * @since     1.0
+ * @author Jong Seong Lee
+ * @version %I%, %G%
+ * @since 1.0
  */
 public class TextDumper implements AppointmentBookDumper {
 
@@ -25,7 +25,7 @@ public class TextDumper implements AppointmentBookDumper {
     /**
      * This constructor takes a file name as a parameter.
      *
-     * @param filename  a path to the file name to be written in string format
+     * @param filename a path to the file name to be written in string format
      */
     public TextDumper(String filename) {
         this.filename = filename;
@@ -34,7 +34,7 @@ public class TextDumper implements AppointmentBookDumper {
     /**
      * This method returns the file name saved in an instance.
      *
-     * @return  a file name in string format
+     * @return a file name in string format
      */
     public String getFileName() {
         return filename;
@@ -46,7 +46,7 @@ public class TextDumper implements AppointmentBookDumper {
      * and it will dump the content to a file.
      *
      * @param abstractAppointmentBook an instance of {@link AppointmentBook}
-     * @throws IOException            an exception is thrown if dumping process fails
+     * @throws IOException an exception is thrown if dumping process fails
      */
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
@@ -62,7 +62,7 @@ public class TextDumper implements AppointmentBookDumper {
      * in the {@link AppointmentBook} parameter.
      *
      * @param appointmentBook an instance of {@link AppointmentBook}
-     * @throws IOException    an exception is thrown if dumping process fails
+     * @throws IOException an exception is thrown if dumping process fails
      */
     private void dumpToFile(AppointmentBook appointmentBook) throws IOException {
         File file = new File(filename);
@@ -93,7 +93,7 @@ public class TextDumper implements AppointmentBookDumper {
      * This process is required for the style of dumping.
      *
      * @param string a string that might have new line characters to be converted
-     * @return       converted string that contains no new line character
+     * @return converted string that contains no new line character
      */
     private String replaceNewLineCharacters(String string) {
         return string.replace("\n", "\\n").replace("\r", "\\r");

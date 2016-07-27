@@ -5,9 +5,9 @@ package edu.pdx.cs410J.jsl;
  * Because hard coded tokens may cause confusion or mismatch, this <code>ParseToken</code> enum
  * will be shared among them and data used will be consistant.
  *
- * @author    Jong Seong Lee
- * @version   %I%, %G%
- * @since     1.0
+ * @author Jong Seong Lee
+ * @version %I%, %G%
+ * @since 1.0
  */
 public enum ParseToken {
     APPOINTMENTBOOK(0, "appointmentbook"),
@@ -17,13 +17,13 @@ public enum ParseToken {
     APPOINTMENT_BEGINTIME(1, "appointment_begintime"),
     APPOINTMENT_ENDTIME(1, "appointment_endtime");
 
-    String token = null;
+    private String token = null;
 
     /**
      * This constructor takes a level of hierarchy and a string of a token.
      * The top hierarchy level is 0, and increases by 1 every time the hierarchy goes down.
      * When the hierarchy value is 0, it attaches "--" before the token value.
-     * Everytime the level increases, the number of dashes increases as well.
+     * Every time the level increases, the number of dashes increases as well.
      * For example, "---" will be used for the level 1.
      *
      * @param level a level of hierarchy

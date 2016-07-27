@@ -14,21 +14,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 public class TextDumperTest {
-    AppointmentBook appointmentBook = null;
-    TextDumper textDumper = null;
+    private AppointmentBook appointmentBook = null;
+    private TextDumper textDumper = null;
 
-    static final String filename = "/home/crayna/Downloads/test000.txt";
-    static final String owner = "owner";
-    static final String desc1 = "desc1";
-    static final String desc2 = "desc2";
-    static final String begintime1 = "11/11/1999 11:11 am";
-    static final String begintime2 = "11/11/1999 1:1 am";
-    static final String endtime1 = "11/11/1999 11:11 pm";
-    static final String endtime2 = "11/11/1999 1:1 pm";
+    static final private String filename = "/home/crayna/Downloads/test000.txt";
+    static final private String owner = "owner";
+    static final private String desc1 = "desc1";
+    static final private String desc2 = "desc2";
+    static final private String begintime1 = "11/11/1999 11:11 am";
+    static final private String begintime2 = "11/11/1999 1:1 am";
+    static final private String endtime1 = "11/11/1999 11:11 pm";
+    static final private String endtime2 = "11/11/1999 1:1 pm";
 
-    /**
-     * Setup member variables.
-     */
     @Before
     public void appointmentSetup() {
         appointmentBook = new AppointmentBook(owner);
@@ -41,17 +38,11 @@ public class TextDumperTest {
         textDumper = new TextDumper(filename);
     }
 
-    /**
-     * Checks if file name assigned correctly.
-     */
     @Test
     public void shouldSetFileNameCorrectly() {
         assertThat(textDumper.getFileName(), is(equalTo(filename)));
     }
 
-    /**
-     * Checks if file gets written successfully.
-     */
     @Test
     public void shouldWriteToFileCorrectly() {
         try {
@@ -94,7 +85,6 @@ public class TextDumperTest {
             fail("Unsupported Encoding Exception triggered");
         }
 
-        // delete file
         try {
             Files.delete(Paths.get(filename));
         } catch (IOException x) {

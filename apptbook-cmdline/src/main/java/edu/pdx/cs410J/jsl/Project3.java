@@ -31,8 +31,8 @@ import java.util.List;
  * This option will be triggered by "-pretty" command line argument.
  *
  * @author Jong Seong Lee
- * @version   %I%, %G%
- * @since     1.0
+ * @version %I%, %G%
+ * @since 1.0
  */
 public class Project3 {
   private static final int MAX_ARGUMENTS = 4;
@@ -52,8 +52,8 @@ public class Project3 {
   /**
    * This method will check if a given command line argument is a text file option.
    *
-   * @param option  a command line argument in string format
-   * @return        true if a command line option is -textFile, otherwise false
+   * @param option a command line argument in string format
+   * @return true if a command line option is -textFile, otherwise false
      */
   private static boolean isOptionTextFile(String option) {
     return option.equals(allowed_options.get("TextFile"));
@@ -62,16 +62,16 @@ public class Project3 {
   /**
    * This method will check if a given command line argument is a pretty option.
    *
-   * @param option  a command line argument in string format
-   * @return        true if a command line option is -pretty, otherwise false
+   * @param option a command line argument in string format
+   * @return true if a command line option is -pretty, otherwise false
      */
   private static boolean isOptionPretty(String option) { return option.equals(allowed_options.get("Pretty")); }
 
   /**
    * This method will check if a given command line argument is a recognizable option.
    *
-   * @param option  a command line argument in string format
-   * @return        true if a command line option is recognized, otherwise false
+   * @param option a command line argument in string format
+   * @return true if a command line option is recognized, otherwise false
      */
   private static boolean isOption(String option) {
     return allowed_options.containsValue(option);
@@ -80,8 +80,8 @@ public class Project3 {
   /**
    * This method will use regex to check if a given date time is in date time format.
    *
-   * @param datetime  a date in string format
-   * @return          true if a date is in date format, otherwise false
+   * @param datetime a date in string format
+   * @return true if a date is in date format, otherwise false
      */
   private static boolean isDateTimeFormatCorrect(String datetime) {
     return datetime.matches
@@ -91,8 +91,8 @@ public class Project3 {
   /**
    * This method will use regex to check if a given date is in date format.
    *
-   * @param date  a date in string format
-   * @return      true if a date is in date format, otherwise false
+   * @param date a date in string format
+   * @return true if a date is in date format, otherwise false
    */
   private static boolean isDateFormatCorrect(String date) {
     return date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/[0-9]{4,4}");
@@ -101,8 +101,8 @@ public class Project3 {
   /**
    * This method will use regex to check if a given date is in time format.
    *
-   * @param time  a date in string format
-   * @return      true if a date is in date format, otherwise false
+   * @param time a date in string format
+   * @return true if a date is in date format, otherwise false
    */
   private static boolean isTimeFormatCorrect(String time) {
     return time.matches("([0]?[0-9]|1[0-2]):[0-5]?[0-9]");
@@ -112,7 +112,7 @@ public class Project3 {
    * This method will use regex to check if a given date is am, AM, pm, or PM.
    *
    * @param token a token in string format
-   * @return      true if it is either am, AM, pm, or PM, otherwise false
+   * @return true if it is either am, AM, pm, or PM, otherwise false
      */
   private static boolean isAMOrPM(String token) {
     return token.matches("(am|AM|pm|PM)");

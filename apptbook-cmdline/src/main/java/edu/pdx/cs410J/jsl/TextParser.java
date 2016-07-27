@@ -13,9 +13,9 @@ import java.util.List;
  * The main purpose of this class is to read a file given and bring the information back to
  * an instance of {@link AppointmentBook} with appointments.
  *
- * @author    Jong Seong Lee
- * @version   %I%, %G%
- * @since     1.0
+ * @author Jong Seong Lee
+ * @version %I%, %G%
+ * @since 1.0
  */
 public class TextParser implements AppointmentBookParser {
 
@@ -36,7 +36,7 @@ public class TextParser implements AppointmentBookParser {
      * The name of the owner should match the one in the file to be read.
      *
      * @param filename a path to the file name to be read in string format
-     * @param owner    the name of the owner who owns the appointment book in the file to be read
+     * @param owner the name of the owner who owns the appointment book in the file to be read
      */
     public TextParser(String filename, String owner) {
         this.filename = filename;
@@ -57,7 +57,7 @@ public class TextParser implements AppointmentBookParser {
      * This method is used for the debugging purpose.
      *
      * @param line the current line number
-     * @return     a string contains the current line number to be used for debugging purpose
+     * @return a string contains the current line number to be used for debugging purpose
      */
     private String lineNumber(int line) {
         return " - Line Number " + line;
@@ -67,8 +67,8 @@ public class TextParser implements AppointmentBookParser {
      * This method will return the next token read
      * from the {@link BufferedReader} object that is passed in as a parameter.
      *
-     * @param br            an instance of the {@link BufferedReader} class
-     * @return              a token in string format
+     * @param br an instance of the {@link BufferedReader} class
+     * @return a token in string format
      * @throws IOException  an IO exception can be thrown if it fails to read from buffer
      */
     private String getNextToken(BufferedReader br) throws IOException {
@@ -219,7 +219,7 @@ public class TextParser implements AppointmentBookParser {
      * Any "\\n" or "\\r" characters in a string will be converted to new line characters.
      *
      * @param string a string that might contain "\\n" or "\\r"
-     * @return       a converted string
+     * @return a converted string
      */
     private String replaceNewLineCharacters(String string) {
         return string.replace("\\n", "\n").replace("\\r", "\r");
@@ -235,7 +235,7 @@ public class TextParser implements AppointmentBookParser {
 
     /**
      * Closes file stream of an instance of {@link BufferedReader} class.
-     * @param br           an instance of {@link BufferedReader} class
+     * @param br an instance of {@link BufferedReader} class
      * @throws IOException if fails to close file stream, it will throw IO Exception
      */
     private void closeStream(BufferedReader br) throws IOException {
