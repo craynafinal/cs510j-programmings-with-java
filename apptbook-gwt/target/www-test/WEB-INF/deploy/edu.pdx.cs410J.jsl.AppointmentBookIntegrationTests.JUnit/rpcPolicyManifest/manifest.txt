@@ -1,2 +1,0 @@
-# Module edu.pdx.cs410J.jsl.AppointmentBookIntegrationTests.JUnit
-# RPC service class, partial path of RPC policy file

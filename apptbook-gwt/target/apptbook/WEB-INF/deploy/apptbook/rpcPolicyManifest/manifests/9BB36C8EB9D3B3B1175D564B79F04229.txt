@@ -1,2 +1,0 @@
-serviceClass: edu.pdx.cs410J.jsl.client.AppointmentBookService
-path: 43C283918FC52C1D84A218EB71F75C38.gwt.rpc
