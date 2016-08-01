@@ -27,9 +27,12 @@ public class PingServiceSyncProxyIT extends HttpRequestHelper {
     SyncProxy.setBaseURL(this.webAppUrl + "/" + moduleName + "/");
 
     PingService ping = SyncProxy.createSync(PingService.class);
-    AppointmentBook apptbook = ping.ping();
+
+    int numberOfAppointments = 5;
+    
+    AppointmentBook apptbook = ping.ping(numberOfAppointments);
     assertEquals("My Owner", apptbook.getOwnerName());
-    assertEquals(1, apptbook.getAppointments().size());
+    assertEquals(numberOfAppointments, apptbook.getAppointments().size());
   }
 
 }
