@@ -7,9 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.*;
 
 import java.util.Collection;
 
@@ -41,7 +39,7 @@ public class AppointmentBookGwt implements EntryPoint {
   }
 
   private void addWidgets() {
-    button = new Button("Ping Server");
+    button = new Button("Appointments");
     button.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
@@ -53,7 +51,7 @@ public class AppointmentBookGwt implements EntryPoint {
   }
 
   private void createAppointments() {
-    PingServiceAsync async = GWT.create(PingService.class);
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
     int numberOfAppointments = getNumberOfAppointments();
 
@@ -85,7 +83,13 @@ public class AppointmentBookGwt implements EntryPoint {
   public void onModuleLoad() {
     RootPanel rootPanel = RootPanel.get();
     rootPanel.add(button);
-    rootPanel.add(textBox);
+
+    DockPanel panel = new DockPanel();
+    panel.add(new Label("Number of appointments"), DockPanel.WEST);
+    panel.add(textBox, DockPanel.CENTER);
+
+    rootPanel.add(panel);
+    // .stylename -> css
   }
 
   public int getNumberOfAppointments() {
