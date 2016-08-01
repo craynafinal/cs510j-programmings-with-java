@@ -1,8 +1,8 @@
-package edu.pdx.cs410J.whitlock;
+package edu.pdx.cs410J.jsl;
 
 import com.gdevelop.gwt.syncrpc.SyncProxy;
-import edu.pdx.cs410J.whitlock.client.AppointmentBook;
-import edu.pdx.cs410J.whitlock.client.AppointmentBookService;
+import edu.pdx.cs410J.jsl.client.AppointmentBook;
+import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 import edu.pdx.cs410J.web.HttpRequestHelper;
 import org.junit.Test;
 

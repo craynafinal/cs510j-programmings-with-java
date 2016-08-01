@@ -1,4 +1,4 @@
-package edu.pdx.cs410J.whitlock.client;
+package edu.pdx.cs410J.jsl.client;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import edu.pdx.cs410J.AbstractAppointment;

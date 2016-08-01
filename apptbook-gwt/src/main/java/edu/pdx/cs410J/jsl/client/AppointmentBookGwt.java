@@ -1,4 +1,4 @@
-package edu.pdx.cs410J.whitlock.client;
+package edu.pdx.cs410J.jsl.client;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gwt.core.client.EntryPoint;

@@ -1,4 +1,4 @@
-package edu.pdx.cs410J.whitlock.client;
+package edu.pdx.cs410J.jsl.client;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
@@ -16,7 +16,7 @@ import org.junit.Test;
 public class AppointmentBookGwtIT extends GWTTestCase {
   @Override
   public String getModuleName() {
-    return "edu.pdx.cs410J.whitlock.AppointmentBookIntegrationTests";
+    return "edu.pdx.cs410J.jsl.AppointmentBookIntegrationTests";
   }
 
   @Test

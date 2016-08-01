@@ -1,6 +1,6 @@
-package edu.pdx.cs410J.whitlock.server;
+package edu.pdx.cs410J.jsl.server;
 
-import edu.pdx.cs410J.whitlock.client.AppointmentBook;
+import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;

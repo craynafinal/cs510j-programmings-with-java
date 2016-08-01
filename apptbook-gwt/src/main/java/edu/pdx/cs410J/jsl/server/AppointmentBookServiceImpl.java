@@ -1,9 +1,9 @@
-package edu.pdx.cs410J.whitlock.server;
+package edu.pdx.cs410J.jsl.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import edu.pdx.cs410J.whitlock.client.Appointment;
-import edu.pdx.cs410J.whitlock.client.AppointmentBook;
-import edu.pdx.cs410J.whitlock.client.AppointmentBookService;
+import edu.pdx.cs410J.jsl.client.Appointment;
+import edu.pdx.cs410J.jsl.client.AppointmentBook;
+import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 
 /**
  * The server-side implementation of the division service
