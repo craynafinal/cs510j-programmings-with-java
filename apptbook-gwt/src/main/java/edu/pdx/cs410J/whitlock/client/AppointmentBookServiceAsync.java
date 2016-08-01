@@ -1,4 +1,4 @@
-package edu.pdx.cs410J.jsl.client;
+package edu.pdx.cs410J.whitlock.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -10,5 +10,5 @@ public interface AppointmentBookServiceAsync {
   /**
    * Return the current date/time on the server
    */
-  void ping(int numberOfAppointments, AsyncCallback<AppointmentBook> async);
+  void createAppointmentBook(int numberOfAppointments, AsyncCallback<AppointmentBook> async);
 }

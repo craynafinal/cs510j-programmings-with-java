@@ -1,6 +1,6 @@
-package edu.pdx.cs410J.jsl.server;
+package edu.pdx.cs410J.whitlock.server;
 
-import edu.pdx.cs410J.jsl.client.AppointmentBook;
+import edu.pdx.cs410J.whitlock.client.AppointmentBook;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -11,10 +11,8 @@ public class AppointmentBookServiceImplTest {
   @Test
   public void serviceReturnsExpectedAirline() {
     AppointmentBookServiceImpl service = new AppointmentBookServiceImpl();
-
     int numberOfAppointments = 6;
-
-    AppointmentBook airline = service.ping(numberOfAppointments);
+    AppointmentBook airline = service.createAppointmentBook(numberOfAppointments);
     assertThat(airline.getAppointments().size(), equalTo(numberOfAppointments));
   }
 }

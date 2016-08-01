@@ -1,9 +1,9 @@
-package edu.pdx.cs410J.jsl.server;
+package edu.pdx.cs410J.whitlock.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import edu.pdx.cs410J.jsl.client.Appointment;
-import edu.pdx.cs410J.jsl.client.AppointmentBook;
-import edu.pdx.cs410J.jsl.client.AppointmentBookService;
+import edu.pdx.cs410J.whitlock.client.Appointment;
+import edu.pdx.cs410J.whitlock.client.AppointmentBook;
+import edu.pdx.cs410J.whitlock.client.AppointmentBookService;
 
 /**
  * The server-side implementation of the division service
@@ -11,9 +11,8 @@ import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 public class AppointmentBookServiceImpl extends RemoteServiceServlet implements AppointmentBookService
 {
   @Override
-  public AppointmentBook ping(int numberOfAppointments) {
+  public AppointmentBook createAppointmentBook(int numberOfAppointments) {
     AppointmentBook book = new AppointmentBook();
-
     for (int i = 0; i < numberOfAppointments; i++) {
       book.addAppointment(new Appointment());
     }

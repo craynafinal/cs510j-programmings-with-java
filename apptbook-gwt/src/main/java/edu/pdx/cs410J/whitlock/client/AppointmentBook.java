@@ -1,4 +1,4 @@
-package edu.pdx.cs410J.jsl.client;
+package edu.pdx.cs410J.whitlock.client;
 
 import edu.pdx.cs410J.AbstractAppointmentBook;
 

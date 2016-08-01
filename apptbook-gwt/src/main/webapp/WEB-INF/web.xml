@@ -6,12 +6,12 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>appointmentServlet</servlet-name>
-    <servlet-class>edu.pdx.cs410J.jsl.server.AppointmentBookServiceImpl</servlet-class>
+    <servlet-name>appointmentsServlet</servlet-name>
+    <servlet-class>edu.pdx.cs410J.whitlock.server.AppointmentBookServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>appointmentServlet</servlet-name>
+    <servlet-name>appointmentsServlet</servlet-name>
     <url-pattern>/apptbook/appointments</url-pattern>
   </servlet-mapping>
 

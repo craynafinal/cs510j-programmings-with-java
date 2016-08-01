@@ -1,4 +1,4 @@
-package edu.pdx.cs410J.jsl.client;
+package edu.pdx.cs410J.whitlock.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -13,6 +13,6 @@ public interface AppointmentBookService extends RemoteService {
    * Returns the current date and time on the server
    * @param numberOfAppointments
    */
-  public AppointmentBook ping(int numberOfAppointments);
+  public AppointmentBook createAppointmentBook(int numberOfAppointments);
 
 }
