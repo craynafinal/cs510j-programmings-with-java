@@ -5,6 +5,8 @@ import edu.pdx.cs410J.jsl.client.Appointment;
 import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 
+import java.text.ParseException;
+
 /**
  * The server-side implementation of the division service
  */
