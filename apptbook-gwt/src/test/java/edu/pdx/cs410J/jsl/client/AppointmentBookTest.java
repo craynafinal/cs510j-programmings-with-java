@@ -36,7 +36,8 @@ public class AppointmentBookTest {
         String end_time = "11/11/1999 11:11 pm";
 
         AppointmentBook appointmentBook = new AppointmentBook(owner);
-        Appointment appointment = new Appointment(description, begin_time, end_time);
+        Appointment appointment = null;
+        appointment = new Appointment(description, begin_time, end_time);
 
         appointmentBook.addAppointment(appointment);
         assertThat(appointmentBook.getAppointments(), (Matcher)hasItems(appointment));

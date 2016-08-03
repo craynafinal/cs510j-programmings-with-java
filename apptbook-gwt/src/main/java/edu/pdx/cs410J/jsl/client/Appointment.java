@@ -1,7 +1,7 @@
 package edu.pdx.cs410J.jsl.client;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
 import edu.pdx.cs410J.AbstractAppointment;
+
 
 import java.util.Date;
 
@@ -15,13 +15,14 @@ import java.util.Date;
  */
 public class Appointment extends AbstractAppointment implements Comparable<Appointment> {
   private String description = null;
+  private String begin_input = null;
+  private String end_input = null;
+  private Date begin_date = null;
+  private Date end_date = null;
 
-  /**
-   * Cannot parse dates in constructor because of ExceptionInInitializer from GWT,
-   * so storing date information as <code>String</code>.
-   */
-  private String beginTime = null;
-  private String endTime = null;
+  public Appointment() {
+    this("My description", "01/01/2000 01:01 am", "01/01/2000 01:01 pm");
+  }
 
   /**
    * This constructor takes description, begin time and end time in order.
@@ -32,33 +33,22 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
      */
   public Appointment(String desc, String begin, String end) {
     description = desc;
-    beginTime = begin;
-    endTime = end;
+    begin_date = DateUtility.parseStringToDate(begin);
+    end_date = DateUtility.parseStringToDate(end);
+
+    // keep the initial date time inputs for dumping purpose
+    begin_input = begin;
+    end_input = end;
   }
 
-  private String formatDateToString(Date date) {
-    String pattern = "MM/dd/yyyy hh:mm a";
-    return DateTimeFormat.getFormat(pattern).format(date);
-  }
-
-  private Date parseStringToDate(String date) {
-    String pattern = "MM/dd/yyyy hh:mm a";
-    return DateTimeFormat.getFormat(pattern).parse(date);
-  }
-
-
-  public Appointment() {
-    this("My Description", "01/01/1999 01:00 am", "01/01/1999 01:00 pm");
-  }
-
-    /**
+  /**
    * Returns a begin time of an instance.
    *
    * @return a begin time
      */
   @Override
   public String getBeginTimeString() {
-    return DateUtility.parseStringToDate(beginTime).toString();
+    return begin_date.toString();
   }
 
   /**
@@ -68,7 +58,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
      */
   @Override
   public String getEndTimeString() {
-    return DateUtility.parseStringToDate(endTime).toString();
+    return end_date.toString();
   }
 
   /**
@@ -87,7 +77,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * @return a begin time
      */
   @Override
-  public Date getBeginTime() { return DateUtility.parseStringToDate(beginTime); }
+  public Date getBeginTime() { return begin_date; }
 
   /**
    * Returns an end time.
@@ -95,21 +85,21 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * @return an end time
      */
   @Override
-  public Date getEndTime() { return DateUtility.parseStringToDate(endTime); }
+  public Date getEndTime() { return end_date; }
 
   /**
    * Returns the initial begin time input.
    *
    * @return a begin time
      */
-  public String getBeginTimeInput() { return beginTime; }
+  public String getBeginTimeInput() { return begin_input; }
 
   /**
    * Returns the initial end time input.
    *
    * @return an end time
    */
-  public String getEndTimeInput() { return endTime; }
+  public String getEndTimeInput() { return end_input; }
 
   /**
    * Returns a duration of an appointment.
@@ -117,7 +107,7 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
    * @return a duration
      */
   public int getDurationInMinutes() {
-    return DateUtility.getMinutesBetweenDates(getBeginTime(), getEndTime());
+    return DateUtility.getMinutesBetweenDates(begin_date, end_date);
   }
 
   /**

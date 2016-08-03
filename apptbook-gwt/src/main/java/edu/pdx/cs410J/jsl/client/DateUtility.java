@@ -1,30 +1,28 @@
 package edu.pdx.cs410J.jsl.client;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DefaultDateTimeFormatInfo;
 
 import java.text.ParseException;
 import java.util.Date;
 
-/**
- * A collection of Java <code>Date</code> related utility functions.
- *
- * @author Jong Seong Lee
- * @version   %I%, %G%
- * @since     1.0
- */
 public class DateUtility {
-    static final private String pretty_pattern = "MM/dd/yyyy 'at' HH:mm a z";
-    static final private String short_pattern = "MM/dd/yyyy hh:mm a";
+    private static DateTimeFormat shortFormat = null;
+    private static DateTimeFormat prettyFormat = null;
+
+    static {
+        shortFormat = new DateTimeFormat("MM/dd/yyyy hh:mm a", new DefaultDateTimeFormatInfo()) {};
+        prettyFormat = new DateTimeFormat("MM/dd/yyyy 'at' hh:mm a z", new DefaultDateTimeFormatInfo()) {};
+    }
 
     /**
      * Converts a <code>Date</code> object into a <code>String</code> object for pretty printing.
      *
      * @param date a <code>Date</code> object to be converted
      * @return a <code>String</code> object converted
-     * @throws ParseException
      */
     public static String parseStringToDatePrettyPrint(Date date) {
-        return DateTimeFormat.getFormat(pretty_pattern).format(date);
+        return prettyFormat.format(date);
     }
 
     /**
@@ -35,7 +33,7 @@ public class DateUtility {
      * @throws ParseException
      */
     public static Date parseStringToDate(String date) {
-        return DateTimeFormat.getFormat(short_pattern).parse(date);
+        return shortFormat.parse(date);
     }
 
     /**
