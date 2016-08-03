@@ -82,42 +82,6 @@ public class TextParserTest {
         }
     }
 
-    @Ignore
-    @Test
-    public void shouldHandleNewLineCharacters() {
-        // added try catch for ParseException because of Project 3
-        ab.addAppointment(new Appointment("desc\n", "11/11/1999 11:11 am\r", "11/11/1999 11:11 pm\n"));
-
-        try {
-            textDumper.dump(ab);
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-
-        AppointmentBook appointmentBook = null;
-
-        try {
-            appointmentBook = getParsedString();
-        } catch (ParserException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        } finally {
-            deleteFile();
-        }
-
-        assertThat(appointmentBook.getOwnerName(), is(equalTo(ab.getOwnerName())));
-
-        for (int i = 0; i < ab.getAppointments().size(); i++) {
-            assertThat(appointmentBook.getAppointments().get(i).getBeginTimeString(),
-                    is(equalTo(ab.getAppointments().get(i).getBeginTimeString())));
-            assertThat(appointmentBook.getAppointments().get(i).getEndTimeString(),
-                    is(equalTo(ab.getAppointments().get(i).getEndTimeString())));
-            assertThat(appointmentBook.getAppointments().get(i).getDescription(),
-                    is(equalTo(ab.getAppointments().get(i).getDescription())));
-        }
-    }
-
     @Test
     public void shouldFailToParseFileStartingWithoutAppointmentBook() {
         String content = "some random string";

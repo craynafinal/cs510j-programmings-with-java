@@ -7,7 +7,6 @@ import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.DateUtility;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 
