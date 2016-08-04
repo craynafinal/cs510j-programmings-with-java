@@ -25,7 +25,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
 
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
     ui.textBox.setText("4");
-    click(ui.button);
+    click(ui.button_createAppointment);
 
     Timer verify = new Timer() {
       @Override
@@ -46,11 +46,11 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   /**
    * Clicks a <code>Button</code>
    *
-   * One would think that you could testing clicking a button with Button.click(), but it looks
+   * One would think that you could testing clicking a button_createAppointment with Button.click(), but it looks
    * like you need to fire the native event instead.  Lame.
    *
    * @param button
-   *        The button to click
+   *        The button_createAppointment to click
    */
   private void click(Button button) {
     NativeEvent event = Document.get().createClickEvent(0, 0, 0, 0, 0, false, false, false, false);
