@@ -10,7 +10,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * A basic GWT class that makes sure that we can send an appointment book back from the server
@@ -52,7 +54,7 @@ public class AppointmentBookGwt implements EntryPoint {
   DatePicker datepicker_begin_search = new DatePicker();
   DatePicker datepicker_end_search = new DatePicker();
 
-  TextBox textBox = new TextBox();
+  TextBox textBox = new TextBox(); //
 
   public AppointmentBookGwt() {
     this(new Alerter() {
@@ -108,12 +110,34 @@ public class AppointmentBookGwt implements EntryPoint {
         createAppointments();
       }
     });
+
+    button_createAppointmentBook.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        createAppointmentBook();
+      }
+    });
+  }
+
+  private void createAppointmentBook() {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+    async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<AppointmentBook>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(AppointmentBook appointmentBook) {
+        displayInAlertDialog("Appointment of the owner " + appointmentBook.getOwnerName() + " has been created!");
+      }
+    });
   }
 
   private void createAppointments() {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
     int numberOfAppointments = getNumberOfAppointments();
-    async.createAppointmentBook(numberOfAppointments, new AsyncCallback<AppointmentBook>() {
+    async.createAppointmentBook2(numberOfAppointments, new AsyncCallback<AppointmentBook>() {
 
       @Override
       public void onSuccess(AppointmentBook airline) {
@@ -131,6 +155,10 @@ public class AppointmentBookGwt implements EntryPoint {
     String number = this.textBox.getText();
 
     return Integer.parseInt(number);
+  }
+
+  private void displayInAlertDialog(String text) {
+    alerter.alert(text);
   }
 
   private void displayInAlertDialog(AppointmentBook airline) {

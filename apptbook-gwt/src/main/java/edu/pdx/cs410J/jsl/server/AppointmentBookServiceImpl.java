@@ -13,12 +13,17 @@ import java.text.ParseException;
 public class AppointmentBookServiceImpl extends RemoteServiceServlet implements AppointmentBookService
 {
   @Override
-  public AppointmentBook createAppointmentBook(int numberOfAppointments) {
+  public AppointmentBook createAppointmentBook2(int numberOfAppointments) {
     AppointmentBook book = new AppointmentBook();
     for (int i = 0; i < numberOfAppointments; i++) {
       book.addAppointment(new Appointment());
     }
     return book;
+  }
+
+  @Override
+  public AppointmentBook createAppointmentBook(String owner) {
+    return new AppointmentBook(owner);
   }
 
   @Override

@@ -12,7 +12,7 @@ public class AppointmentBookServiceImplTest {
   public void serviceReturnsExpectedAirline() {
     AppointmentBookServiceImpl service = new AppointmentBookServiceImpl();
     int numberOfAppointments = 6;
-    AppointmentBook airline = service.createAppointmentBook(numberOfAppointments);
+    AppointmentBook airline = service.createAppointmentBook2(numberOfAppointments);
     assertThat(airline.getAppointments().size(), equalTo(numberOfAppointments));
   }
 }

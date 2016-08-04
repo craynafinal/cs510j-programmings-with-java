@@ -28,7 +28,7 @@ public class AppointmentBookServiceSyncProxyIT extends HttpRequestHelper {
 
     AppointmentBookService service = SyncProxy.createSync(AppointmentBookService.class);
     int numberOfAppointments = 5;
-    AppointmentBook apptbook = service.createAppointmentBook(numberOfAppointments);
+    AppointmentBook apptbook = service.createAppointmentBook2(numberOfAppointments);
     assertEquals("My Owner", apptbook.getOwnerName());
     assertEquals(numberOfAppointments, apptbook.getAppointments().size());
   }

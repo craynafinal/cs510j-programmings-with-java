@@ -13,6 +13,7 @@ public interface AppointmentBookService extends RemoteService {
    * Returns the current date and time on the server
    * @param numberOfAppointments
    */
-  public AppointmentBook createAppointmentBook(int numberOfAppointments);
+  public AppointmentBook createAppointmentBook2(int numberOfAppointments);
 
+  public AppointmentBook createAppointmentBook(String owner);
 }
