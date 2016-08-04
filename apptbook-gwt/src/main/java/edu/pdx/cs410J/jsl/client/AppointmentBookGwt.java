@@ -10,9 +10,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * A basic GWT class that makes sure that we can send an appointment book back from the server
@@ -20,6 +18,9 @@ import java.util.List;
 public class AppointmentBookGwt implements EntryPoint {
   private final Alerter alerter;
   private static final String BUTTON_TEXT = "Submit";
+
+  //private Set<AppointmentBook> owners = new TreeSet<>();
+  private Set<String> owners = new TreeSet<>();
 
   // create an appointment book
   Button button_createAppointmentBook = new Button(BUTTON_TEXT);
@@ -83,14 +84,32 @@ public class AppointmentBookGwt implements EntryPoint {
     addNumbersToListBox(listbox_begin_min_search, 0, 59);
     addNumbersToListBox(listbox_end_min_search, 0, 59);
 
-    String[] ampm = { "am", "pm" };
+    List<String> ampm = new ArrayList<>();
+    ampm.add("am");
+    ampm.add("pm");
+
     addStringsToListBox(listbox_begin_ampm, ampm);
     addStringsToListBox(listbox_end_ampm, ampm);
     addStringsToListBox(listbox_begin_ampm_search, ampm);
     addStringsToListBox(listbox_end_ampm_search, ampm);
+
+    // should receive data
+    receiveAllAppointmentBooks();
   }
 
-  private void addStringsToListBox(ListBox listbox, String[] items) {
+  private void updateAllOwnersListBoxes() {
+    addStringsToListBox(listbox_owners, owners);
+    addStringsToListBox(listbox_owners_pretty, owners);
+    addStringsToListBox(listbox_owners_search, owners);
+  }
+
+  private void updateSingleOwnerListBoxes(String owner) {
+    listbox_owners.addItem(owner);
+    listbox_owners_pretty.addItem(owner);
+    listbox_owners_search.addItem(owner);
+  }
+
+  private void addStringsToListBox(ListBox listbox, Collection<String> items) {
     for (String item : items) {
       listbox.addItem(item);
     }
@@ -119,17 +138,37 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  private void createAppointmentBook() {
+  private void receiveAllAppointmentBooks() {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
-    async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<AppointmentBook>() {
+
+    async.receiveAllOwnerNames(new AsyncCallback<Set<String>>() {
       @Override
       public void onFailure(Throwable throwable) {
         alert(throwable);
       }
 
       @Override
-      public void onSuccess(AppointmentBook appointmentBook) {
-        displayInAlertDialog("Appointment of the owner " + appointmentBook.getOwnerName() + " has been created!");
+      public void onSuccess(Set<String> strings) {
+        owners.addAll(strings);
+        updateAllOwnersListBoxes();
+      }
+    });
+  }
+
+  private void createAppointmentBook() {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+
+    async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(String s) {
+        owners.add(s);
+        updateSingleOwnerListBoxes(s);
+        displayInAlertDialog("The new appontment book for " + s + " has been created!");
       }
     });
   }
@@ -247,6 +286,7 @@ public class AppointmentBookGwt implements EntryPoint {
             )
     );
 
+    // set the first tab as default
     tabPanel.selectTab(0);
 
     rootPanel.add(tabPanel);

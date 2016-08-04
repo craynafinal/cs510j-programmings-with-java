@@ -2,6 +2,8 @@ package edu.pdx.cs410J.jsl.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import java.util.Set;
+
 /**
  * The client-side interface to the ping service
  */
@@ -12,5 +14,7 @@ public interface AppointmentBookServiceAsync {
    */
   void createAppointmentBook2(int numberOfAppointments, AsyncCallback<AppointmentBook> async);
 
-  void createAppointmentBook(String owner, AsyncCallback<AppointmentBook> async);
+  void createAppointmentBook(String owner, AsyncCallback<String> async);
+
+  void receiveAllOwnerNames(AsyncCallback<Set<String>> async);
 }

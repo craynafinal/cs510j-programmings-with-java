@@ -14,6 +14,8 @@ import org.junit.Test;
  * And since this test code is compiled into JavaScript, you can't use hamcrest matchers.  :(
  */
 public class AppointmentBookGwtIT extends GWTTestCase {
+  private final CapturingAlerter alerter = new CapturingAlerter();
+
   @Override
   public String getModuleName() {
     return "edu.pdx.cs410J.jsl.AppointmentBookIntegrationTests";
@@ -21,8 +23,6 @@ public class AppointmentBookGwtIT extends GWTTestCase {
 
   @Test
   public void testClickingButtonAlertsWithAppointmentInformation() {
-    final CapturingAlerter alerter = new CapturingAlerter();
-
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
     ui.textBox.setText("4");
     click(ui.button_createAppointment);
@@ -30,17 +30,39 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        String message = alerter.getMessage();
-        assertNotNull(message);
-        assertTrue(message, message.contains("My Owner's appointment book with 4 appointments"));
+        checkMessage("My Owner's appointment book with 4 appointments");
         finishTest();
       }
     };
+    waitForRPCCall(verify);
+  }
 
+  @Test
+  public void testClickingCreateAppointmentBookButtonAlertsWithNotification() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+    ui.textbox_owner.setText("my owner");
+    click(ui.button_createAppointmentBook);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("The new appontment book for my owner has been created!");
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  private void waitForRPCCall(Timer verify) {
     // Wait for the RPC call to return
     verify.schedule(500);
-
     delayTestFinish(1000);
+  }
+
+  private void checkMessage(String msg) {
+    String message = alerter.getMessage();
+    assertNotNull(message);
+    assertTrue(message, message.contains(msg));
   }
 
   /**

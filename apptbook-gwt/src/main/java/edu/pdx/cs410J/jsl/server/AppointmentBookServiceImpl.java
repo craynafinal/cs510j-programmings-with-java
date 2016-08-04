@@ -5,13 +5,17 @@ import edu.pdx.cs410J.jsl.client.Appointment;
 import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 
-import java.text.ParseException;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The server-side implementation of the division service
  */
 public class AppointmentBookServiceImpl extends RemoteServiceServlet implements AppointmentBookService
 {
+  Set<AppointmentBook> appointmentBooks = new TreeSet<>();
+
   @Override
   public AppointmentBook createAppointmentBook2(int numberOfAppointments) {
     AppointmentBook book = new AppointmentBook();
@@ -22,8 +26,27 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
   }
 
   @Override
-  public AppointmentBook createAppointmentBook(String owner) {
-    return new AppointmentBook(owner);
+  public String createAppointmentBook(String owner) {
+    AppointmentBook book = new AppointmentBook(owner);
+
+    int i = 1;
+
+    while (!appointmentBooks.add(book)) {
+      book = new AppointmentBook(owner + "_" + i);
+      i ++;
+    }
+    return book.getOwnerName();
+  }
+
+  @Override
+  public Set<String> receiveAllOwnerNames() {
+    Set<String> ownerNames = new TreeSet<>();
+
+    for (AppointmentBook appointmentBook : appointmentBooks) {
+      ownerNames.add(appointmentBook.getOwnerName());
+    }
+
+    return ownerNames;
   }
 
   @Override

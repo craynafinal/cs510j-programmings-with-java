@@ -13,7 +13,7 @@ import java.util.List;
  * @version   %I%, %G%
  * @since     1.0
  */
-public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
+public class AppointmentBook extends AbstractAppointmentBook<Appointment> implements Comparable<AppointmentBook>{
     private String owner_name = null;
     private List<Appointment> appointments = null;
 
@@ -53,5 +53,10 @@ public class AppointmentBook extends AbstractAppointmentBook<Appointment> {
     @Override
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
+    }
+
+    @Override
+    public int compareTo(AppointmentBook appointmentBook) {
+        return this.getOwnerName().compareTo(appointmentBook.getOwnerName());
     }
 }
