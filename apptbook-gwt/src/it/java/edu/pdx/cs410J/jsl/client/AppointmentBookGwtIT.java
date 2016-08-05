@@ -118,6 +118,23 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   }
 
   @Test
+  public void testPrettyPrintWithoutOwnerCreated() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    ui.listbox_owners_pretty.setSelectedIndex(0);
+    click(ui.button_prettyPrint);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage(WARNING_OWNER);
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
   public void testPrettyPrintAll() {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
