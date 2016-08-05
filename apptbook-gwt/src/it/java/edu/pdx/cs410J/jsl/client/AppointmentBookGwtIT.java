@@ -21,6 +21,12 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   private static final String DESCRIPTION = "my description";
   private static final String BEGINTIME = "1/1/2000 11:11 am";
   private static final String ENDTIME = "2/2/2001 10:10 pm";
+
+  static final String WARNING_OWNER = "Please create an owner before creating an appointment";
+  static final String WARNING_DESCRIPTION = "Please add a description";
+  static final String WARNING_BEGINTIME = "Please set begin time";
+  static final String WARNING_ENDTIME = "Please set end time";
+
   private final CapturingAlerter alerter = new CapturingAlerter();
 
   @Override
@@ -38,7 +44,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("Please create an owner before creating an appointment");
+        checkMessage(WARNING_OWNER);
         finishTest();
       }
     };
@@ -59,7 +65,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("Please add a description");
+        checkMessage(WARNING_DESCRIPTION);
         finishTest();
       }
     };
@@ -81,7 +87,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("Please set begin time");
+        checkMessage(WARNING_BEGINTIME);
         finishTest();
       }
     };
@@ -104,7 +110,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("Please set end time");
+        checkMessage(WARNING_ENDTIME);
         finishTest();
       }
     };

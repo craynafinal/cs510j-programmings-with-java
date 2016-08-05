@@ -17,7 +17,12 @@ import java.util.*;
  */
 public class AppointmentBookGwt implements EntryPoint {
   private final Alerter alerter;
+
   private static final String BUTTON_TEXT = "Submit";
+  static final String WARNING_OWNER = "Please create an owner before creating an appointment";
+  static final String WARNING_DESCRIPTION = "Please add a description";
+  static final String WARNING_BEGINTIME = "Please set begin time";
+  static final String WARNING_ENDTIME = "Please set end time";
 
   //private Set<AppointmentBook> owners = new TreeSet<>();
   Set<String> owners = new TreeSet<>();
@@ -123,19 +128,45 @@ public class AppointmentBookGwt implements EntryPoint {
     return DateUtility.parseDateToStringWithoutTime(datepicker.getValue()) + " " + hour.getSelectedItemText() + ":" + min.getSelectedItemText() + " " + ampm.getSelectedItemText();
   }
 
+  private void prettyPrintAll(String owner) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+
+    async.prettyPrintAll(owner, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(String s) {
+        displayInAlertDialog(s);
+      }
+    });
+  }
+
   private void buttonsSetup() {
-    // widgets for creating appointments
+    button_prettyPrint.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        if (listbox_owners_pretty.getSelectedValue() == null) {
+          displayInAlertDialog(WARNING_OWNER);
+        } else {
+          prettyPrintAll(listbox_owners_pretty.getSelectedItemText());
+        }
+      }
+    });
+
     button_createAppointment.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
         if (listbox_owners.getSelectedValue() == null) {
-          displayInAlertDialog("Please create an owner before creating an appointment");
+          displayInAlertDialog(WARNING_OWNER);
         } else if (textbox_description.getText() == "" || textbox_description.getValue() == "") {
-          displayInAlertDialog("Please add a description");
+          displayInAlertDialog(WARNING_DESCRIPTION);
         } else if (datepicker_begin.getValue() == null) {
-          displayInAlertDialog("Please set begin time");
+          displayInAlertDialog(WARNING_BEGINTIME);
         } else if (datepicker_end.getValue() == null) {
-          displayInAlertDialog("Please set end time");
+          displayInAlertDialog(WARNING_ENDTIME);
         } else {
           String owner = listbox_owners.getSelectedItemText();
           String description = textbox_description.getText();
@@ -208,8 +239,7 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  @VisibleForTesting
-  void createAppointmentBook() {
+  private void createAppointmentBook() {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
     async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<String>() {

@@ -5,6 +5,9 @@ import edu.pdx.cs410J.jsl.client.Appointment;
 import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
@@ -46,6 +49,22 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     }
 
     return ownerNames;
+  }
+
+  @Override
+  public String prettyPrintAll(String owner) {
+
+    AppointmentBook appointmentBook = appointmentBooks.get(owner);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    PrettyPrinter prettyPrinter = new PrettyPrinter(printWriter);
+
+    try {
+      prettyPrinter.dump(appointmentBook);
+      return stringWriter.toString();
+    } catch (IOException e) {
+      return "";
+    }
   }
 
   @Override
