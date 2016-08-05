@@ -4,14 +4,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.pdx.cs410J.jsl.client.Appointment;
 import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
+import edu.pdx.cs410J.jsl.client.DateUtility;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.TreeSet;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * The server-side implementation of the division service
@@ -63,7 +62,57 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
       prettyPrinter.dump(appointmentBook);
       return stringWriter.toString();
     } catch (IOException e) {
-      return "";
+      return "Failed to print the searched appointment book for " + owner;
+    }
+  }
+
+  /**
+   * Returns an <code>AppointmentBook</code> object containing only <code>Appointment</code> objects within
+   * <code>beginTime</code> and <code>endTime</code>.
+   *
+   * @param book an original <code>AppointmentBook</code> object
+   * @param beginTime
+   * @param endTime
+   * @return a new <code>AppointmentBook</code> object containing only <code>Appointment</code> objects meets the condition
+   * @throws ParseException
+   */
+  private AppointmentBook getAppointmentBookWithSearchedAppointments(AppointmentBook book, String beginTime, String endTime) throws ParseException {
+    AppointmentBook tempAppointmentBook = new AppointmentBook(book.getOwnerName());
+    Date begin_date = null;
+    Date end_date = null;
+
+    begin_date = DateUtility.parseStringToDate(beginTime);
+    end_date = DateUtility.parseStringToDate(endTime);
+
+    for (Appointment appointment: book.getAppointments()) {
+      if (appointment.getBeginTime().compareTo(begin_date) >= 0
+              && appointment.getEndTime().compareTo(end_date) <= 0) {
+        tempAppointmentBook.addAppointment(appointment);
+      }
+    }
+
+    return tempAppointmentBook;
+  }
+
+  @Override
+  public String prettyPrintSearch(String owner, String beginTime, String endTime) {
+
+    AppointmentBook appointmentBook = null;
+    try {
+      appointmentBook = getAppointmentBookWithSearchedAppointments(appointmentBooks.get(owner), beginTime, endTime);
+    } catch (ParseException e) {
+      return "Failed to search the appointment book for " + owner;
+    }
+
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    PrettyPrinter prettyPrinter = new PrettyPrinter(printWriter);
+
+    try {
+      prettyPrinter.dump(appointmentBook);
+      return stringWriter.toString();
+    } catch (IOException e) {
+      return "Failed to print the searched appointment book for " + owner;
     }
   }
 

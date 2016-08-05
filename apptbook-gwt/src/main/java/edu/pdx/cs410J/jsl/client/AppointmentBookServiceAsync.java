@@ -15,4 +15,6 @@ public interface AppointmentBookServiceAsync {
   void createAppointment(String owner, String description, String beginTime, String endTime, AsyncCallback<String> async);
 
   void prettyPrintAll(String owner, AsyncCallback<String> async);
+
+  void prettyPrintSearch(String owner, String beginTime, String endTime, AsyncCallback<String> async);
 }

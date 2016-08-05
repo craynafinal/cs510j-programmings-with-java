@@ -144,7 +144,42 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  private void prettyPrintSearch(String owner, String beginTime, String endTime) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+
+    async.prettyPrintSearch(owner, beginTime, endTime, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(String s) {
+        displayInAlertDialog(s);
+      }
+    });
+  }
+
   private void buttonsSetup() {
+    button_search.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        if (listbox_owners_search.getSelectedValue() == null) {
+          displayInAlertDialog(WARNING_OWNER);
+        } else if (datepicker_begin_search.getValue() == null) {
+          displayInAlertDialog(WARNING_BEGINTIME);
+        } else if (datepicker_end_search.getValue() == null) {
+          displayInAlertDialog(WARNING_ENDTIME);
+        } else {
+          String owner = listbox_owners_search.getSelectedItemText();
+          String beginTime = getDateTime(datepicker_begin_search, listbox_begin_hour_search, listbox_begin_min_search, listbox_begin_ampm_search);
+          String endTime = getDateTime(datepicker_end_search, listbox_end_hour_search, listbox_end_min_search, listbox_end_ampm_search);
+
+          prettyPrintSearch(owner, beginTime, endTime);
+        }
+      }
+    });
+
     button_prettyPrint.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
