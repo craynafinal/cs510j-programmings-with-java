@@ -118,6 +118,37 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   }
 
   @Test
+  public void testPrettyPrintAll() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    // add a new owner
+    ui.textbox_owner.setText(OWNER);
+    ui.createAppointmentBookSilent();
+    ui.owners.add(OWNER);
+    ui.listbox_owners.addItem(OWNER);
+    ui.listbox_owners_pretty.addItem(OWNER);
+
+    // add an appointment
+    ui.listbox_owners.setSelectedIndex(0);
+    ui.createAppointmentSilent(OWNER, DESCRIPTION, BEGINTIME, ENDTIME);
+
+    // pretty print
+    ui.listbox_owners_pretty.setSelectedIndex(0);
+    click(ui.button_prettyPrint);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage(OWNER, DESCRIPTION,
+                DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(BEGINTIME)),
+                DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(ENDTIME)));
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
   public void testCreatingAppointment() {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
@@ -191,10 +222,12 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     delayTestFinish(1000);
   }
 
-  private void checkMessage(String msg) {
+  private void checkMessage(String ... msgs) {
     String message = alerter.getMessage();
     assertNotNull(message);
-    assertTrue(message, message.contains(msg));
+    for (String msg : msgs) {
+      assertTrue(message, message.contains(msg));
+    }
   }
 
   /**

@@ -193,6 +193,18 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  @VisibleForTesting
+  void createAppointmentSilent(String owner, String description, String beginTime, String endTime) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+    async.createAppointment(owner, description, beginTime, endTime, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) { }
+
+      @Override
+      public void onSuccess(String s) { }
+    });
+  }
+
   private void createAppointment(String owner, String description, String beginTime, String endTime) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
     async.createAppointment(owner, description, beginTime, endTime, new AsyncCallback<String>() {
@@ -234,8 +246,7 @@ public class AppointmentBookGwt implements EntryPoint {
       public void onFailure(Throwable throwable) { }
 
       @Override
-      public void onSuccess(String s) {
-      }
+      public void onSuccess(String s) { }
     });
   }
 
