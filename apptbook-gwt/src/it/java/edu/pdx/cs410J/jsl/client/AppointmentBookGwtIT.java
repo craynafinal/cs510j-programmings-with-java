@@ -17,6 +17,10 @@ import java.util.Set;
  * And since this test code is compiled into JavaScript, you can't use hamcrest matchers.  :(
  */
 public class AppointmentBookGwtIT extends GWTTestCase {
+  private static final String OWNER = "my owner";
+  private static final String DESCRIPTION = "my description";
+  private static final String BEGINTIME = "1/1/2000 11:11 am";
+  private static final String ENDTIME = "2/2/2001 10:10 pm";
   private final CapturingAlerter alerter = new CapturingAlerter();
 
   @Override
@@ -24,57 +28,49 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     return "edu.pdx.cs410J.jsl.AppointmentBookIntegrationTests";
   }
 
-  @Ignore
   @Test
   public void testCreatingAppointment() {
-
-    /*
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
-    ui.textbox_owner.setText("my owner");
-    click(ui.button_createAppointmentBook);
+    // add a new owner
+    ui.textbox_owner.setText(OWNER);
+    ui.createAppointmentBookSilent();
+    ui.owners.add(OWNER);
+    ui.listbox_owners.addItem(OWNER);
 
-    click(ui.button_createAppointment);
-
-    Timer verify = new Timer() {
-      @Override
-      public void run() {
-        checkMessage("The new appontment book for my owner has been created!");
-      }
-    };
-    waitForRPCCall(verify);
-
+    // setup info for the new appoinment
     ui.listbox_owners.setSelectedIndex(0);
-    ui.textbox_description.setText("my description");
-    ui.datepicker_begin.setValue(DateUtility.parseStringToDate("1/1/2000 11:11 am"));
-    ui.datepicker_end.setValue(DateUtility.parseStringToDate("2/2/2001 10:10 pm"));
+    ui.textbox_description.setText(DESCRIPTION);
+    ui.datepicker_begin.setValue(DateUtility.parseStringToDate(BEGINTIME));
+    ui.datepicker_end.setValue(DateUtility.parseStringToDate(ENDTIME));
     ui.listbox_begin_hour.setSelectedIndex(10);
     ui.listbox_begin_min.setSelectedIndex(11);
     ui.listbox_begin_ampm.setSelectedIndex(0);
     ui.listbox_end_hour.setSelectedIndex(9);
     ui.listbox_end_min.setSelectedIndex(10);
     ui.listbox_end_ampm.setSelectedIndex(1);
+    click(ui.button_createAppointment);
 
-    Timer verify2 = new Timer() {
+    Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("my description");
+        checkMessage(new Appointment(DESCRIPTION, BEGINTIME, ENDTIME).toString());
         finishTest();
       }
     };
-    waitForRPCCall(verify2);*/
+    waitForRPCCall(verify);
   }
 
   @Test
   public void testClickingCreateAppointmentBookButtonAlertsWithNotification() {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
-    ui.textbox_owner.setText("my owner");
+    ui.textbox_owner.setText(OWNER);
     click(ui.button_createAppointmentBook);
 
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("The new appontment book for my owner has been created!");
+        checkMessage("The new appontment book for " + OWNER + " has been created!");
         finishTest();
       }
     };
@@ -84,15 +80,15 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   @Test
   public void testCreatingDuplicateAppointmentBook() {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
-    Set<String> owners = ui.getOwners();
-    owners.add("my owner");
-    ui.textbox_owner.setText("my owner");
+    Set<String> owners = ui.owners;
+    owners.add(OWNER);
+    ui.textbox_owner.setText(OWNER);
     click(ui.button_createAppointmentBook);
 
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("The owner name \"my owner\" already exists");
+        checkMessage("The owner name \"" + OWNER + "\" already exists");
         finishTest();
       }
     };

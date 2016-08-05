@@ -20,7 +20,7 @@ public class AppointmentBookGwt implements EntryPoint {
   private static final String BUTTON_TEXT = "Submit";
 
   //private Set<AppointmentBook> owners = new TreeSet<>();
-  private Set<String> owners = new TreeSet<>();
+  Set<String> owners = new TreeSet<>();
 
   // create an appointment book
   Button button_createAppointmentBook = new Button(BUTTON_TEXT);
@@ -62,10 +62,6 @@ public class AppointmentBookGwt implements EntryPoint {
         Window.alert(message);
       }
     });
-  }
-
-  public Set<String> getOwners() {
-    return owners;
   }
 
   @VisibleForTesting
@@ -198,7 +194,22 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  private void createAppointmentBook() {
+  @VisibleForTesting
+  void createAppointmentBookSilent() {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+
+    async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) { }
+
+      @Override
+      public void onSuccess(String s) {
+      }
+    });
+  }
+
+  @VisibleForTesting
+  void createAppointmentBook() {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
     async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<String>() {
