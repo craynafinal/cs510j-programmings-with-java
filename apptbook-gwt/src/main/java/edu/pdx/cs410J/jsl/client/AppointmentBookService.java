@@ -10,14 +10,9 @@ import java.util.Set;
  */
 @RemoteServiceRelativePath("appointments")
 public interface AppointmentBookService extends RemoteService {
-
-  /**
-   * Returns the current date and time on the server
-   * @param numberOfAppointments
-   */
-  public AppointmentBook createAppointmentBook2(int numberOfAppointments);
-
   public String createAppointmentBook(String owner);
+
+  public String createAppointment(String owner, String description, String beginTime, String endTime);
 
   public Set<String> receiveAllOwnerNames();
 }

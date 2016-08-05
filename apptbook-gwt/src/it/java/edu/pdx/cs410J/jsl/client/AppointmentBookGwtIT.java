@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Set;
@@ -23,20 +24,45 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     return "edu.pdx.cs410J.jsl.AppointmentBookIntegrationTests";
   }
 
+  @Ignore
   @Test
-  public void testClickingButtonAlertsWithAppointmentInformation() {
+  public void testCreatingAppointment() {
+
+    /*
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
-    ui.textBox.setText("4");
+
+    ui.textbox_owner.setText("my owner");
+    click(ui.button_createAppointmentBook);
+
     click(ui.button_createAppointment);
 
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("My Owner's appointment book with 4 appointments");
-        finishTest();
+        checkMessage("The new appontment book for my owner has been created!");
       }
     };
     waitForRPCCall(verify);
+
+    ui.listbox_owners.setSelectedIndex(0);
+    ui.textbox_description.setText("my description");
+    ui.datepicker_begin.setValue(DateUtility.parseStringToDate("1/1/2000 11:11 am"));
+    ui.datepicker_end.setValue(DateUtility.parseStringToDate("2/2/2001 10:10 pm"));
+    ui.listbox_begin_hour.setSelectedIndex(10);
+    ui.listbox_begin_min.setSelectedIndex(11);
+    ui.listbox_begin_ampm.setSelectedIndex(0);
+    ui.listbox_end_hour.setSelectedIndex(9);
+    ui.listbox_end_min.setSelectedIndex(10);
+    ui.listbox_end_ampm.setSelectedIndex(1);
+
+    Timer verify2 = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("my description");
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify2);*/
   }
 
   @Test

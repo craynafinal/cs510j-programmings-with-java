@@ -21,6 +21,7 @@ public class AppointmentBookServiceSyncProxyIT extends HttpRequestHelper {
     assertEquals(200, response.getCode());
   }
 
+  /*
   @Test
   public void canInvokeAppointmentBookServiceWithGwtSyncProxy() {
     String moduleName = "apptbook";
@@ -32,5 +33,5 @@ public class AppointmentBookServiceSyncProxyIT extends HttpRequestHelper {
     assertEquals("My Owner", apptbook.getOwnerName());
     assertEquals(numberOfAppointments, apptbook.getAppointments().size());
   }
-
+  */
 }

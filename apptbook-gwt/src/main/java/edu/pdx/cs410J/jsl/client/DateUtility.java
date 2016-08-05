@@ -9,10 +9,22 @@ import java.util.Date;
 public class DateUtility {
     private static DateTimeFormat shortFormat = null;
     private static DateTimeFormat prettyFormat = null;
+    private static DateTimeFormat dateOnlyormat = null;
 
     static {
         shortFormat = new DateTimeFormat("MM/dd/yyyy hh:mm a", new DefaultDateTimeFormatInfo()) {};
         prettyFormat = new DateTimeFormat("MM/dd/yyyy 'at' hh:mm a z", new DefaultDateTimeFormatInfo()) {};
+        dateOnlyormat = new DateTimeFormat("MM/dd/yyyy", new DefaultDateTimeFormatInfo()) {};
+    }
+
+    /**
+     * Converts a <code>Date</code> object into a <code>String</code> object with no time information.
+     *
+     * @param date a <code>Date</code> object to be converted
+     * @return a <code>String</code> object converted
+     */
+    public static String parseDateToStringWithoutTime(Date date) {
+        return dateOnlyormat.format(date);
     }
 
     /**
@@ -21,9 +33,17 @@ public class DateUtility {
      * @param date a <code>Date</code> object to be converted
      * @return a <code>String</code> object converted
      */
-    public static String parseStringToDatePrettyPrint(Date date) {
+    public static String parseDateToStringPrettyPrint(Date date) {
         return prettyFormat.format(date);
     }
+
+    /**
+     * Converts a <code>Date</code> object into a <code>String</code> object.
+     *
+     * @param date a <code>Date</code> object to be converted
+     * @return a <code>String</code> object converted
+     */
+    public static String parseDateToString(Date date) { return shortFormat.format(date); }
 
     /**
      * Parses a <code>String</code> object into a <code>Date</code> object.

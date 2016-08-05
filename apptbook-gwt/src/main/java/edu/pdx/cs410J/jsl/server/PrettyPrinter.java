@@ -70,8 +70,8 @@ public class PrettyPrinter implements AppointmentBookDumper {
 
         for (Appointment app: listOfAppointments) {
             printWriter.println(" " + i++ + ") Appointment: " + app.getDescription());
-            printWriter.println("    Begin Time:  " + DateUtility.parseStringToDatePrettyPrint(app.getBeginTime()));
-            printWriter.println("    End Time:    " + DateUtility.parseStringToDatePrettyPrint(app.getEndTime()));
+            printWriter.println("    Begin Time:  " + DateUtility.parseDateToStringPrettyPrint(app.getBeginTime()));
+            printWriter.println("    End Time:    " + DateUtility.parseDateToStringPrettyPrint(app.getEndTime()));
             printWriter.println("    Duration:    " + app.getDurationInMinutes() + " Minutes");
         }
 

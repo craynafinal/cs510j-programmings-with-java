@@ -19,13 +19,6 @@ public class AppointmentBookServiceImplTest {
   }
 
   @Test
-  public void serviceReturnsExpectedAirline() {
-    int numberOfAppointments = 6;
-    AppointmentBook airline = service.createAppointmentBook2(numberOfAppointments);
-    assertThat(airline.getAppointments().size(), equalTo(numberOfAppointments));
-  }
-
-  @Test
   public void shouldAddNewAppointment() {
     String owner = "owner";
     String result = service.createAppointmentBook(owner);

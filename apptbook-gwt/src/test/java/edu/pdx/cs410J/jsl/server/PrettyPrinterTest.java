@@ -9,10 +9,6 @@ import org.junit.Test;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -80,8 +76,8 @@ public class PrettyPrinterTest {
 
         for (int i = 0; i < beginTime.length; i++) {
             assertThat(fileContent, containsString((i + 1) + ") Appointment: " + description + (order[i] + 1)));
-            assertThat(fileContent, containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(beginTime[i]))));
-            assertThat(fileContent, containsString(DateUtility.parseStringToDatePrettyPrint(DateUtility.parseStringToDate(endTime[i]))));
+            assertThat(fileContent, containsString(DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(beginTime[i]))));
+            assertThat(fileContent, containsString(DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(endTime[i]))));
             assertThat(fileContent, containsString(minute[i] + " Minutes"));
         }
     }

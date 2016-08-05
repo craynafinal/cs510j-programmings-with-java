@@ -6,6 +6,7 @@ import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -14,22 +15,14 @@ import java.util.TreeSet;
  */
 public class AppointmentBookServiceImpl extends RemoteServiceServlet implements AppointmentBookService
 {
-  Set<AppointmentBook> appointmentBooks = new TreeSet<>();
-
-  @Override
-  public AppointmentBook createAppointmentBook2(int numberOfAppointments) {
-    AppointmentBook book = new AppointmentBook();
-    for (int i = 0; i < numberOfAppointments; i++) {
-      book.addAppointment(new Appointment());
-    }
-    return book;
-  }
+  HashMap<String, AppointmentBook> appointmentBooks = new HashMap<>();
 
   @Override
   public String createAppointmentBook(String owner) {
     AppointmentBook book = new AppointmentBook(owner);
 
-    if (appointmentBooks.add(book)) {
+    if (!appointmentBooks.containsKey(owner)) {
+      appointmentBooks.put(owner, book);
       return book.getOwnerName();
     } else {
       return "";
@@ -37,11 +30,19 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
   }
 
   @Override
+  public String createAppointment(String owner, String description, String beginTime, String endTime) {
+    AppointmentBook appointmentBook = appointmentBooks.get(owner);
+    Appointment appointment = new Appointment(description, beginTime, endTime);
+    appointmentBook.addAppointment(appointment);
+    return appointment.toString();
+  }
+
+  @Override
   public Set<String> receiveAllOwnerNames() {
     Set<String> ownerNames = new TreeSet<>();
 
-    for (AppointmentBook appointmentBook : appointmentBooks) {
-      ownerNames.add(appointmentBook.getOwnerName());
+    for (String ownerName : appointmentBooks.keySet()) {
+      ownerNames.add(ownerName);
     }
 
     return ownerNames;

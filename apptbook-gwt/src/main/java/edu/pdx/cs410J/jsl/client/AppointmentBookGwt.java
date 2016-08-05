@@ -55,8 +55,6 @@ public class AppointmentBookGwt implements EntryPoint {
   DatePicker datepicker_begin_search = new DatePicker();
   DatePicker datepicker_end_search = new DatePicker();
 
-  TextBox textBox = new TextBox(); //
-
   public AppointmentBookGwt() {
     this(new Alerter() {
       @Override
@@ -125,12 +123,30 @@ public class AppointmentBookGwt implements EntryPoint {
     }
   }
 
+  private String getDateTime(DatePicker datepicker, ListBox hour, ListBox min, ListBox ampm) {
+    return DateUtility.parseDateToStringWithoutTime(datepicker.getValue()) + " " + hour.getSelectedItemText() + ":" + min.getSelectedItemText() + " " + ampm.getSelectedItemText();
+  }
+
   private void buttonsSetup() {
     // widgets for creating appointments
     button_createAppointment.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
-        createAppointments();
+        if (listbox_owners.getSelectedValue() == null) {
+          displayInAlertDialog("Please create an owner before creating an appointment");
+        } else if (textbox_description.getText() == "") {
+          displayInAlertDialog("Please add a description");
+        } else if (datepicker_begin.getValue() == null) {
+          displayInAlertDialog("Please set begin time");
+        } else if (datepicker_end.getValue() == null) {
+          displayInAlertDialog("Please set end time");
+        } else {
+          String owner = listbox_owners.getSelectedItemText();
+          String description = textbox_description.getText();
+          String beginTime = getDateTime(datepicker_begin, listbox_begin_hour, listbox_begin_min, listbox_begin_ampm);
+          String endTime = getDateTime(datepicker_end, listbox_end_hour, listbox_end_min, listbox_end_ampm);
+          createAppointment(owner, description, beginTime, endTime);
+        }
       }
     });
 
@@ -146,6 +162,21 @@ public class AppointmentBookGwt implements EntryPoint {
         } else {
           displayInAlertDialog("Please enter the owner name in the text field!");
         }
+      }
+    });
+  }
+
+  private void createAppointment(String owner, String description, String beginTime, String endTime) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+    async.createAppointment(owner, description, beginTime, endTime, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(String s) {
+        displayInAlertDialog("The new appointment created: " + s);
       }
     });
   }
@@ -187,29 +218,6 @@ public class AppointmentBookGwt implements EntryPoint {
         }
       }
     });
-  }
-
-  private void createAppointments() {
-    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
-    int numberOfAppointments = getNumberOfAppointments();
-    async.createAppointmentBook2(numberOfAppointments, new AsyncCallback<AppointmentBook>() {
-
-      @Override
-      public void onSuccess(AppointmentBook airline) {
-        displayInAlertDialog(airline);
-      }
-
-      @Override
-      public void onFailure(Throwable ex) {
-        alert(ex);
-      }
-    });
-  }
-
-  private int getNumberOfAppointments() {
-    String number = this.textBox.getText();
-
-    return Integer.parseInt(number);
   }
 
   private void displayInAlertDialog(String text) {

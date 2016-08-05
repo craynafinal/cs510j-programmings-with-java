@@ -27,6 +27,23 @@ public class DateUtilityTest {
     }
 
     @Test
+    public void shouldParseDateToStringCorrectly() {
+        String dateToTest = "01/01/2016 02:00 PM";
+        Date date = DateUtility.parseStringToDate(dateToTest);
+        String parsed = DateUtility.parseDateToString(date);
+
+        assertThat(parsed, is(equalTo(dateToTest)));
+    }
+
+    @Test
+    public void shouldParseDateToStringPrettyPrintCorrectly() {
+        Date date = DateUtility.parseStringToDate("01/01/2016 02:00 PM");
+        String parsed = DateUtility.parseDateToStringPrettyPrint(date);
+
+        assertThat(parsed, is(equalTo("01/01/2016 at 02:00 PM UTC-8")));
+    }
+
+    @Test
     public void shouldRecognizeDateTimeString() {
         String correct = "1/1/2016 1:00 PM";
         String incorrect = "wrong format";
