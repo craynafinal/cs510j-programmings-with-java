@@ -33,11 +33,20 @@ public class AppointmentBookServiceImplTest {
   }
 
   @Test
+  public void shouldReturnEmptyString() {
+    String owner = "owner";
+    service.createAppointmentBook(owner);
+    String result = service.createAppointmentBook(owner);
+
+    assertThat("", is(equalTo(result)));
+  }
+
+  @Test
   public void shouldReceiveAllOwnerNames() {
     int size = 3;
 
     for (int i = 0; i < size; i++) {
-      service.createAppointmentBook("owner");
+      service.createAppointmentBook("owner" + i);
     }
 
     Set<String> results = service.receiveAllOwnerNames();

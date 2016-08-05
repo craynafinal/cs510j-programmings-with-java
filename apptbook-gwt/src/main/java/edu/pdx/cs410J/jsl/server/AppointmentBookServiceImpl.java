@@ -29,13 +29,11 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
   public String createAppointmentBook(String owner) {
     AppointmentBook book = new AppointmentBook(owner);
 
-    int i = 1;
-
-    while (!appointmentBooks.add(book)) {
-      book = new AppointmentBook(owner + "_" + i);
-      i ++;
+    if (appointmentBooks.add(book)) {
+      return book.getOwnerName();
+    } else {
+      return "";
     }
-    return book.getOwnerName();
   }
 
   @Override

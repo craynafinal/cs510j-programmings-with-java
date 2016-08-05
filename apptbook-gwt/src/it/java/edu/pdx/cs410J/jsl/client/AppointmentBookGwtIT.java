@@ -8,6 +8,8 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
 import org.junit.Test;
 
+import java.util.Set;
+
 /**
  * An integration test for the airline GWT UI.  Remember that GWTTestCase is JUnit 3 style.
  * So, test methods names must begin with "test".
@@ -50,6 +52,25 @@ public class AppointmentBookGwtIT extends GWTTestCase {
         finishTest();
       }
     };
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testCreatingDuplicateAppointmentBook() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+    Set<String> owners = ui.getOwners();
+    owners.add("my owner");
+    ui.textbox_owner.setText("my owner");
+    click(ui.button_createAppointmentBook);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("The owner name \"my owner\" already exists");
+        finishTest();
+      }
+    };
+
     waitForRPCCall(verify);
   }
 

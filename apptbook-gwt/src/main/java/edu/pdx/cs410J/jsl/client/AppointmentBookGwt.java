@@ -66,6 +66,10 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  public Set<String> getOwners() {
+    return owners;
+  }
+
   @VisibleForTesting
   AppointmentBookGwt(Alerter alerter) {
     this.alerter = alerter;
@@ -133,7 +137,15 @@ public class AppointmentBookGwt implements EntryPoint {
     button_createAppointmentBook.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
-        createAppointmentBook();
+        String owner = textbox_owner.getText();
+
+        if (owners.contains(owner)) {
+          displayInAlertDialog("The owner name \"" + owner + "\" already exists!");
+        } else if (owner != "") {
+          createAppointmentBook();
+        } else {
+          displayInAlertDialog("Please enter the owner name in the text field!");
+        }
       }
     });
   }
@@ -166,9 +178,13 @@ public class AppointmentBookGwt implements EntryPoint {
 
       @Override
       public void onSuccess(String s) {
-        owners.add(s);
-        updateSingleOwnerListBoxes(s);
-        displayInAlertDialog("The new appontment book for " + s + " has been created!");
+        if (s != "") {
+          owners.add(s);
+          updateSingleOwnerListBoxes(s);
+          displayInAlertDialog("The new appontment book for " + s + " has been created!");
+        } else {
+          displayInAlertDialog("Failed to create an appointment book!");
+        }
       }
     });
   }
