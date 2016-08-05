@@ -130,7 +130,7 @@ public class AppointmentBookGwt implements EntryPoint {
       public void onClick(ClickEvent clickEvent) {
         if (listbox_owners.getSelectedValue() == null) {
           displayInAlertDialog("Please create an owner before creating an appointment");
-        } else if (textbox_description.getText() == "") {
+        } else if (textbox_description.getText() == "" || textbox_description.getValue() == "") {
           displayInAlertDialog("Please add a description");
         } else if (datepicker_begin.getValue() == null) {
           displayInAlertDialog("Please set begin time");

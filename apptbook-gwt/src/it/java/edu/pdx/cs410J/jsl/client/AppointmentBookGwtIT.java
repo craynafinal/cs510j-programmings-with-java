@@ -29,6 +29,89 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   }
 
   @Test
+  public void testCreatingAppointmentWithMissingOwner() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    ui.listbox_owners.setSelectedIndex(0);
+    click(ui.button_createAppointment);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("Please create an owner before creating an appointment");
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testCreatingAppointmentWithMissingDescription() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    // temporally add an owner name
+    ui.owners.add(OWNER);
+    ui.listbox_owners.addItem(OWNER);
+
+    ui.listbox_owners.setSelectedIndex(0);
+    click(ui.button_createAppointment);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("Please add a description");
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testCreatingAppointmentWithMissingBeginTime() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    // temporally add an owner name
+    ui.owners.add(OWNER);
+    ui.listbox_owners.addItem(OWNER);
+
+    ui.listbox_owners.setSelectedIndex(0);
+    ui.textbox_description.setText(DESCRIPTION);
+    click(ui.button_createAppointment);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("Please set begin time");
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testCreatingAppointmentWithMissingEndTime() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    // temporally add an owner name
+    ui.owners.add(OWNER);
+    ui.listbox_owners.addItem(OWNER);
+
+    ui.listbox_owners.setSelectedIndex(0);
+    ui.textbox_description.setText(DESCRIPTION);
+    ui.datepicker_begin.setValue(DateUtility.parseStringToDate(BEGINTIME));
+    click(ui.button_createAppointment);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessage("Please set end time");
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
   public void testCreatingAppointment() {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
