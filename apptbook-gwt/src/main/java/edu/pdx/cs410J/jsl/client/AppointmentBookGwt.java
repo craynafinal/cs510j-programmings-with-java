@@ -535,7 +535,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "README",
             getVerticalPanel(
-                    getLabel("")
+                    getLabel(readme())
             )
     );
 
@@ -545,9 +545,29 @@ public class AppointmentBookGwt implements EntryPoint {
     rootPanel.add(tabPanel);
   }
 
+  private String readme() {
+    String readme =
+            "********************************************************\n" +
+            "CS410/510J Advanced Java Programming\n" +
+            "Project 5: A Rich Internet Application for an Appointment Book\n" +
+            "Student: Jong Seong Lee\n" +
+            "********************************************************\n\n" +
+            "This program will generate scripts for a web application based on GWT\n" +
+            "and is going to demonstrate functions from previous assignments.\n\n" +
+            "1. Create an appointment book: You should create an appointment to use other features of this web application.\n" +
+            "Enter a name of an owner and click submit button.\n\n" +
+            "2. Create an appointment: Select an owner and enter description, begin time and end time\n" +
+            "to create an appointment for the owner you chose.\n\n" +
+            "3. Pretty print: Print all appointments associated to the selected owner in a defined format.\n\n" +
+            "4. Search: Same as Pretty print but it will only print the appointments in a range you selects.\n\n" +
+            "5. Download: Make the servier generate a dump file to store an appointment book so you may restore later.\n\n" +
+            "6. Upload: Use a generated file to restore an appointment book after the server reboots."
+            ;
+    return readme;
+  }
+
   @VisibleForTesting
   interface Alerter {
     void alert(String message);
   }
-
 }
