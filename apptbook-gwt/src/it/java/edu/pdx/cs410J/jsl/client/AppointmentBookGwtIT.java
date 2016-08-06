@@ -6,7 +6,6 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Set;
@@ -17,7 +16,7 @@ import java.util.Set;
  * And since this test code is compiled into JavaScript, you can't use hamcrest matchers.  :(
  */
 public class AppointmentBookGwtIT extends GWTTestCase {
-  private static final String OWNER = "my owner";
+  private static final String[] OWNER = { "my owner 1", "my owner 2" };
   private static final String DESCRIPTION = "my description";
   private static final String BEGINTIME = "1/1/2000 11:11 am";
   private static final String ENDTIME = "2/2/2001 10:10 pm";
@@ -44,7 +43,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(WARNING_OWNER);
+        checkMessageContains(true, WARNING_OWNER);
         finishTest();
       }
     };
@@ -56,8 +55,8 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // temporally add an owner name
-    ui.owners.add(OWNER);
-    ui.listbox_owners.addItem(OWNER);
+    ui.owners.add(OWNER[0]);
+    ui.listbox_owners.addItem(OWNER[0]);
 
     ui.listbox_owners.setSelectedIndex(0);
     click(ui.button_createAppointment);
@@ -65,7 +64,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(WARNING_DESCRIPTION);
+        checkMessageContains(true, WARNING_DESCRIPTION);
         finishTest();
       }
     };
@@ -77,8 +76,8 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // temporally add an owner name
-    ui.owners.add(OWNER);
-    ui.listbox_owners.addItem(OWNER);
+    ui.owners.add(OWNER[0]);
+    ui.listbox_owners.addItem(OWNER[0]);
 
     ui.listbox_owners.setSelectedIndex(0);
     ui.textbox_description.setText(DESCRIPTION);
@@ -87,7 +86,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(WARNING_BEGINTIME);
+        checkMessageContains(true, WARNING_BEGINTIME);
         finishTest();
       }
     };
@@ -99,8 +98,8 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // temporally add an owner name
-    ui.owners.add(OWNER);
-    ui.listbox_owners.addItem(OWNER);
+    ui.owners.add(OWNER[0]);
+    ui.listbox_owners.addItem(OWNER[0]);
 
     ui.listbox_owners.setSelectedIndex(0);
     ui.textbox_description.setText(DESCRIPTION);
@@ -110,7 +109,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(WARNING_ENDTIME);
+        checkMessageContains(true, WARNING_ENDTIME);
         finishTest();
       }
     };
@@ -127,7 +126,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(WARNING_OWNER);
+        checkMessageContains(true, WARNING_OWNER);
         finishTest();
       }
     };
@@ -139,15 +138,15 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // add a new owner
-    ui.textbox_owner.setText(OWNER);
+    ui.textbox_owner.setText(OWNER[0]);
     ui.createAppointmentBookSilent();
-    ui.owners.add(OWNER);
-    ui.listbox_owners.addItem(OWNER);
-    ui.listbox_owners_pretty.addItem(OWNER);
+    ui.owners.add(OWNER[0]);
+    ui.listbox_owners.addItem(OWNER[0]);
+    ui.listbox_owners_pretty.addItem(OWNER[0]);
 
     // add an appointment
     ui.listbox_owners.setSelectedIndex(0);
-    ui.createAppointmentSilent(OWNER, DESCRIPTION, BEGINTIME, ENDTIME);
+    ui.createAppointmentSilent(OWNER[0], DESCRIPTION, BEGINTIME, ENDTIME);
 
     // pretty print
     ui.listbox_owners_pretty.setSelectedIndex(0);
@@ -156,9 +155,49 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(OWNER, DESCRIPTION,
+        checkMessageContains(true, OWNER[0], DESCRIPTION,
                 DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(BEGINTIME)),
                 DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(ENDTIME)));
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testPrettyPrintSearch() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    String date_1 = "1/1/2000 01:00 am";
+    String date_2 = "2/1/2000 01:00 am";
+    String date_3 = "3/1/2000 01:00 am";
+
+    // add a new owner
+    ui.textbox_owner.setText(OWNER[0]);
+    ui.createAppointmentBookSilent();
+    ui.owners.add(OWNER[0]);
+    ui.listbox_owners.addItem(OWNER[0]);
+    ui.listbox_owners_search.addItem(OWNER[0]);
+
+    // add appointments
+    ui.listbox_owners.setSelectedIndex(0);
+    ui.createAppointmentSilent(OWNER[0], DESCRIPTION, date_1, date_1);
+    ui.createAppointmentSilent(OWNER[0], DESCRIPTION, date_2, date_2);
+    ui.createAppointmentSilent(OWNER[0], DESCRIPTION, date_3, date_3);
+
+    // pretty print
+    ui.listbox_owners_search.setSelectedIndex(0);
+    ui.datepicker_begin_search.setValue(DateUtility.parseStringToDate(date_1));
+    ui.datepicker_end_search.setValue(DateUtility.parseStringToDate(date_2));
+    click(ui.button_search);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, OWNER[0], DESCRIPTION,
+                DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate("1/1/2000 01:00 am")),
+                DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate("2/1/2000 01:00 am")));
+        checkMessageContains(false, DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate("3/1/2000 1:1 pm")));
         finishTest();
       }
     };
@@ -170,10 +209,10 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // add a new owner
-    ui.textbox_owner.setText(OWNER);
+    ui.textbox_owner.setText(OWNER[0]);
     ui.createAppointmentBookSilent();
-    ui.owners.add(OWNER);
-    ui.listbox_owners.addItem(OWNER);
+    ui.owners.add(OWNER[0]);
+    ui.listbox_owners.addItem(OWNER[0]);
 
     // setup info for the new appoinment
     ui.listbox_owners.setSelectedIndex(0);
@@ -191,7 +230,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage(new Appointment(DESCRIPTION, BEGINTIME, ENDTIME).toString());
+        checkMessageContains(true, new Appointment(DESCRIPTION, BEGINTIME, ENDTIME).toString());
         finishTest();
       }
     };
@@ -200,14 +239,15 @@ public class AppointmentBookGwtIT extends GWTTestCase {
 
   @Test
   public void testClickingCreateAppointmentBookButtonAlertsWithNotification() {
+
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
-    ui.textbox_owner.setText(OWNER);
+    ui.textbox_owner.setValue(OWNER[1]);
     click(ui.button_createAppointmentBook);
 
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("The new appontment book for " + OWNER + " has been created!");
+        checkMessageContains(true, "The new appontment book for " + OWNER[1] + " has been created!");
         finishTest();
       }
     };
@@ -218,14 +258,14 @@ public class AppointmentBookGwtIT extends GWTTestCase {
   public void testCreatingDuplicateAppointmentBook() {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
     Set<String> owners = ui.owners;
-    owners.add(OWNER);
-    ui.textbox_owner.setText(OWNER);
+    owners.add(OWNER[0]);
+    ui.textbox_owner.setText(OWNER[0]);
     click(ui.button_createAppointmentBook);
 
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessage("The owner name \"" + OWNER + "\" already exists");
+        checkMessageContains(true, "The owner name \"" + OWNER[0] + "\" already exists");
         finishTest();
       }
     };
@@ -239,11 +279,15 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     delayTestFinish(1000);
   }
 
-  private void checkMessage(String ... msgs) {
+  private void checkMessageContains(Boolean include, String ... msgs) {
     String message = alerter.getMessage();
     assertNotNull(message);
     for (String msg : msgs) {
-      assertTrue(message, message.contains(msg));
+      if (include) {
+        assertTrue(message, message.contains(msg));
+      } else {
+        assertFalse(message, message.contains(msg));
+      }
     }
   }
 

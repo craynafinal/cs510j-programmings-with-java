@@ -215,12 +215,12 @@ public class AppointmentBookGwt implements EntryPoint {
     button_createAppointmentBook.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
-        String owner = textbox_owner.getText();
+        String owner = textbox_owner.getValue();
 
         if (owners.contains(owner)) {
           displayInAlertDialog("The owner name \"" + owner + "\" already exists!");
         } else if (owner != "") {
-          createAppointmentBook();
+          createAppointmentBook(owner);
         } else {
           displayInAlertDialog("Please enter the owner name in the text field!");
         }
@@ -285,10 +285,10 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  private void createAppointmentBook() {
+  private void createAppointmentBook(String owner) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
-    async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<String>() {
+    async.createAppointmentBook(owner, new AsyncCallback<String>() {
       @Override
       public void onFailure(Throwable throwable) {
         alert(throwable);
