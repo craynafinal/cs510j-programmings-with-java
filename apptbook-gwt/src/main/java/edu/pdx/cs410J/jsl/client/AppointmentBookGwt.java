@@ -60,6 +60,10 @@ public class AppointmentBookGwt implements EntryPoint {
   DatePicker datepicker_begin_search = new DatePicker();
   DatePicker datepicker_end_search = new DatePicker();
 
+  // download
+  Button button_download = new Button(BUTTON_TEXT);
+  ListBox listbox_owners_download = new ListBox();
+
   public AppointmentBookGwt() {
     this(new Alerter() {
       @Override
@@ -104,12 +108,14 @@ public class AppointmentBookGwt implements EntryPoint {
     addStringsToListBox(listbox_owners, owners);
     addStringsToListBox(listbox_owners_pretty, owners);
     addStringsToListBox(listbox_owners_search, owners);
+    addStringsToListBox(listbox_owners_download, owners);
   }
 
   private void updateSingleOwnerListBoxes(String owner) {
     listbox_owners.addItem(owner);
     listbox_owners_pretty.addItem(owner);
     listbox_owners_search.addItem(owner);
+    listbox_owners_download.addItem(owner);
   }
 
   private void addStringsToListBox(ListBox listbox, Collection<String> items) {
@@ -160,7 +166,49 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  private void getDumpFile(String owner) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+    async.getDumpFileLocation(owner, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(String s) {
+        if (s != "") {
+          Window.open(GWT.getHostPageBaseURL() + s, "", "");
+        } else {
+          displayInAlertDialog("Failed to create a dump file");
+        }
+      }
+    });
+  }
+
+  @VisibleForTesting
+  void getDumpFileTesting(String owner) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+    async.getDumpFileLocation(owner, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) { }
+
+      @Override
+      public void onSuccess(String s) { displayInAlertDialog(s); }
+    });
+  }
+
   private void buttonsSetup() {
+    button_download.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        if (listbox_owners_download.getSelectedValue() == null) {
+          displayInAlertDialog(WARNING_OWNER);
+        } else {
+          getDumpFile(listbox_owners_download.getSelectedItemText());
+        }
+      }
+    });
+
     button_search.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
@@ -394,6 +442,20 @@ public class AppointmentBookGwt implements EntryPoint {
               getDockPanel(getLabel("Begin Time"), getFlowPanel(datepicker_begin_search, listbox_begin_hour_search, listbox_begin_min_search, listbox_begin_ampm_search)),
               getDockPanel(getLabel("Emd Time"), getFlowPanel(datepicker_end_search, listbox_end_hour_search, listbox_end_min_search, listbox_end_ampm_search)),
               button_search
+            )
+    );
+
+    setTabPanel(tabPanel, "Download",
+            getVerticalPanel(
+                    getLabel("Save an appointment book to restore data later."),
+                    getDockPanel(getLabel("Owner"), listbox_owners_download),
+                    button_download
+            )
+    );
+
+    setTabPanel(tabPanel, "Upload",
+            getVerticalPanel(
+                    getLabel("Use previously dumped appointment book file to restore data.")
             )
     );
 

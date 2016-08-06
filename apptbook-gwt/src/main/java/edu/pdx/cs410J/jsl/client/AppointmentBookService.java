@@ -19,4 +19,6 @@ public interface AppointmentBookService extends RemoteService {
   public String prettyPrintAll(String owner);
 
   public String prettyPrintSearch(String owner, String beginTime, String endTime);
+
+  public String getDumpFileLocation(String owner);
 }

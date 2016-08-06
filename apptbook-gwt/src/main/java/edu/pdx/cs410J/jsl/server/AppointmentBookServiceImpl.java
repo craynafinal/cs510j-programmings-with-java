@@ -117,6 +117,19 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
   }
 
   @Override
+  public String getDumpFileLocation(String owner) {
+    AppointmentBook appointmentBook = appointmentBooks.get(owner);
+    String filename = owner + ".txt";
+    TextDumper textDumper = new TextDumper(getServletContext().getRealPath(filename));
+    try {
+      textDumper.dump(appointmentBook);
+      return filename;
+    } catch (IOException e) {
+      return getServletContext().getContextPath();
+    }
+  }
+
+  @Override
   protected void doUnexpectedFailure(Throwable unhandled) {
     unhandled.printStackTrace(System.err);
     super.doUnexpectedFailure(unhandled);

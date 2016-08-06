@@ -16,7 +16,7 @@ import java.util.Set;
  * And since this test code is compiled into JavaScript, you can't use hamcrest matchers.  :(
  */
 public class AppointmentBookGwtIT extends GWTTestCase {
-  private static final String[] OWNER = { "my owner 1", "my owner 2" };
+  private static final String[] OWNER = { "my owner 1", "my owner 2", "my owner 3" };
   private static final String DESCRIPTION = "my description";
   private static final String BEGINTIME = "1/1/2000 11:11 am";
   private static final String ENDTIME = "2/2/2001 10:10 pm";
@@ -198,6 +198,31 @@ public class AppointmentBookGwtIT extends GWTTestCase {
                 DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate("1/1/2000 01:00 am")),
                 DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate("2/1/2000 01:00 am")));
         checkMessageContains(false, DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate("3/1/2000 1:1 pm")));
+        finishTest();
+      }
+    };
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testCreatingDumpFile() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    // add a new owner
+    ui.textbox_owner.setText(OWNER[2]);
+    ui.createAppointmentBookSilent();
+    ui.owners.add(OWNER[2]);
+    ui.listbox_owners_download.addItem(OWNER[2]);
+
+    // create dump file
+    ui.listbox_owners_download.setSelectedIndex(0);
+    ui.getDumpFileTesting(OWNER[2]);
+    //click(ui.button_download);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, OWNER[2]);
         finishTest();
       }
     };
