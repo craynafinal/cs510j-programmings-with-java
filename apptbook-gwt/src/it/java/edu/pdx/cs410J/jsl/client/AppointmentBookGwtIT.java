@@ -217,7 +217,6 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     // create dump file
     ui.listbox_owners_download.setSelectedIndex(0);
     ui.getDumpFileTesting(OWNER[2]);
-    //click(ui.button_download);
 
     Timer verify = new Timer() {
       @Override
@@ -272,7 +271,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     Timer verify = new Timer() {
       @Override
       public void run() {
-        checkMessageContains(true, "The new appontment book for " + OWNER[1] + " has been created!");
+        checkMessageContains(true, "The new appointment book for " + OWNER[1] + " has been created!");
         finishTest();
       }
     };

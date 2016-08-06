@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.jsl.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.jsl.client.Appointment;
 import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
@@ -127,6 +128,33 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     } catch (IOException e) {
       return getServletContext().getContextPath();
     }
+  }
+
+  @Override
+  public String createAppointmentBoookByFile(String owner, String filename) {
+    TextParser textParser = new TextParser(filename, owner);
+    AppointmentBook appointmentBook = null;
+    try {
+      appointmentBook = (AppointmentBook) textParser.parse();
+    } catch (ParserException e) {
+      return "";
+    }
+
+    System.out.println("dddd" + owner + " " + filename);
+
+    // check if the owner names match
+    if (owner != appointmentBook.getOwnerName()) {
+      return "";
+    }
+
+    // if one already exists, replace with the new info
+    if (appointmentBooks.containsKey(owner)) {
+      appointmentBooks.remove(owner);
+    }
+
+    appointmentBooks.put(owner, appointmentBook);
+
+    return owner;
   }
 
   @Override

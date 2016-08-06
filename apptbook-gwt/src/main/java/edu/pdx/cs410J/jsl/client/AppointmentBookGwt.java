@@ -23,6 +23,7 @@ public class AppointmentBookGwt implements EntryPoint {
   static final String WARNING_DESCRIPTION = "Please add a description";
   static final String WARNING_BEGINTIME = "Please set begin time";
   static final String WARNING_ENDTIME = "Please set end time";
+  static final String WARNING_UPLOAD = "Please select a file";
 
   //private Set<AppointmentBook> owners = new TreeSet<>();
   Set<String> owners = new TreeSet<>();
@@ -63,6 +64,10 @@ public class AppointmentBookGwt implements EntryPoint {
   // download
   Button button_download = new Button(BUTTON_TEXT);
   ListBox listbox_owners_download = new ListBox();
+
+  // upload
+  Button button_upload = new Button(BUTTON_TEXT);
+  FileUpload upload = new FileUpload();
 
   public AppointmentBookGwt() {
     this(new Alerter() {
@@ -197,7 +202,59 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  void uploadFileToServer(String owner, String filename) {
+    AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
+    async.createAppointmentBoookByFile(owner, filename, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        alert(throwable);
+      }
+
+      @Override
+      public void onSuccess(String s) {
+        if (s != "") {
+          // if owner does not exist already, update list boxes
+          if (owners.add(s)) {
+            updateSingleOwnerListBoxes(s);
+          }
+          displayInAlertDialog("The new appointment book for " + s + " has been restored!");
+        } else {
+          displayInAlertDialog("Failed to restore an appointment book!");
+        }
+      }
+    });
+  }
+
   private void buttonsSetup() {
+    button_upload.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        /*
+        String filename = upload.getValue();
+        if (filename == null || filename == "") {
+          displayInAlertDialog(WARNING_UPLOAD);
+        } else {
+
+          String[] parts = filename.split("\\.");
+
+          if (parts[parts.length - 1] != "txt") {
+            displayInAlertDialog("File extension must be .txt!");
+          } else {
+
+            if (filename.contains("/")) {
+              filename = filename.substring(filename.lastIndexOf('/') + 1);
+            } else if (filename.contains("\\")) {
+              filename = filename.substring(filename.lastIndexOf('\\') + 1);
+            }
+
+            displayInAlertDialog(filename);
+            uploadFileToServer(filename.replace(".txt", ""), filename);
+          }
+        }
+        */
+      }
+    });
+
     button_download.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
@@ -252,7 +309,7 @@ public class AppointmentBookGwt implements EntryPoint {
           displayInAlertDialog(WARNING_ENDTIME);
         } else {
           String owner = listbox_owners.getSelectedItemText();
-          String description = textbox_description.getText();
+          String description = textbox_description.getValue();
           String beginTime = getDateTime(datepicker_begin, listbox_begin_hour, listbox_begin_min, listbox_begin_ampm);
           String endTime = getDateTime(datepicker_end, listbox_end_hour, listbox_end_min, listbox_end_ampm);
           createAppointment(owner, description, beginTime, endTime);
@@ -347,7 +404,7 @@ public class AppointmentBookGwt implements EntryPoint {
         if (s != "") {
           owners.add(s);
           updateSingleOwnerListBoxes(s);
-          displayInAlertDialog("The new appontment book for " + s + " has been created!");
+          displayInAlertDialog("The new appointment book for " + s + " has been created!");
         } else {
           displayInAlertDialog("Failed to create an appointment book!");
         }
@@ -398,6 +455,12 @@ public class AppointmentBookGwt implements EntryPoint {
     return panel;
   }
 
+  private FormPanel getFormPanel(Widget widget) {
+    FormPanel panel = new FormPanel();
+    panel.add(widget);
+    return panel;
+  }
+
   private void setTabPanel(TabPanel tabPanel, String tabText, Widget widget) {
     tabPanel.add(widget, tabText);
   }
@@ -414,6 +477,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Create an appointment book",
             getVerticalPanel(
+              getLabel("Please add a new owner of an appointment book if you are new."),
               getDockPanel(getLabel("Owner"), textbox_owner),
               button_createAppointmentBook
             )
@@ -421,6 +485,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Create an appointment",
             getVerticalPanel(
+              getLabel("Create an appointment of an owner."),
               getDockPanel(getLabel("Owner"), listbox_owners),
               getDockPanel(getLabel("Description"), textbox_description),
               getDockPanel(getLabel("Begin Time"), getFlowPanel(datepicker_begin, listbox_begin_hour, listbox_begin_min, listbox_begin_ampm)),
@@ -431,6 +496,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Pretty print",
             getVerticalPanel(
+              getLabel("Print all appointments of an owner."),
               getDockPanel(getLabel("Owner"), listbox_owners_pretty),
               button_prettyPrint
             )
@@ -438,6 +504,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Search",
             getVerticalPanel(
+              getLabel("Search and print ranged appointments of an owner."),
               getDockPanel(getLabel("Owner"), listbox_owners_search),
               getDockPanel(getLabel("Begin Time"), getFlowPanel(datepicker_begin_search, listbox_begin_hour_search, listbox_begin_min_search, listbox_begin_ampm_search)),
               getDockPanel(getLabel("Emd Time"), getFlowPanel(datepicker_end_search, listbox_end_hour_search, listbox_end_min_search, listbox_end_ampm_search)),
@@ -454,8 +521,21 @@ public class AppointmentBookGwt implements EntryPoint {
     );
 
     setTabPanel(tabPanel, "Upload",
+            getFormPanel(
+              getVerticalPanel(
+                      getLabel("Use previously dumped appointment book file to restore data.\n" +
+                              "If there is already an appointment book of the same owner name, it will replace it.\n" +
+                              "The filename should be a name of an owner."
+                      ),
+                      upload,
+                      button_upload
+              )
+            )
+    );
+
+    setTabPanel(tabPanel, "README",
             getVerticalPanel(
-                    getLabel("Use previously dumped appointment book file to restore data.")
+                    getLabel("")
             )
     );
 

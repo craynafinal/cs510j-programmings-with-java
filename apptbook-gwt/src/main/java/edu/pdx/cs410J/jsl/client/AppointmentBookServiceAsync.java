@@ -19,4 +19,6 @@ public interface AppointmentBookServiceAsync {
   void prettyPrintSearch(String owner, String beginTime, String endTime, AsyncCallback<String> async);
 
   void getDumpFileLocation(String owner, AsyncCallback<String> async);
+
+  void createAppointmentBoookByFile(String owner, String filename, AsyncCallback<String> async);
 }
