@@ -1,5 +1,7 @@
 package edu.pdx.cs410J.jsl.server;
 
+import com.google.gwt.user.client.rpc.SerializationException;
+import com.google.gwt.user.server.rpc.RPCRequest;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.jsl.client.Appointment;
@@ -7,9 +9,7 @@ import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.AppointmentBookService;
 import edu.pdx.cs410J.jsl.client.DateUtility;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 
@@ -130,8 +130,29 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     }
   }
 
+  private void customWritingToFile(String filename, String content) throws IOException {
+    File file = new File(filename);
+
+    FileWriter fw = new FileWriter(file);
+    PrintWriter pw = new PrintWriter(fw);
+
+    pw.println(content);
+
+    pw.close();
+  }
+
   @Override
-  public String createAppointmentBoookByFile(String owner, String filename) {
+  public String restoreAppointmentBook(String owner, String fileContent) {
+
+    String filename = getServletContext().getRealPath(owner);
+
+    // write a file to use it to the text parser
+    try {
+      customWritingToFile(filename, fileContent);
+    } catch (IOException e) {
+      return "";
+    }
+
     TextParser textParser = new TextParser(filename, owner);
     AppointmentBook appointmentBook = null;
     try {
@@ -139,19 +160,14 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     } catch (ParserException e) {
       return "";
     }
-
-    System.out.println("dddd" + owner + " " + filename);
-
-    // check if the owner names match
-    if (owner != appointmentBook.getOwnerName()) {
-      return "";
-    }
-
+    /*
     // if one already exists, replace with the new info
     if (appointmentBooks.containsKey(owner)) {
       appointmentBooks.remove(owner);
     }
+    */
 
+    // put should update the value if it already exists
     appointmentBooks.put(owner, appointmentBook);
 
     return owner;

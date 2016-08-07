@@ -71,6 +71,6 @@ public class AppointmentBookServiceSyncProxyIT extends HttpRequestHelper {
     assertTrue(result, result.contains(owners[0]));
 
 
-    //result = service.createAppointmentBoookByFile(owners[0], owners)
+    //result = service.restoreAppointmentBook(owners[0], owners)
   }
 }

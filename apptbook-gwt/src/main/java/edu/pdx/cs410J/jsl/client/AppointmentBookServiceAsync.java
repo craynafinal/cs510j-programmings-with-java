@@ -20,5 +20,5 @@ public interface AppointmentBookServiceAsync {
 
   void getDumpFileLocation(String owner, AsyncCallback<String> async);
 
-  void createAppointmentBoookByFile(String owner, String filename, AsyncCallback<String> async);
+  void restoreAppointmentBook(String owner, String fileContent, AsyncCallback<String> async);
 }

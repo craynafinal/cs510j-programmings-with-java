@@ -23,7 +23,7 @@ public class AppointmentBookGwt implements EntryPoint {
   static final String WARNING_DESCRIPTION = "Please add a description";
   static final String WARNING_BEGINTIME = "Please set begin time";
   static final String WARNING_ENDTIME = "Please set end time";
-  static final String WARNING_UPLOAD = "Please select a file";
+  static final String WARNING_UPLOAD = "Please add content to the text area";
 
   //private Set<AppointmentBook> owners = new TreeSet<>();
   Set<String> owners = new TreeSet<>();
@@ -65,9 +65,10 @@ public class AppointmentBookGwt implements EntryPoint {
   Button button_download = new Button(BUTTON_TEXT);
   ListBox listbox_owners_download = new ListBox();
 
-  // upload
+  // textarea_upload
   Button button_upload = new Button(BUTTON_TEXT);
-  FileUpload upload = new FileUpload();
+  TextBox textbox_owner_upload = new TextBox();
+  TextArea textarea_upload = new TextArea();
 
   public AppointmentBookGwt() {
     this(new Alerter() {
@@ -202,9 +203,10 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  void uploadFileToServer(String owner, String filename) {
+  void uploadFileContentToServer(String owner, String fileContent) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
-    async.createAppointmentBoookByFile(owner, filename, new AsyncCallback<String>() {
+
+    async.restoreAppointmentBook(owner, fileContent, new AsyncCallback<String>() {
       @Override
       public void onFailure(Throwable throwable) {
         alert(throwable);
@@ -212,14 +214,10 @@ public class AppointmentBookGwt implements EntryPoint {
 
       @Override
       public void onSuccess(String s) {
-        if (s != "") {
-          // if owner does not exist already, update list boxes
-          if (owners.add(s)) {
-            updateSingleOwnerListBoxes(s);
-          }
-          displayInAlertDialog("The new appointment book for " + s + " has been restored!");
+        if (s != null) {
+          displayInAlertDialog("The appointment book for " + s + " has been restored!");
         } else {
-          displayInAlertDialog("Failed to restore an appointment book!");
+          displayInAlertDialog("Failed to restore the appointment book!");
         }
       }
     });
@@ -229,29 +227,17 @@ public class AppointmentBookGwt implements EntryPoint {
     button_upload.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
-        /*
-        String filename = upload.getValue();
-        if (filename == null || filename == "") {
+        String ownerName = textbox_owner_upload.getValue();
+        String fileContent = textarea_upload.getValue();
+
+        if (ownerName == null) {
+          displayInAlertDialog(WARNING_OWNER);
+        } else if (fileContent == null) {
           displayInAlertDialog(WARNING_UPLOAD);
         } else {
-
-          String[] parts = filename.split("\\.");
-
-          if (parts[parts.length - 1] != "txt") {
-            displayInAlertDialog("File extension must be .txt!");
-          } else {
-
-            if (filename.contains("/")) {
-              filename = filename.substring(filename.lastIndexOf('/') + 1);
-            } else if (filename.contains("\\")) {
-              filename = filename.substring(filename.lastIndexOf('\\') + 1);
-            }
-
-            displayInAlertDialog(filename);
-            uploadFileToServer(filename.replace(".txt", ""), filename);
-          }
+          uploadFileContentToServer(ownerName, fileContent);
         }
-        */
+
       }
     });
 
@@ -455,12 +441,6 @@ public class AppointmentBookGwt implements EntryPoint {
     return panel;
   }
 
-  private FormPanel getFormPanel(Widget widget) {
-    FormPanel panel = new FormPanel();
-    panel.add(widget);
-    return panel;
-  }
-
   private void setTabPanel(TabPanel tabPanel, String tabText, Widget widget) {
     tabPanel.add(widget, tabText);
   }
@@ -521,15 +501,14 @@ public class AppointmentBookGwt implements EntryPoint {
     );
 
     setTabPanel(tabPanel, "Upload",
-            getFormPanel(
-              getVerticalPanel(
-                      getLabel("Use previously dumped appointment book file to restore data.\n" +
-                              "If there is already an appointment book of the same owner name, it will replace it.\n" +
-                              "The filename should be a name of an owner."
-                      ),
-                      upload,
-                      button_upload
-              )
+            getVerticalPanel(
+                    getLabel("Open previously dumped appointment book file and paste the content here to restore data.\n" +
+                            "If there is already an appointment book of the same owner name, it will replace it.\n" +
+                            "The filename should be a name of an owner."
+                    ),
+                    getDockPanel(getLabel("Owner"), textbox_owner_upload),
+                    getDockPanel((getLabel("File Content")), textarea_upload),
+                    button_upload
             )
     );
 
