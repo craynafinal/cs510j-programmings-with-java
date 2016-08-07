@@ -215,6 +215,10 @@ public class AppointmentBookGwt implements EntryPoint {
       @Override
       public void onSuccess(String s) {
         if (s != null) {
+          if (!owners.contains(s)) {
+            owners.add(s);
+            updateAllOwnersListBoxes();
+          }
           displayInAlertDialog("The appointment book for " + s + " has been restored!");
         } else {
           displayInAlertDialog("Failed to restore the appointment book!");
@@ -230,9 +234,9 @@ public class AppointmentBookGwt implements EntryPoint {
         String ownerName = textbox_owner_upload.getValue();
         String fileContent = textarea_upload.getValue();
 
-        if (ownerName == null) {
-          displayInAlertDialog(WARNING_OWNER);
-        } else if (fileContent == null) {
+        if (ownerName == "") {
+          displayInAlertDialog("Please enter the name of the owner!");
+        } else if (fileContent == "") {
           displayInAlertDialog(WARNING_UPLOAD);
         } else {
           uploadFileContentToServer(ownerName, fileContent);
