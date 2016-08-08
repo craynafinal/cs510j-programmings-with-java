@@ -20,6 +20,13 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
 {
   HashMap<String, AppointmentBook> appointmentBooks = new HashMap<>();
 
+  /**
+   * Creates an appointment book for the owner provided, and saves the appointment book to the servlet.
+   * Returns the owner name if successful, empty string otherwise.
+   *
+   * @param owner
+   * @return
+     */
   @Override
   public String createAppointmentBook(String owner) {
     AppointmentBook book = new AppointmentBook(owner);
@@ -32,6 +39,16 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     }
   }
 
+  /**
+   * Creates an appointment for the owner provided, and saves the appointment to the servlet.
+   * Returns the owner name if successful, empty string otherwise.
+   *
+   * @param owner
+   * @param description
+   * @param beginTime
+   * @param endTime
+     * @return
+     */
   @Override
   public String createAppointment(String owner, String description, String beginTime, String endTime) {
     AppointmentBook appointmentBook = appointmentBooks.get(owner);
@@ -40,8 +57,13 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     return appointment.toString();
   }
 
+  /**
+   * Returns all owner names saved in the servlet in a <code>Set</code> collection.
+   *
+   * @return
+     */
   @Override
-  public Set<String> receiveAllOwnerNames() {
+  public Set<String> getAllOwnerNames() {
     Set<String> ownerNames = new TreeSet<>();
 
     for (String ownerName : appointmentBooks.keySet()) {
@@ -51,6 +73,12 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     return ownerNames;
   }
 
+  /**
+   * Return a string of the appointment book and appointments for the owner provided in pretty print format.
+   *
+   * @param owner
+   * @return
+     */
   @Override
   public String prettyPrintAll(String owner) {
 
@@ -95,6 +123,14 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     return tempAppointmentBook;
   }
 
+  /**
+   * Return a string of the appointment book and appointments within a range specified for the owner provided in pretty print format.
+   *
+   * @param owner
+   * @param beginTime
+   * @param endTime
+     * @return
+     */
   @Override
   public String prettyPrintSearch(String owner, String beginTime, String endTime) {
 
@@ -117,6 +153,12 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     }
   }
 
+  /**
+   * Dump the appointment book and its appointment information to a file and expose its location to the client.
+   *
+   * @param owner
+   * @return filename on the server side
+     */
   @Override
   public String getDumpFileLocation(String owner) {
     AppointmentBook appointmentBook = appointmentBooks.get(owner);
@@ -130,6 +172,13 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     }
   }
 
+  /**
+   * Writes a file to the destination with the content.
+   *
+   * @param filename
+   * @param content
+   * @throws IOException
+     */
   private void customWritingToFile(String filename, String content) throws IOException {
     File file = new File(filename);
 
@@ -141,6 +190,12 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     pw.close();
   }
 
+  /**
+   * Loads data from the content provided to create or restore the appointment book for the owner specified.
+   * @param owner
+   * @param fileContent
+   * @return
+     */
   @Override
   public String restoreAppointmentBook(String owner, String fileContent) {
 

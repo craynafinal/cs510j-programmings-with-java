@@ -10,7 +10,7 @@ import java.util.Set;
 public interface AppointmentBookServiceAsync {
   void createAppointmentBook(String owner, AsyncCallback<String> async);
 
-  void receiveAllOwnerNames(AsyncCallback<Set<String>> async);
+  void getAllOwnerNames(AsyncCallback<Set<String>> async);
 
   void createAppointment(String owner, String description, String beginTime, String endTime, AsyncCallback<String> async);
 

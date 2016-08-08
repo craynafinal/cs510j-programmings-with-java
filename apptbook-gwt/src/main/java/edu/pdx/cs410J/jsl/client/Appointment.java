@@ -20,6 +20,9 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
   private Date begin_date = null;
   private Date end_date = null;
 
+  /**
+   * This constructor is for GWT application.
+   */
   public Appointment() {
     this("My description", "01/01/2000 01:01 am", "01/01/2000 01:01 pm");
   }

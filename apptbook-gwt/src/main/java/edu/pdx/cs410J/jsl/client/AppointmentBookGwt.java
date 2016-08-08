@@ -19,11 +19,11 @@ public class AppointmentBookGwt implements EntryPoint {
   private final Alerter alerter;
 
   private static final String BUTTON_TEXT = "Submit";
-  static final String WARNING_OWNER = "Please create an owner before creating an appointment";
-  static final String WARNING_DESCRIPTION = "Please add a description";
-  static final String WARNING_BEGINTIME = "Please set begin time";
-  static final String WARNING_ENDTIME = "Please set end time";
-  static final String WARNING_UPLOAD = "Please add content to the text area";
+  private static final String WARNING_OWNER = "Please create an owner before creating an appointment";
+  private static final String WARNING_DESCRIPTION = "Please add a description";
+  private static final String WARNING_BEGINTIME = "Please set begin time";
+  private static final String WARNING_ENDTIME = "Please set end time";
+  private static final String WARNING_UPLOAD = "Please add content to the text area";
 
   //private Set<AppointmentBook> owners = new TreeSet<>();
   Set<String> owners = new TreeSet<>();
@@ -52,17 +52,20 @@ public class AppointmentBookGwt implements EntryPoint {
   // search
   Button button_search = new Button(BUTTON_TEXT);
   ListBox listbox_owners_search = new ListBox();
-  ListBox listbox_begin_hour_search = new ListBox();
-  ListBox listbox_begin_min_search = new ListBox();
-  ListBox listbox_begin_ampm_search = new ListBox();
-  ListBox listbox_end_hour_search = new ListBox();
-  ListBox listbox_end_min_search = new ListBox();
-  ListBox listbox_end_ampm_search = new ListBox();
+
+  private ListBox listbox_begin_hour_search = new ListBox();
+  private ListBox listbox_begin_min_search = new ListBox();
+  private ListBox listbox_begin_ampm_search = new ListBox();
+  private ListBox listbox_end_hour_search = new ListBox();
+  private ListBox listbox_end_min_search = new ListBox();
+  private ListBox listbox_end_ampm_search = new ListBox();
+
   DatePicker datepicker_begin_search = new DatePicker();
   DatePicker datepicker_end_search = new DatePicker();
 
   // download
-  Button button_download = new Button(BUTTON_TEXT);
+  private Button button_download = new Button(BUTTON_TEXT);
+
   ListBox listbox_owners_download = new ListBox();
 
   // textarea_upload
@@ -70,6 +73,9 @@ public class AppointmentBookGwt implements EntryPoint {
   TextBox textbox_owner_upload = new TextBox();
   TextArea textarea_upload = new TextArea();
 
+  /**
+   * GWT constructor.
+   */
   public AppointmentBookGwt() {
     this(new Alerter() {
       @Override
@@ -79,6 +85,11 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * GWT constructor for testing.
+   *
+   * @param alerter
+     */
   @VisibleForTesting
   AppointmentBookGwt(Alerter alerter) {
     this.alerter = alerter;
@@ -87,6 +98,9 @@ public class AppointmentBookGwt implements EntryPoint {
     listboxTimeSetup();
   }
 
+  /**
+   * Initial setup for the list boxes such as begin / end times and owners.
+   */
   private void listboxTimeSetup() {
     addNumbersToListBox(listbox_begin_hour, 1, 12);
     addNumbersToListBox(listbox_end_hour, 1, 12);
@@ -106,10 +120,12 @@ public class AppointmentBookGwt implements EntryPoint {
     addStringsToListBox(listbox_begin_ampm_search, ampm);
     addStringsToListBox(listbox_end_ampm_search, ampm);
 
-    // should receive data
-    receiveAllAppointmentBooks();
+    receiveAllOwners();
   }
 
+  /**
+   * Update the owner related list boxes with a list of owners.
+   */
   private void updateAllOwnersListBoxes() {
     addStringsToListBox(listbox_owners, owners);
     addStringsToListBox(listbox_owners_pretty, owners);
@@ -117,6 +133,10 @@ public class AppointmentBookGwt implements EntryPoint {
     addStringsToListBox(listbox_owners_download, owners);
   }
 
+  /**
+   * Update the owner related list boxes with a single owner name.
+   * @param owner
+     */
   private void updateSingleOwnerListBoxes(String owner) {
     listbox_owners.addItem(owner);
     listbox_owners_pretty.addItem(owner);
@@ -124,22 +144,49 @@ public class AppointmentBookGwt implements EntryPoint {
     listbox_owners_download.addItem(owner);
   }
 
+  /**
+   * Add a new string value to a list box.
+   *
+   * @param listbox
+   * @param items
+     */
   private void addStringsToListBox(ListBox listbox, Collection<String> items) {
     for (String item : items) {
       listbox.addItem(item);
     }
   }
 
+  /**
+   * Add number values to a list box from start to max values specified.
+   *
+   * @param listbox
+   * @param start
+   * @param max
+     */
   private void addNumbersToListBox(ListBox listbox, int start, int max) {
     for (int i = start; i <= max; i ++) {
       listbox.addItem(Integer.toString(i));
     }
   }
 
+  /**
+   * Get formatted date string by passing date information of GUI widgets.
+   *
+   * @param datepicker
+   * @param hour
+   * @param min
+   * @param ampm
+     * @return
+     */
   private String getDateTime(DatePicker datepicker, ListBox hour, ListBox min, ListBox ampm) {
     return DateUtility.parseDateToStringWithoutTime(datepicker.getValue()) + " " + hour.getSelectedItemText() + ":" + min.getSelectedItemText() + " " + ampm.getSelectedItemText();
   }
 
+  /**
+   * Calls the pretty print functionality on the server side.
+   *
+   * @param owner
+     */
   private void prettyPrintAll(String owner) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
@@ -156,6 +203,13 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Calls the pretty print search functionality on the server side.
+   *
+   * @param owner
+   * @param beginTime
+   * @param endTime
+     */
   private void prettyPrintSearch(String owner, String beginTime, String endTime) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
@@ -172,6 +226,11 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Get dump file location on the server side and opens the file on the browser or download it.
+   *
+   * @param owner
+     */
   private void getDumpFile(String owner) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
     async.getDumpFileLocation(owner, new AsyncCallback<String>() {
@@ -191,6 +250,12 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Get dump file location on the server side and opens the file on the browser or download it.
+   * This function is purely for testing and the result handling could be different from the original function, <code>getDumpFile</code>.
+   *
+   * @param owner
+     */
   @VisibleForTesting
   void getDumpFileTesting(String owner) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
@@ -203,7 +268,13 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  void uploadFileContentToServer(String owner, String fileContent) {
+  /**
+   * Upload the file content to server to restore saved information.
+   *
+   * @param owner
+   * @param fileContent
+     */
+  private void uploadFileContentToServer(String owner, String fileContent) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
     async.restoreAppointmentBook(owner, fileContent, new AsyncCallback<String>() {
@@ -227,6 +298,9 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Initial setup for button handlers.
+   */
   private void buttonsSetup() {
     button_upload.addClickHandler(new ClickHandler() {
       @Override
@@ -323,6 +397,15 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Calls the appointment creation functionality on the server side.
+   * This function is purely for testing and the result handling could be different from the original function, <code>createAppointment</code>.
+   *
+   * @param owner
+   * @param description
+   * @param beginTime
+   * @param endTime
+     */
   @VisibleForTesting
   void createAppointmentSilent(String owner, String description, String beginTime, String endTime) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
@@ -335,6 +418,14 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Calls the appointment creation functionality on the server side.
+   *
+   * @param owner
+   * @param description
+   * @param beginTime
+   * @param endTime
+     */
   private void createAppointment(String owner, String description, String beginTime, String endTime) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
     async.createAppointment(owner, description, beginTime, endTime, new AsyncCallback<String>() {
@@ -350,10 +441,13 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
-  private void receiveAllAppointmentBooks() {
+  /**
+   * Receives all owner names from the server in <code>Set</code> collection.
+   */
+  private void receiveAllOwners() {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
-    async.receiveAllOwnerNames(new AsyncCallback<Set<String>>() {
+    async.getAllOwnerNames(new AsyncCallback<Set<String>>() {
       @Override
       public void onFailure(Throwable throwable) {
         alert(throwable);
@@ -367,11 +461,15 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Calls the appointment book creation functionality on the server side.
+   * This function is purely for testing and the result handling could be different from the original function, <code>createAppointmentBookSilent</code>.
+   */
   @VisibleForTesting
-  void createAppointmentBookSilent() {
+  void createAppointmentBookSilent(String owner) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
-    async.createAppointmentBook(textbox_owner.getText(), new AsyncCallback<String>() {
+    async.createAppointmentBook(owner, new AsyncCallback<String>() {
       @Override
       public void onFailure(Throwable throwable) { }
 
@@ -380,6 +478,11 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Calls the appointment book creation functionality on the server side.
+   *
+   * @param owner
+     */
   private void createAppointmentBook(String owner) {
     AppointmentBookServiceAsync async = GWT.create(AppointmentBookService.class);
 
@@ -402,26 +505,28 @@ public class AppointmentBookGwt implements EntryPoint {
     });
   }
 
+  /**
+   * Displays the message to the alert dialog.
+   * @param text
+     */
   private void displayInAlertDialog(String text) {
     alerter.alert(text);
   }
 
-  private void displayInAlertDialog(AppointmentBook airline) {
-    StringBuilder sb = new StringBuilder(airline.toString());
-    sb.append("\n");
-
-    Collection<Appointment> flights = airline.getAppointments();
-    for (Appointment flight : flights) {
-      sb.append(flight);
-      sb.append("\n");
-    }
-    alerter.alert(sb.toString());
-  }
-
+  /**
+   * Alerts the error from the server.
+   * @param ex
+     */
   private void alert(Throwable ex) {
     alerter.alert(ex.toString());
   }
 
+  /**
+   * Creates a dock panel object with the label on the west and the widget in the center.
+   * @param label
+   * @param widget
+   * @return
+     */
   private DockPanel getDockPanel(Label label, Widget widget) {
     DockPanel panel = new DockPanel();
     panel.add(label, DockPanel.WEST);
@@ -429,6 +534,12 @@ public class AppointmentBookGwt implements EntryPoint {
     return panel;
   }
 
+  /**
+   * Creates a flow panel object with multiple widgets.
+   *
+   * @param widgets
+   * @return
+     */
   private FlowPanel getFlowPanel(Widget ... widgets) {
     FlowPanel panel = new FlowPanel();
     for (Widget widget: widgets){
@@ -437,6 +548,12 @@ public class AppointmentBookGwt implements EntryPoint {
     return panel;
   }
 
+  /**
+   * Creates a vertical panel with multiple widgets.
+   *
+   * @param widgets
+   * @return
+     */
   private VerticalPanel getVerticalPanel(Widget ... widgets) {
     VerticalPanel panel = new VerticalPanel();
     for (Widget widget: widgets){
@@ -445,18 +562,40 @@ public class AppointmentBookGwt implements EntryPoint {
     return panel;
   }
 
+  /**
+   * Creates a HTML object with the specified content inside.
+   *
+   * @param text
+   * @return
+     */
   private HTML getHTML(String text) {
     return new HTML(text);
   }
 
+  /**
+   * Setup a new tab for the tab panel object with the tab name and the widget inside.
+   *
+   * @param tabPanel
+   * @param tabText
+   * @param widget
+     */
   private void setTabPanel(TabPanel tabPanel, String tabText, Widget widget) {
     tabPanel.add(widget, tabText);
   }
 
+  /**
+   * Creates a label object with the specified text.
+   *
+   * @param text
+   * @return
+     */
   private Label getLabel(String text) {
     return new Label(text);
   }
 
+  /**
+   * Initializes the GUI structure of this web application.
+   */
   @Override
   public void onModuleLoad() {
     RootPanel rootPanel = RootPanel.get();
@@ -532,6 +671,11 @@ public class AppointmentBookGwt implements EntryPoint {
     rootPanel.add(tabPanel);
   }
 
+  /**
+   * Prints the readme document for this project.
+   *
+   * @return
+     */
   private String readme() {
     String readme =
             "********************************************************<br>" +
@@ -553,6 +697,9 @@ public class AppointmentBookGwt implements EntryPoint {
     return readme;
   }
 
+  /**
+   * Alert for the testing.
+   */
   @VisibleForTesting
   interface Alerter {
     void alert(String message);

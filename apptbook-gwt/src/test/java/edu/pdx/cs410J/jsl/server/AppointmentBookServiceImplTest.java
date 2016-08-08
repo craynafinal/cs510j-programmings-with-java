@@ -1,7 +1,6 @@
 package edu.pdx.cs410J.jsl.server;
 
 import edu.pdx.cs410J.jsl.client.Appointment;
-import edu.pdx.cs410J.jsl.client.AppointmentBook;
 import edu.pdx.cs410J.jsl.client.DateUtility;
 import org.junit.Before;
 import org.junit.Test;
@@ -205,7 +204,7 @@ public class AppointmentBookServiceImplTest {
       service.createAppointmentBook(OWNER + i);
     }
 
-    Set<String> results = service.receiveAllOwnerNames();
+    Set<String> results = service.getAllOwnerNames();
     assertThat(results.size(), is(equalTo(size)));
   }
 

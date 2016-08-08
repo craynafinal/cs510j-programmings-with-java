@@ -26,6 +26,9 @@ public class AppointmentBook extends AbstractAppointmentBook<Appointment> implem
         appointments = new ArrayList<Appointment>();
     }
 
+    /**
+     * This constructor is for GWT application.
+     */
     public AppointmentBook() {
         this("My Owner");
     }

@@ -138,8 +138,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // add a new owner
-    ui.textbox_owner.setText(OWNER[0]);
-    ui.createAppointmentBookSilent();
+    ui.createAppointmentBookSilent(OWNER[0]);
     ui.owners.add(OWNER[0]);
     ui.listbox_owners.addItem(OWNER[0]);
     ui.listbox_owners_pretty.addItem(OWNER[0]);
@@ -173,8 +172,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     String date_3 = "3/1/2000 01:00 am";
 
     // add a new owner
-    ui.textbox_owner.setText(OWNER[0]);
-    ui.createAppointmentBookSilent();
+    ui.createAppointmentBookSilent(OWNER[0]);
     ui.owners.add(OWNER[0]);
     ui.listbox_owners.addItem(OWNER[0]);
     ui.listbox_owners_search.addItem(OWNER[0]);
@@ -209,8 +207,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // add a new owner
-    ui.textbox_owner.setText(OWNER[2]);
-    ui.createAppointmentBookSilent();
+    ui.createAppointmentBookSilent(OWNER[2]);
     ui.owners.add(OWNER[2]);
     ui.listbox_owners_download.addItem(OWNER[2]);
 
@@ -233,8 +230,7 @@ public class AppointmentBookGwtIT extends GWTTestCase {
     AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
 
     // add a new owner
-    ui.textbox_owner.setText(OWNER[0]);
-    ui.createAppointmentBookSilent();
+    ui.createAppointmentBookSilent(OWNER[0]);
     ui.owners.add(OWNER[0]);
     ui.listbox_owners.addItem(OWNER[0]);
 
