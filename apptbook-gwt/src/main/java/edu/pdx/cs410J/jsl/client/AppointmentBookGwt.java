@@ -445,6 +445,10 @@ public class AppointmentBookGwt implements EntryPoint {
     return panel;
   }
 
+  private HTML getHTML(String text) {
+    return new HTML(text);
+  }
+
   private void setTabPanel(TabPanel tabPanel, String tabText, Widget widget) {
     tabPanel.add(widget, tabText);
   }
@@ -461,7 +465,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Create an appointment book",
             getVerticalPanel(
-              getLabel("Please add a new owner of an appointment book if you are new."),
+              getHTML("Please add a new owner of an appointment book if you are new."),
               getDockPanel(getLabel("Owner"), textbox_owner),
               button_createAppointmentBook
             )
@@ -469,7 +473,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Create an appointment",
             getVerticalPanel(
-              getLabel("Create an appointment of an owner."),
+              getHTML("Create an appointment of an owner."),
               getDockPanel(getLabel("Owner"), listbox_owners),
               getDockPanel(getLabel("Description"), textbox_description),
               getDockPanel(getLabel("Begin Time"), getFlowPanel(datepicker_begin, listbox_begin_hour, listbox_begin_min, listbox_begin_ampm)),
@@ -480,7 +484,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Pretty print",
             getVerticalPanel(
-              getLabel("Print all appointments of an owner."),
+              getHTML("Print all appointments of an owner."),
               getDockPanel(getLabel("Owner"), listbox_owners_pretty),
               button_prettyPrint
             )
@@ -488,7 +492,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Search",
             getVerticalPanel(
-              getLabel("Search and print ranged appointments of an owner."),
+              getHTML("Search and print ranged appointments of an owner."),
               getDockPanel(getLabel("Owner"), listbox_owners_search),
               getDockPanel(getLabel("Begin Time"), getFlowPanel(datepicker_begin_search, listbox_begin_hour_search, listbox_begin_min_search, listbox_begin_ampm_search)),
               getDockPanel(getLabel("Emd Time"), getFlowPanel(datepicker_end_search, listbox_end_hour_search, listbox_end_min_search, listbox_end_ampm_search)),
@@ -498,7 +502,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Download",
             getVerticalPanel(
-                    getLabel("Save an appointment book to restore data later."),
+                    getHTML("Save an appointment book to restore data later."),
                     getDockPanel(getLabel("Owner"), listbox_owners_download),
                     button_download
             )
@@ -506,8 +510,8 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Upload",
             getVerticalPanel(
-                    getLabel("Open previously dumped appointment book file and paste the content here to restore data.\n" +
-                            "If there is already an appointment book of the same owner name, it will replace it.\n" +
+                    getHTML("Open previously dumped appointment book file and paste the content here to restore data.<br>" +
+                            "If there is already an appointment book of the same owner name, it will replace it.<br>" +
                             "The filename should be a name of an owner."
                     ),
                     getDockPanel(getLabel("Owner"), textbox_owner_upload),
@@ -518,7 +522,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "README",
             getVerticalPanel(
-                    getLabel(readme())
+                    getHTML(readme())
             )
     );
 
@@ -530,20 +534,20 @@ public class AppointmentBookGwt implements EntryPoint {
 
   private String readme() {
     String readme =
-            "********************************************************\n" +
-            "CS410/510J Advanced Java Programming\n" +
-            "Project 5: A Rich Internet Application for an Appointment Book\n" +
-            "Student: Jong Seong Lee\n" +
-            "********************************************************\n\n" +
-            "This program will generate scripts for a web application based on GWT\n" +
-            "and is going to demonstrate functions from previous assignments.\n\n" +
-            "1. Create an appointment book: You should create an appointment to use other features of this web application.\n" +
-            "Enter a name of an owner and click submit button.\n\n" +
-            "2. Create an appointment: Select an owner and enter description, begin time and end time\n" +
-            "to create an appointment for the owner you chose.\n\n" +
-            "3. Pretty print: Print all appointments associated to the selected owner in a defined format.\n\n" +
-            "4. Search: Same as Pretty print but it will only print the appointments in a range you selects.\n\n" +
-            "5. Download: Make the servier generate a dump file to store an appointment book so you may restore later.\n\n" +
+            "********************************************************<br>" +
+            "CS410/510J Advanced Java Programming<br>" +
+            "Project 5: A Rich Internet Application for an Appointment Book<br>" +
+            "Student: Jong Seong Lee<br>" +
+            "********************************************************<br><br>" +
+            "This program will generate scripts for a web application based on GWT<br>" +
+            "and is going to demonstrate functions from previous assignments.<br><br>" +
+            "1. Create an appointment book: You should create an appointment to use other features of this web application.<br>" +
+            "Enter a name of an owner and click submit button.<br><br>" +
+            "2. Create an appointment: Select an owner and enter description, begin time and end time<br>" +
+            "to create an appointment for the owner you chose.<br><br>" +
+            "3. Pretty print: Print all appointments associated to the selected owner in a defined format.<br><br>" +
+            "4. Search: Same as Pretty print but it will only print the appointments in a range you selects.<br><br>" +
+            "5. Download: Make the servier generate a dump file to store an appointment book so you may restore later.<br><br>" +
             "6. Upload: Use a generated file to restore an appointment book after the server reboots."
             ;
     return readme;
