@@ -641,7 +641,9 @@ public class AppointmentBookGwt implements EntryPoint {
 
     setTabPanel(tabPanel, "Download",
             getVerticalPanel(
-                    getHTML("Save an appointment book to restore data later."),
+                    getHTML("Save an appointment book to restore data later.<br>" +
+                            "This will create a text file for you to save your appointment book.<br>" +
+                            "You may use the content of the file in the upload section of this application."),
                     getDockPanel(getLabel("Owner"), listbox_owners_download),
                     button_download
             )
@@ -651,7 +653,8 @@ public class AppointmentBookGwt implements EntryPoint {
             getVerticalPanel(
                     getHTML("Open previously dumped appointment book file and paste the content here to restore data.<br>" +
                             "If there is already an appointment book of the same owner name, it will replace it.<br>" +
-                            "The filename should be a name of an owner."
+                            "Please enter the owner name, and the file content in the text box and the text area in order.<br>" +
+                            "The owner names of the text box and the text area must match; otherwise it won't restore your data."
                     ),
                     getDockPanel(getLabel("Owner"), textbox_owner_upload),
                     getDockPanel((getLabel("File Content")), textarea_upload),
@@ -692,7 +695,7 @@ public class AppointmentBookGwt implements EntryPoint {
             "3. Pretty print: Print all appointments associated to the selected owner in a defined format.<br><br>" +
             "4. Search: Same as Pretty print but it will only print the appointments in a range you selects.<br><br>" +
             "5. Download: Make the servier generate a dump file to store an appointment book so you may restore later.<br><br>" +
-            "6. Upload: Use a generated file to restore an appointment book after the server reboots."
+            "6. Upload: Use a content of a generated file to restore an appointment book after the server reboots."
             ;
     return readme;
   }
