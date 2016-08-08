@@ -182,7 +182,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
       @Override
       public void onSuccess(String s) {
-        if (s != "") {
+        if (s.length() > 0) {
           Window.open(GWT.getHostPageBaseURL() + s, "", "");
         } else {
           displayInAlertDialog("Failed to create a dump file");
@@ -214,7 +214,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
       @Override
       public void onSuccess(String s) {
-        if (s != null) {
+        if (s.length() > 0) {
           if (!owners.contains(s)) {
             owners.add(s);
             updateAllOwnersListBoxes();
@@ -234,9 +234,9 @@ public class AppointmentBookGwt implements EntryPoint {
         String ownerName = textbox_owner_upload.getValue();
         String fileContent = textarea_upload.getValue();
 
-        if (ownerName == "") {
+        if (ownerName.length() <= 0) {
           displayInAlertDialog("Please enter the name of the owner!");
-        } else if (fileContent == "") {
+        } else if (fileContent.length() <= 0) {
           displayInAlertDialog(WARNING_UPLOAD);
         } else {
           uploadFileContentToServer(ownerName, fileContent);
@@ -291,7 +291,7 @@ public class AppointmentBookGwt implements EntryPoint {
       public void onClick(ClickEvent clickEvent) {
         if (listbox_owners.getSelectedValue() == null) {
           displayInAlertDialog(WARNING_OWNER);
-        } else if (textbox_description.getText() == "" || textbox_description.getValue() == "") {
+        } else if (textbox_description.getText().length() <= 0 || textbox_description.getValue().length() <= 0) {
           displayInAlertDialog(WARNING_DESCRIPTION);
         } else if (datepicker_begin.getValue() == null) {
           displayInAlertDialog(WARNING_BEGINTIME);
@@ -314,7 +314,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
         if (owners.contains(owner)) {
           displayInAlertDialog("The owner name \"" + owner + "\" already exists!");
-        } else if (owner != "") {
+        } else if (owner.length() > 0) {
           createAppointmentBook(owner);
         } else {
           displayInAlertDialog("Please enter the owner name in the text field!");
@@ -391,7 +391,7 @@ public class AppointmentBookGwt implements EntryPoint {
 
       @Override
       public void onSuccess(String s) {
-        if (s != "") {
+        if (s.length() > 0) {
           owners.add(s);
           updateSingleOwnerListBoxes(s);
           displayInAlertDialog("The new appointment book for " + s + " has been created!");

@@ -160,12 +160,6 @@ public class AppointmentBookServiceImpl extends RemoteServiceServlet implements 
     } catch (ParserException e) {
       return "";
     }
-    /*
-    // if one already exists, replace with the new info
-    if (appointmentBooks.containsKey(owner)) {
-      appointmentBooks.remove(owner);
-    }
-    */
 
     // put should update the value if it already exists
     appointmentBooks.put(owner, appointmentBook);

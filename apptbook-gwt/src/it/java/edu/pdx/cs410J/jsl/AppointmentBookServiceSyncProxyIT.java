@@ -66,11 +66,25 @@ public class AppointmentBookServiceSyncProxyIT extends HttpRequestHelper {
     assertFalse(result, result.contains(DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(beginTimes[1]))));
     assertFalse(result, result.contains(DateUtility.parseDateToStringPrettyPrint(DateUtility.parseStringToDate(endTimes[1]))));
 
-
+    // download test
     result = service.getDumpFileLocation(owners[0]);
     assertTrue(result, result.contains(owners[0]));
 
 
-    //result = service.restoreAppointmentBook(owners[0], owners)
+    // upload test
+    String fileContent =
+            "--appointmentbook\n" +
+            "  ---appointmentbook_owner\n" +
+            "    "+ owners[0] + "\n" +
+            "--appointment\n" +
+            "  ---appointment_description\n" +
+            "    asdfasdf\n" +
+            "  ---appointment_begintime\n" +
+            "    08/12/2016 1:0 am\n" +
+            "  ---appointment_endtime\n" +
+            "    08/19/2016 1:0 am";
+
+    result = service.restoreAppointmentBook(owners[0], fileContent);
+    assertTrue(result, result.contains(owners[0]));
   }
 }

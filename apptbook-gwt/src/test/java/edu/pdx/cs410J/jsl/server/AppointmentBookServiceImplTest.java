@@ -269,4 +269,41 @@ public class AppointmentBookServiceImplTest {
     String result = service.getDumpFileLocation(OWNER);
     assertThat(result, containsString(OWNER));
   }
+
+  @Test
+  public void shouldNotRestoreAppointmentBook() {
+    // owner names don't match
+    String fileContent =
+            "--appointmentbook\n" +
+            "  ---appointmentbook_owner\n" +
+            "    asdf\n" +
+            "--appointment\n" +
+            "  ---appointment_description\n" +
+            "    asdfasdf\n" +
+            "  ---appointment_begintime\n" +
+            "    08/12/2016 1:0 am\n" +
+            "  ---appointment_endtime\n" +
+            "    08/19/2016 1:0 am";
+
+    String result = service.restoreAppointmentBook(OWNER, fileContent);
+    assertThat(result, is(equalTo("")));
+  }
+
+  @Test
+  public void shouldRestoreAppointmentBook() {
+    String fileContent =
+            "--appointmentbook\n" +
+                    "  ---appointmentbook_owner\n" +
+                    "    "+ OWNER + "\n" +
+                    "--appointment\n" +
+                    "  ---appointment_description\n" +
+                    "    asdfasdf\n" +
+                    "  ---appointment_begintime\n" +
+                    "    08/12/2016 1:0 am\n" +
+                    "  ---appointment_endtime\n" +
+                    "    08/19/2016 1:0 am";
+
+    String result = service.restoreAppointmentBook(OWNER, fileContent);
+    assertThat(result, is(equalTo(OWNER)));
+  }
 }

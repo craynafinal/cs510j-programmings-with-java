@@ -341,4 +341,133 @@ public class AppointmentBookGwtIT extends GWTTestCase {
       return message;
     }
   }
+
+  @Test
+  public void testRestoringAppointmentBook() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    String fileContent =
+            "--appointmentbook\n" +
+            "  ---appointmentbook_owner\n" +
+            "    "+ OWNER[0] + "\n" +
+            "--appointment\n" +
+            "  ---appointment_description\n" +
+            "    asdfasdf\n" +
+            "  ---appointment_begintime\n" +
+            "    08/12/2016 1:0 am\n" +
+            "  ---appointment_endtime\n" +
+            "    08/19/2016 1:0 am";
+
+    ui.textbox_owner_upload.setValue(OWNER[0]);
+    ui.textarea_upload.setValue(fileContent);
+
+    click(ui.button_upload);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, "The appointment book for " + OWNER[0] + " has been restored!");
+        finishTest();
+      }
+    };
+
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testRestoringAppointmentBookWithMalformattedData() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    String fileContent =
+            "---appointmentbook\n" +
+            "  ---appointmentbook_owner\n" +
+            "    "+ OWNER[0] + "\n" +
+            "--appointment\n" +
+            "  ---appointment_description\n" +
+            "    asdfasdf\n" +
+            "  ---appointment_begintime\n" +
+            "    08/12/2016 1:0 am\n" +
+            "  ---appointment_endtime\n" +
+            "    08/19/2016 1:0 am";
+
+    ui.textbox_owner_upload.setValue(OWNER[0]);
+    ui.textarea_upload.setValue(fileContent);
+
+    click(ui.button_upload);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, "Failed to restore the appointment book!");
+        finishTest();
+      }
+    };
+
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testRestoringAppointmentBookWithOwnerNamesMismatch() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+
+    String fileContent =
+            "---appointmentbook\n" +
+            "  ---appointmentbook_owner\n" +
+            "    "+ OWNER[1] + "\n" +
+            "--appointment\n" +
+            "  ---appointment_description\n" +
+            "    asdfasdf\n" +
+            "  ---appointment_begintime\n" +
+            "    08/12/2016 1:0 am\n" +
+            "  ---appointment_endtime\n" +
+            "    08/19/2016 1:0 am";
+
+    ui.textbox_owner_upload.setValue(OWNER[0]);
+    ui.textarea_upload.setValue(fileContent);
+
+    click(ui.button_upload);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, "Failed to restore the appointment book!");
+        finishTest();
+      }
+    };
+
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testRestoringAppointmentBookWithoutAnyData() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+    click(ui.button_upload);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, "Please enter the name of the owner!");
+        finishTest();
+      }
+    };
+
+    waitForRPCCall(verify);
+  }
+
+  @Test
+  public void testRestoringAppointmentBookWithoutFileContent() {
+    AppointmentBookGwt ui = new AppointmentBookGwt(alerter);
+    ui.textbox_owner_upload.setValue(OWNER[0]);
+    click(ui.button_upload);
+
+    Timer verify = new Timer() {
+      @Override
+      public void run() {
+        checkMessageContains(true, "Please add content to the text area");
+        finishTest();
+      }
+    };
+
+    waitForRPCCall(verify);
+  }
 }
